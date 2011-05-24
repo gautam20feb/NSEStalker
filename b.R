@@ -1,0 +1,21 @@
+library(RCurl)
+library(bitops)
+library(methods)
+bhavcopy<-function()
+{
+  u<-"http://www.nseindia.com/content/historical/EQUITIES/2011/MAY/cm23MAY2011bhav.csv.zip"
+  o<-getURLContent(u, verbose = TRUE, useragent = getOption("HTTPUserAgent"))
+  a<-class(o)
+  #library(Rcompression)
+  #z = zipArchive(o)
+  #names(z)
+  #anImage <- readBin('http://user2010.org/pics/useR-large.png','raw')
+  #download.file('http://user2010.org/pics/useR-large.png', 'anImage.png')
+  #read.csv(textConnection(o))
+  #write(o,test,ncolumns =11,append = FALSE, sep = " ")
+  #to.write = file("binfile", "wb")
+  #writeBin(o, to.write)
+  #close(to.write)
+  #dput(o,file="test")
+  return(a)
+}
