@@ -14,12 +14,20 @@ Soumendra (soumendra@dhanee.com)
 ## Documentation  
 
 ### Functionalities
- 1. nse-crawler
- 2. url-generator
- 3. zip2database	
+1. nse-crawler  
+2. url-generator   
+3. zip2database  	
+
+### Files
+####    File Name     ----------    Functions   
+
+1.    File 1
+2.              
 
 
+### Functions  
+####  Function name-------Input parameter ------ Output Parameters   
+1.  func1  
 
-### Funtions  
 
 ### To do
