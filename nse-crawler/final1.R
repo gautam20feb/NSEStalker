@@ -69,12 +69,24 @@ get.bhavcopy<-function(a,b)
   {
     if(trading[i]=="Working Day"||settlement[i]=="Working Day")
     {
-      equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm",date[i],mont[i],year[i],"bhav.csv.zip"))
-      derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo",date[i],mont[i],year[i],"bhav.csv.zip"))
-      wdm[i]<-as.character(composeURL("www.nseindia.com/content/historical/WDM/",year[i],"/",mont[i],"/wdmlist_",date[i],atom[i,2],year[i],".csv"))
-      debt<-as.character(composeURL("www.nseindia.com/archives/debt/cbm/cbm_trd",year[i],atom[i,2],date[i],".csv"))
-      rdm<-as.character(composeURL("www.nseindia.com/content/historical/RDM/",year[i],"/",mont[i],"/rdm",date[i],mont[i],year[i],"bhav.csv.zip"))
-      slbs<-as.character(composeURL("www.nseindia.com/archives/slbs/bhavcopy/SLBM_BC_",date[i],atom[i,2],year[i],".DAT"))
+      if(as.integer(date[i])<10)
+      {
+        equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm0",date[i],mont[i],year[i],"bhav.csv.zip"))
+        derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo0",date[i],mont[i],year[i],"bhav.csv.zip"))
+        wdm[i]<-as.character(composeURL("www.nseindia.com/content/historical/WDM/",year[i],"/",mont[i],"/wdmlist_0",date[i],atom[i,2],year[i],".csv"))
+        debt<-as.character(composeURL("www.nseindia.com/archives/debt/cbm/cbm_trd",year[i],atom[i,2],"0",date[i],".csv"))
+        rdm<-as.character(composeURL("www.nseindia.com/content/historical/RDM/",year[i],"/",mont[i],"/rdm0",date[i],mont[i],year[i],"bhav.csv.zip"))
+        slbs<-as.character(composeURL("www.nseindia.com/archives/slbs/bhavcopy/SLBM_BC_0",date[i],atom[i,2],year[i],".DAT"))
+      }
+      else
+      {
+        equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm",date[i],mont[i],year[i],"bhav.csv.zip"))
+        derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo",date[i],mont[i],year[i],"bhav.csv.zip"))
+        wdm[i]<-as.character(composeURL("www.nseindia.com/content/historical/WDM/",year[i],"/",mont[i],"/wdmlist_",date[i],atom[i,2],year[i],".csv"))
+        debt<-as.character(composeURL("www.nseindia.com/archives/debt/cbm/cbm_trd",year[i],atom[i,2],date[i],".csv"))
+        rdm<-as.character(composeURL("www.nseindia.com/content/historical/RDM/",year[i],"/",mont[i],"/rdm",date[i],mont[i],year[i],"bhav.csv.zip"))
+        slbs<-as.character(composeURL("www.nseindia.com/archives/slbs/bhavcopy/SLBM_BC_",date[i],atom[i,2],year[i],".DAT"))
+      }
     }
     else
     {
