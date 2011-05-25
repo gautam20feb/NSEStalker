@@ -19,7 +19,7 @@ AnnoTimeLine  <- gvisAnnotatedTimeLine(bind, datevar="Date",
                            numvar="value", idvar="title",
                            options=list(displayAnnotations=TRUE,
                              legendPosition='newRow',
-                             width=800, height=600)
+                             width=800, height=600, scaleType = 'maximized')
                            )
 # Display chart
 plot(AnnoTimeLine) 
