@@ -1,44 +1,49 @@
+#####################################################
+
 library("RCurl")
 library (bitops)
 library (methods)
+bhavcopy <- function()
+{
+  mydata <- read.table("database.csv", header=TRUE,sep=",")
+  temp<-dim(mydata)   
+  URLs<-temp[2]
+  temp1<-mydata[URLs]
+  sURL<-temp1[,1]
+  sURL<-as.character(sURL)
+  success<-sapply(sURL,download)
+}
 
-data <- function()
-{
-  
-  poisson<- function()
-{
+#####################################################
 
-        k = 0
-        p = 1.0
-        L <-exp(-4)
-        while (p >= L)
-        {
-            k<-k+1
-            x1 <- runif(1, 0, 1)
-            p <- p*x1
-            } 
-            k<- k-1
-        return (k)
-        }
-  down<- function(a)
+
+download<-function(sURL)
 {
-  
-  if(!is.na(a))
+  Sys.sleep(poisson())
+  if(!is.na(sURL))
   {
- Sys.sleep(2) 
-    options(HTTPUserAgent = "Mozilla/3.73 [en] (X11 ; U ; Ubuntu 10.04)")
-    tContent <- getURLContent(a, verbose = TRUE, useragent = getOption("HTTPUserAgent"))
+    options(HTTPUserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6;en-US; rv:1.9.2.12) Gecko/20101026 Firefox/3.6.12")
+    tContent <- getURLContent(sURL, verbose = TRUE, useragent = getOption("HTTPUserAgent"))
     attributes(tContent) = NULL
-    c<-substr(a, 62 , 84)
-    writeBin(tContent, c)
+    c<-substr(sURL, 62 , 84)
+    writeBin(tContent, c )    
   }
 }
-mydata <- read.table("database.csv", header=TRUE,
-   sep=",")
-temp<-dim(mydata)  
-URLs<-temp[2]
-temp2<-mydata[URLs]
-sURL <-temp2[,1]
-sURL<-as.character(sURL)
-sapply(sURL,down)
+
+#####################################################
+
+poisson<- function()
+{
+  k = 0
+  p = 1.0
+  L <-exp(-4)
+  while (p >= L)  
+  {
+    k<-k+1
+    x1 <- runif(1, 0, 1)
+    p <- p*x1
+  }
+  k<- k-1
+  return (k)
 }
+#####################################################
