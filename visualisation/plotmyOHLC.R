@@ -1,3 +1,4 @@
+# modified plotOHLC of package fTrading
 plotmyOHLC<-
 function (x, xlim = NULL, ylim = NULL, xlab = "Time", ylab, col = par("col"), 
     bg = par("bg"), axes = TRUE, frame.plot = axes, ann = par("ann"), 
