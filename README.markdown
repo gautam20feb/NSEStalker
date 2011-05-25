@@ -1,13 +1,13 @@
-Project URL
-http://soumendra.github.com/NSEStalker/
+>Project URL
+>>http://soumendra.github.com/NSEStalker/  
 
-Package Administrator
-Soumendra (soumendra@dhanee.com)
+>Package Administrator
+>>Soumendra (soumendra@dhanee.com)  
 
-Package Contributors (in Alphabetical Order)
-Aartika (aartika.iitd@gmail.com)
-Gautam (gautam20feb@gmail.com)
-Rajesh (krajesh1990@gmail.com)
-Swetha (swethab.iitkgp@gmail.com)
-Tarun (?)
+>  Package Contributors (in Alphabetical Order)
+>> Aartika (aartika.iitd@gmail.com)
+>> Gautam (gautam20feb@gmail.com)
+>> Rajesh (krajesh1990@gmail.com)
+>> Swetha (swethab.iitkgp@gmail.com)
+>> Tarun (tarunjain15@gmail.com)
 
