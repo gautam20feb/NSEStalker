@@ -19,17 +19,19 @@ Soumendra (soumendra@dhanee.com)
 3. zip2database  	
 
 ### Files
-####    File Name     ----------    Functions   
+####    File Name                             Functions   
 
-1.    Bhavcopy Download.R-----------bhavcopy() , download() , poisson() ,
+1.    Bhavcopy Download.R           bhavcopy() , download() , poisson() ,
 2.              
 
 
 ### Functions  
-####  Function name-------Input parameter ------ Output Parameters/Description   
-1a.  bhavcopy()-------------- NA  --------------  access the database.csv , read the URLs and call download()
-1b.  download()-------------- NA ---------------  Ouput the zip after downloading
-1c.  poisson()-------------- NA ---------------  a random integer following poisson distribution with parameter 4
+####  Function name              Input parameter          Output Parameters/Description   
+
+1a.  bhavcopy()                       NA                    access the database.csv , read the URLs and call download()
+1b.  download()                       NA                    Ouput the zip after downloading
+1c.  poisson()                        NA                    Returns a random integer following poisson distribution with parameter 4
+
 2.
 
 ### To do
