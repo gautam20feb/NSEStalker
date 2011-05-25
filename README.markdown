@@ -6,7 +6,7 @@ Soumendra (soumendra@dhanee.com)
 
 Package Contributors (in Alphabetical Order)
 Aartika (aartika.iitd@gmail.com)
-Gautam (?)
+Gautam (gautam20feb@gmail.com)
 Rajesh (krajesh1990@gmail.com)
 Swetha (swethab.iitkgp@gmail.com)
 Tarun (?)
