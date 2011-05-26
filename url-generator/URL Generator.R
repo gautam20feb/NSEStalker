@@ -1,7 +1,10 @@
 library(timeDate)
 library(fBasics)
 library(fImport)
+holiday<-read.csv("holiday.csv")
 tS = timeSequence(from = "2001-01-01", to = "2011-12-31", by = "day")
+tSm = timeSequence(from = "2001-01-01", to = "2011-12-31", by = "month")
+
 char<-as.character(tS)
 day<-dayOfWeek(tS)
 trading<-as.character(seq(length(char)))
@@ -46,7 +49,7 @@ for(i in 1:length(char)){
   else{
     trading[i]<-"Working Day"
     settlement[i]<-"Working Day"
-    reason[i]<-""
+    reason[i]<-"-"
   }
   for(j in 1:nrow(holiday)){
     if(as.character(char[i]) == as.character(holiday[j,1]))
@@ -81,3 +84,40 @@ file <- tempfile()
 x <- matrix(all, nrow =length(char),ncol=14, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL","WDM URL","DEBT URL","RDM URL","SLBS URL")))
 write.csv(x, file)
 read.csv(file)
+write.csv(x,file="output.csv")
+
+############################### Last Working Day ###########################################
+lwday <- timeLastNdayInMonth(tSm, nday = 4)
+z<-seq(length(lwday))
+for(j in 1:length(lwday))
+  {
+      z[j]<-which(x==as.character(lwday[j]))
+  }
+
+for(i in 1:length(lwday))
+{
+  while(trading[z[i]]=="Holiday")
+  {
+    lwday[i]<-as.Date(lwday[i]-1)
+    z[i]<-(z[i]-1)
+  }
+}
+write.csv(lwday,file="lwday.csv")
+
+
+# lwday <- timeLastNdayInMonth(tSm, nday = 4)
+# for(z in 1:5)
+# {
+# for(i in 1:length(lwday))
+# {
+#   for(j in 1:nrow(holiday))
+#   {
+#     if(as.character(lwday[i]) == as.character(holiday[j,1]) || as.character(dayOfWeek(lwday[i])) == "Sat" || as.character(dayOfWeek(lwday[i])) == "Sun")
+#     {
+#       lwday[i] <- as.Date(lwday[i]-1)
+#     }
+#   }
+# }
+# z <- z+1
+# }
+# print(lwday)
