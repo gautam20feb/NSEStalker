@@ -85,8 +85,6 @@ file <- tempfile()
 x <- matrix(all, nrow =length(char),ncol=14, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL","WDM URL","DEBT URL","RDM URL","SLBS URL")))
 write.csv(x, file)
 read.csv(file)
-<<<<<<< HEAD
-=======
 write.csv(x,file="output.csv")
 
 ############################### Last Working Day ###########################################
