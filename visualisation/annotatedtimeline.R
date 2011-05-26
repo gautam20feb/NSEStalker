@@ -1,3 +1,4 @@
+library(tseries)
 annotatedtimeline <-function(numdays,instr)
 {
 # numdays: no of days for which the data is to be plotted
