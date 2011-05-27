@@ -31,7 +31,7 @@ mylog2 <- file("log2.csv", "w")  ##<< For logging the files written to database
 ### Function takes the start date and the end date for the period for which you want to make the 
 ### the database.
 get.bhavcopy<-function(
-### The function to run the main process i.e. to get data from the nse website and store it in a MySQL database.
+### The function to run the main process i.e. to get data from the nse website and store it in a the current directory.
 a,
 ### The starting date in yyyy-mm-dd format
 b
