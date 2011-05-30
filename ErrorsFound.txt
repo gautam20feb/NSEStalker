@@ -1,0 +1,15 @@
+1.The URLs for the earlier years like 2001 can be accessed using "01Jan2001" as well as "1Jan2001" but for the later years , only the first format works.
+
+2. "hoiday.csv" is faulty.
+
+3. Some days were declared holiday after the list of holidays had been published.
+
+4.Some files have rows without spaces between them especially year 2002 , 2004,2006 ,2007
+  Also the same files have empty rows.
+  example: cm17OCT2002bhav.csv
+
+5.The column name is mixed betwwn "OPTION_TYP" and "OPTIONTYPE".
+
+6.Under "OPTION_TYP" many files have "FF" for the future.
+   Initially I had seperated the "futures" from "fo" files using the "XX" under the "OPTION_TYP" but many files(34) had "FF" instead so had to use "STRIKE_PR" 
+ 
