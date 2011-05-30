@@ -212,7 +212,7 @@ tablename)
   if(tablename=="fo")
   {
 
-    dataf<-data[grep("XX", data$OPTION_TYP, ignore.case=T),]  ##<< seperating the rows corresponding to Future
+    dataf<- data[data$STRIKE_PR ==0,]  ##<< seperating the rows corresponding to Future
     dataf$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
     dataf$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
     datao<- data[data$STRIKE_PR >0,]  ##<< seperating the rows corresponding to Options
