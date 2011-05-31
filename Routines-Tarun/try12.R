@@ -1,4 +1,4 @@
-
+library(lattice)
 library(fBasics)
 library(fImport)
 routines<-function(a,b,s)
@@ -88,15 +88,11 @@ while((k<(t+1))||j<(temp+1)){
   }
   k<-k+1
 }
-plot(D[1,],type="l",col="red",ylim=c(min(D),max(D)),main="Return in given stocks per day",xlab="days",
+par(bg="gray")
+col<-heat.colors(l)
+plot(D[1,],type="l",col=col[1],ylim=c(min(D),max(D)),main="Return in given stocks per day",xlab="days",
     ylab="Return (dollar)",lwd=2)
-lines(D[2,],type="l",col="blue",lwd=2)
-lines(D[3,],type="l",col="green",lwd=2)
-lines(D[4,],type="l",col="orange",lwd=2)
-D
-legend("topright",
-legend=s,
-col=c("red","blue","green","orange"),
-lty=1,lwd=2)
-
+for(i in 2:l)    
+  lines(D[i,],type="l",col=col[i],lwd=2)
+legend("topright",legend=s,col=col,lty=1,lwd=2)
 }
