@@ -68,13 +68,13 @@ for(i in 1:t){
     }
     db<-read.csv(equity[i])
     for(g in 1:l){
-      cs=which(db[,1]==s[g])
-      mat[g,i]=db[cs,6]-db[cs,8]
+      cs<-which(db[,1]==s[g])
+      mat[g,i]<-log(db[cs,6]/db[cs,8])
     }
   }
   else{
     for(g in 1:l){
-      mat[g,i]=50000
+      mat[g,i]<-50000
     }
   }
 }  
