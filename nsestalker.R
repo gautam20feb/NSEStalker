@@ -21,12 +21,14 @@ host = "localhost")
 
 ### For logging downloading using connection
 mylog <- file(
-"log.csv",
+"downloading.log.csv",
 ### Name of the Log file
 "w")  
 ### writing privileges
 
-mylog2 <- file("log2.csv", "w")  ##<< For logging the files written to database
+mylog2 <- file("database.log.csv", "w")  ##<< For logging the files written to database
+
+mylog3<- file("error.log.csv" , "w")  ##<< For logging the errors
 
 ### Function takes the start date and the end date for the period for which you want to make the 
 ### the database.
@@ -38,8 +40,9 @@ b
 ### The starting date in yyyy-mm-dd format
 )
 {
-  holiday<-read.csv("./data/holiday.csv")
+  holiday<-read.csv("./data/holiday.csv", header = T)
   tS = timeSequence(from = a, to = b, by = "day")
+
   char<-as.character(tS)
   day<-dayOfWeek(tS)
   trading<-as.character(seq(length(char)))   ##<<  The trading days
@@ -50,10 +53,6 @@ b
   date<-as.character(seq(length(char)))
   equity<-as.character(seq(length(char)))        ##<<  URLs for equities
   derivative<-as.character(seq(length(char)))    ##<<  URLs for derivatives
-  #wdm<-as.character(seq(length(char)))
-  #debt<-as.character(seq(length(char)))
-  #rdm<-as.character(seq(length(char)))
-  #slbs<-as.character(seq(length(char)))
   atom<-atoms(tS)
   for (i in 1:length(tS))
   {
@@ -124,49 +123,43 @@ b
 
 ################################## Printing ###################################################
 
-all<-cbind(char,day,trading,settlement,reason,date,mont,year,equity,derivative,wdm,debt,rdm,slbs)
-x <- matrix(all, nrow =length(char),ncol=14, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL","WDM URL","DEBT URL","RDM URL","SLBS URL")))
+all<-cbind(char,day,trading,settlement,reason,date,mont,year,equity,derivative)
+x <- matrix(all, nrow =length(char),ncol=10, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL")))
 write.csv(x,file="./data/list_of_urls.csv")
 
 
-############################### Last Working Day ###########################################
-lwday <- timeLastNdayInMonth(tSm, nday = 4)
-z<-seq(length(lwday))
-for(j in 1:length(lwday))
-  {
-      z[j]<-which(x==as.character(lwday[j]))
-  }
+################################## Downloading ###################################################
 
-for(i in 1:length(lwday))
-{
-  while(trading[z[i]]=="Holiday")
-  {
-    lwday[i]<-as.Date(lwday[i]-1)
-    z[i]<-(z[i]-1)
-  }
-}
-write.csv(lwday,file="./data/lwday.csv")
-  
-  
   ### Downloading the zipped files for equitites
   sapply(
   equity,
   ### Vector having the URLs for the equities
-  downloadE)
+  download.STK)
 
   ### Downloading the zipped files for derivatives
   sapply(derivative,
   ### Vector having the URLs for the derivatives
-  downloadD)
-  
+  download.FUT.OPT)
+ 
+
+ 
   w<-getwd()
-  extractall(w,w)  ##<< Calling the 
-  close(mylog)  ##<< Closing the download log connection
-  close(mylog2)  ##<< Closing the database connection 
+  
+  ### Calling the extractall function
+  extract.all.files(w,w)  
+  
+  read.to.database.all(conn,w)
+  
+  ### Closing the download log connection
+  close(mylog)  
+  
+  ### Closing the database connection
+  close(mylog2)   
+  close (mylog3)
 }
 
 ### Adding the data from files into the database
-fldrtomysql <- function(
+read.to.database.all <- function(
 ### This functions takes saves the contents of all the csv file in the folder folderpath in the table tablename.
 connection,
 ### connection with the MySQL server
@@ -186,11 +179,11 @@ folderpath)
     {
       if(type=="cm"){
       
-      rdtomysql(connection,paste(folderpath,"/",name,sep=""),"equity")
+      read.to.database.one.file(connection,paste(folderpath,"/",name,sep=""),"equity")
       } 
       if(type=="fo") {
       
-      rdtomysql(connection,paste(folderpath,"/",name,sep=""),"fo")
+      read.to.database.one.file(connection,paste(folderpath,"/",name,sep=""),"fo")
       }
     
    }
@@ -198,7 +191,7 @@ folderpath)
   }
 }
 
-rdtomysql <- function
+read.to.database.one.file <- function
 ### This functions saves the data content of the file given by filename to the mysql table tablename of database corresponding to the connection
 (connection,
 ### connection with the MySQL server
@@ -220,24 +213,46 @@ tablename)
     
   if(tablename=="fo")
   {
+  datao1<-data[grep("OPTIDX", data$INSTRUMENT, ignore.case=T),]
+  datao2<-data[grep("OPTSTK", data$INSTRUMENT, ignore.case=T),]
+  dataf1<-data[grep("FUTIDX", data$INSTRUMENT, ignore.case=T),]
+  dataf2<-data[grep("FUTINT", data$INSTRUMENT, ignore.case=T),]
+  dataf3<-data[grep("FUTSTK", data$INSTRUMENT, ignore.case=T),]
 
-    dataf<- data[data$STRIKE_PR ==0,]  ##<< seperating the rows corresponding to Future
-    dataf$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
-    dataf$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
-    datao<- data[data$STRIKE_PR >0,]  ##<< seperating the rows corresponding to Options
-    ifelse(dbExistsTable(connection, "future"),dbWriteTable(connection, name ="future", value=dataf, append = T),dbWriteTable(connection, name = "future", value=dataf))
-    ifelse(dbExistsTable(connection, "options"),dbWriteTable(connection, name ="options", value=datao, append = T),dbWriteTable(connection, name = "options", value=datao))
+  
+  if( ( nrow(dataf1)+nrow(dataf2)+nrow(dataf3)+nrow(datao1)+nrow(datao2))!=nrow(data) )
+  {
+    cat(as.character(timestamp()),"  Error in Data ", filename,"\n",file = mylog3, sep = ",")
+  }
+  
+  #dataf<- data[data$STRIKE_PR ==0,]  ##<< seperating the rows corresponding to Future
+  #datao<- data[data$STRIKE_PR >0,]  ##<< seperating the rows corresponding to Options
+  dataf1$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
+  dataf1$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
+  dataf2$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
+  dataf2$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
+  dataf3$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
+  dataf3$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
+  
+  
+  ifelse(dbExistsTable(connection, "options"),dbWriteTable(connection, name ="options", value=datao1, append = T),dbWriteTable(connection, name = "options", value=datao1))
+  ifelse(dbExistsTable(connection, "options"),dbWriteTable(connection, name ="options", value=datao2, append = T),dbWriteTable(connection, name = "options", value=datao2))
+  
+  ifelse(dbExistsTable(connection, "future"),dbWriteTable(connection, name ="future", value=dataf1, append = T),dbWriteTable(connection, name = "future", value=dataf1))
+  ifelse(dbExistsTable(connection, "future"),dbWriteTable(connection, name ="future", value=dataf2, append = T),dbWriteTable(connection, name = "future", value=dataf2))
+  ifelse(dbExistsTable(connection, "future"),dbWriteTable(connection, name ="future", value=dataf3, append = T),dbWriteTable(connection, name = "future", value=dataf3))
+  
   }  
   
 }
 
-downloadD<-function
+download.FUT.OPT<-function
 ### Downloading Equity file(zip) from the URL and saving in the current working directory.
 (sURL)
 ### The URL of the file to be downloaded
 {
   #Sys.sleep(poisson())
-  if(!is.na(sURL))
+  tryCatch(if(!is.na(sURL))
   {
     cat(as.character(timestamp()),"  downloading ", sURL,"\n",file = mylog, sep = ",")
     options(HTTPUserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6;en-US; rv:1.9.2.12) Gecko/20101026 Firefox/3.6.12")
@@ -246,16 +261,19 @@ downloadD<-function
     t<-nchar(sURL)
     c<-substr(sURL, t-22 ,t)
     writeBin(tContent, c )    
-  }
+  },
+  error=function(e) {
+  cat(as.character(timestamp()),"  URL NOT FOUND ", sURL,"\n",file = mylog3 , sep = ",")
+ } )
 }
 
-downloadE<-function
+download.STK<-function
 ### Downloading Equity file(zip) from the URL and saving in the current working directory. 
 (sURL)
 ### The URL of the file to be downloaded
 {
  # Sys.sleep(poisson())
-  if(!is.na(sURL))
+  tryCatch(if(!is.na(sURL))
   {
     cat(as.character(timestamp()),"downloading ", sURL, "\n",file = mylog, sep = ",")
     options(HTTPUserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6;en-US; rv:1.9.2.12) Gecko/20101026 Firefox/3.6.12")
@@ -264,7 +282,11 @@ downloadE<-function
     t<-nchar(sURL)
     c<-substr(sURL, t-22 ,t)
     writeBin(tContent, c )    
-  }
+  },
+  error=function(e) {
+  cat(as.character(timestamp()),"  URL NOT FOUND ", sURL,"\n",file = mylog3, sep = ",")
+ } )
+ 
 }
 
 poisson<- function()
@@ -283,7 +305,7 @@ poisson<- function()
   return (k)
 }
 
-extractall <- function
+extract.all.files <- function
 ### This function extracts all zip folders contained in the folder infldrpath to the targetfolder.
 (infldrpath,
 ### infldrpath: path of the folder including folder name
@@ -298,11 +320,11 @@ targetfldrpath)
   {
     string =substr(name,nchar(name)-7,nchar(name))
     if (string == ".csv.zip")  
-    extract(paste(infldrpath,"/",name,sep = ""),targetfldrpath)
+    extract.one.file(paste(infldrpath,"/",name,sep = ""),targetfldrpath)
   }
 }
 
-extract <- function
+extract.one.file <- function
 ### This function is our purpose specific because it extracts only the csv file whose name it derives from the zip folder name.
 ### This function extracts the csv file corresponding to the zip folder name, given by infldrpath, to the folder targetfldrpath.
 (infldrpath,
