@@ -1,9 +1,17 @@
 library(RMySQL)
+library(XML)
 
+#what are a and b?
+#I have copied code from parse.R here and deleted parse.R
 config_machine<-function(a,b)
 {
   m <- dbDriver("MySQL", max.con = 25)
-  source("parsing.R")
+  doc = xmlRoot(xmlTreeParse("./config/machines.xml"))
+  tmp = xmlSApply(doc , function(x) xmlSApply(x, xmlValue))
+  tmp = t(tmp)
+  machines = as.data.frame(matrix((tmp), 6))
+  names(machines) = names(doc[[1]])
+
   if(a=="user")
   {
     pos=which(machines[,1]==b)
