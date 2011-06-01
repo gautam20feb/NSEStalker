@@ -1,8 +1,3 @@
-library(RMySQL)
-m<- dbDriver("MySQL")
-conn<-dbConnect(m, dbname = "example", user = "root", password = "intern123", host = "localhost")
-### Currently the user is root. You must change it appropriately.
-
 rdtomysql <- function
 ### This functions saves the data content of the file given by filename to the mysql table tablename of database corresponding to the connection
 (connection,
@@ -79,3 +74,4 @@ targetfldrpath)
     extract(paste(infldrpath,"/",name,sep = ""),targetfldrpath)
   }
 }
+
