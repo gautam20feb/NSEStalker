@@ -88,11 +88,22 @@ while((k<(t+1))||j<(temp+1)){
   }
   k<-k+1
 }
+pvalue<-seq(length(s))
+for(i in 1:length(s)){
+  test<-shapiro.test(D[i,])
+  pvalue[i]<-test[[2]]
+  show_pvalue[i]<-paste("pvalue = ",round(pvalue[i],3))
+  }
 par(bg="gray")
 col<-heat.colors(l)
-plot(D[1,],type="l",col=col[1],ylim=c(min(D),max(D)),main="Return in given stocks per day",xlab="days",
+plot(D[1,],type="l",col=col[1],xlim=c(1,temp+1),ylim=c(min(D),max(D)),main="Return in given stocks per day",xlab="days",
     ylab="Return (dollar)",lwd=2)
-for(i in 2:l)    
+text(temp,D[1,temp],as.character(show_pvalue[1]),pos=4,offset=1)
+for(i in 2:l){   
   lines(D[i,],type="l",col=col[i],lwd=2)
+  text(temp,D[i,temp],as.character(show_pvalue[i]),pos=4,offset=1)
+  }  
 legend("topright",legend=s,col=col,lty=1,lwd=2)
+pvalue
+
 }
