@@ -38,7 +38,7 @@ b
 ### The starting date in yyyy-mm-dd format
 )
 {
-  holiday<-read.csv("holiday.csv")
+  holiday<-read.csv("./data/holiday.csv")
   tS = timeSequence(from = a, to = b, by = "day")
   char<-as.character(tS)
   day<-dayOfWeek(tS)
@@ -129,13 +129,31 @@ b
       derivative[i]<-NA
     }
   }
-  #all<-cbind(char,day,trading,settlement,reason,date,mont,year,equity,derivative,wdm,debt,rdm,slbs)
-  #file <- tempfile()
-  #x <- matrix(all, nrow =length(char),ncol=14, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL","WDM URL","DEBT URL","RDM URL","SLBS URL")))
-  #write.csv(x, file)
-  #read.csv(file)
-  #write.csv(x,file="out.csv")
-  
+
+################################## Printing ###################################################
+
+all<-cbind(char,day,trading,settlement,reason,date,mont,year,equity,derivative,wdm,debt,rdm,slbs)
+x <- matrix(all, nrow =length(char),ncol=14, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL","WDM URL","DEBT URL","RDM URL","SLBS URL")))
+write.csv(x,file="./data/list_of_urls.csv")
+
+
+############################### Last Working Day ###########################################
+lwday <- timeLastNdayInMonth(tSm, nday = 4)
+z<-seq(length(lwday))
+for(j in 1:length(lwday))
+  {
+      z[j]<-which(x==as.character(lwday[j]))
+  }
+
+for(i in 1:length(lwday))
+{
+  while(trading[z[i]]=="Holiday")
+  {
+    lwday[i]<-as.Date(lwday[i]-1)
+    z[i]<-(z[i]-1)
+  }
+}
+write.csv(lwday,file="./data/lwday.csv")
   
   
   ### Downloading the zipped files for equitites
@@ -145,7 +163,6 @@ b
   downloadE)
 
   ### Downloading the zipped files for derivatives
-
   sapply(derivative,
   ### Vector having the URLs for the derivatives
   downloadD)
