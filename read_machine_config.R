@@ -1,17 +1,22 @@
 library(RMySQL)
 library(XML)
 
-#what are a and b?
+#a:
 #I have copied code from parse.R here and deleted parse.R
-config_machine<-function(a,b)
+config_machine<-function(
+a,
+### a takes type of parameter as input. Should be among:"user","host","dbname","password". 
+b
+### b take the value of parameter,like config_machine("user","Ophelia")
+)
 {
   m <- dbDriver("MySQL", max.con = 25)
-  doc = xmlRoot(xmlTreeParse("./config/machines.xml"))
-  tmp = xmlSApply(doc , function(x) xmlSApply(x, xmlValue))
-  tmp = t(tmp)
-  machines = as.data.frame(matrix((tmp), 6))
-  names(machines) = names(doc[[1]])
-
+  doc = xmlRoot(xmlTreeParse("./config/machines.xml")) ## parses all of the config file
+  tmp = xmlSApply(doc , function(x) xmlSApply(x, xmlValue)) ## creates a matrix of machines information
+  tmp = t(tmp) ## takes transpose
+  machines = as.data.frame(matrix((tmp), 6))## produces a dataframe for the matrix
+  names(machines) = names(doc[[1]]) ## names the corresponding columns
+### searches for b in column a and sets the value of all other machine information correspondingly
   if(a=="user")
   {
     pos=which(machines[,1]==b)
@@ -44,7 +49,8 @@ config_machine<-function(a,b)
     dbnm=as.character(machines[pos,3])
     pswd=as.character(machines[pos,4])
   }
-con <- dbConnect(m, user=usr, password = pswd, host = hst, dbname= dbnm)   
+con <- dbConnect(m, user=usr, password = pswd, host = hst, dbname= dbnm) ## sets the connection with
+# the required database
   
 }
 
