@@ -50,10 +50,6 @@ b
   date<-as.character(seq(length(char)))
   equity<-as.character(seq(length(char)))        ##<<  URLs for equities
   derivative<-as.character(seq(length(char)))    ##<<  URLs for derivatives
-  #wdm<-as.character(seq(length(char)))
-  #debt<-as.character(seq(length(char)))
-  #rdm<-as.character(seq(length(char)))
-  #slbs<-as.character(seq(length(char)))
   atom<-atoms(tS)
   for (i in 1:length(tS))
   {
@@ -108,35 +104,13 @@ b
       {
         equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm0",date[i],mont[i],year[i],"bhav.csv.zip"))
         derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo0",date[i],mont[i],year[i],"bhav.csv.zip"))
-      #  wdm[i]<-as.character(composeURL("www.nseindia.com/content/historical/WDM/",year[i],"/",mont[i],"/wdmlist_0",date[i],atom[i,2],year[i],".csv"))
-      #  debt<-as.character(composeURL("www.nseindia.com/archives/debt/cbm/cbm_trd",year[i],atom[i,2],"0",date[i],".csv"))
-      #  rdm<-as.character(composeURL("www.nseindia.com/content/historical/RDM/",year[i],"/",mont[i],"/rdm0",date[i],mont[i],year[i],"bhav.csv.zip"))
-      #  slbs<-as.character(composeURL("www.nseindia.com/archives/slbs/bhavcopy/SLBM_BC_0",date[i],atom[i,2],year[i],".DAT"))
       }
       else
       {
         equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm",date[i],mont[i],year[i],"bhav.csv.zip"))
         derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo",date[i],mont[i],year[i],"bhav.csv.zip"))
-      #  wdm[i]<-as.character(composeURL("www.nseindia.com/content/historical/WDM/",year[i],"/",mont[i],"/wdmlist_",date[i],atom[i,2],year[i],".csv"))
-      #  debt<-as.character(composeURL("www.nseindia.com/archives/debt/cbm/cbm_trd",year[i],atom[i,2],date[i],".csv"))
-      #  rdm<-as.character(composeURL("www.nseindia.com/content/historical/RDM/",year[i],"/",mont[i],"/rdm",date[i],mont[i],year[i],"bhav.csv.zip"))
-      #  slbs<-as.character(composeURL("www.nseindia.com/archives/slbs/bhavcopy/SLBM_BC_",date[i],atom[i,2],year[i],".DAT"))
       }
-  #  }
-  #  else   ##<< Adding NA to all the holidays
-  #  {
-  #    equity[i]<-NA
-   #   derivative[i]<-NA
-  #  }
   }
-  #all<-cbind(char,day,trading,settlement,reason,date,mont,year,equity,derivative,wdm,debt,rdm,slbs)
-  #file <- tempfile()
-  #x <- matrix(all, nrow =length(char),ncol=14, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL","WDM URL","DEBT URL","RDM URL","SLBS URL")))
-  #write.csv(x, file)
-  #read.csv(file)
-  #write.csv(x,file="out.csv")
-  
-  
   
   ### Downloading the zipped files for equitites
   sapply(
