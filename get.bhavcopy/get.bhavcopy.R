@@ -31,7 +31,7 @@ mylog2 <- file("log2.csv", "w")  ##<< For logging the files written to database
 ### Function takes the start date and the end date for the period for which you want to make the 
 ### the database.
 get.bhavcopy<-function(
-### The function to run the main process i.e. to get data from the nse website and store it in a MySQL database.
+### The function to run the main process i.e. to get data from the nse website and store it in a the current directory.
 a,
 ### The starting date in yyyy-mm-dd format
 b
@@ -212,7 +212,7 @@ tablename)
   if(tablename=="fo")
   {
 
-    dataf<- data[data$STRIKE_PR ==0,]  ##<< seperating the rows corresponding to Future
+    dataf<-data[grep("XX", data$OPTION_TYP, ignore.case=T),]  ##<< seperating the rows corresponding to Future
     dataf$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
     dataf$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
     datao<- data[data$STRIKE_PR >0,]  ##<< seperating the rows corresponding to Options

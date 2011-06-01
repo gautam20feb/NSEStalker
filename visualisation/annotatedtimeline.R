@@ -4,7 +4,8 @@ annotatedtimeline <-function(numdays,instr)
 {
 # numdays: no of days for which the data is to be plotted
 # instr: the instrument symbol eg. "ONGC.NC"
-# to change graph properties see options list of gvisAnnotatedTime at:http://code.google.com/apis/visualization/documentation/gallery/annotatedtimeline.html#Configuration_Options
+# to change graph properties see options list of gvisAnnotatedTime at:
+# http://code.google.com/apis/visualization/documentation/gallery/annotatedtimeline.html#Configuration_Options
 
   nDays <- numdays
   instrument <- instr
@@ -25,7 +26,7 @@ AnnoTimeLine  <- gvisAnnotatedTimeLine(bind, datevar="Date",
                            numvar="value", idvar="title",
                            options=list(displayAnnotations=TRUE,
                              legendPosition='newRow',
-                             width=800, height=600, scaleType = 'maximized')
+                             width=800, height=600, scaleType = 'maximized',displayExactValues=T,fill = 30)
                            )
 # Display chart
 plot(AnnoTimeLine) 

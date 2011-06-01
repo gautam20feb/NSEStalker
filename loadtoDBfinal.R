@@ -31,7 +31,7 @@ mylog2 <- file("log2.csv", "w")  ##<< For logging the files written to database
 ### Function takes the start date and the end date for the period for which you want to make the 
 ### the database.
 get.bhavcopy<-function(
-### The function to run the main process i.e. to get data from the nse website and store it in a MySQL database.
+### The function to run the main process
 a,
 ### The starting date in yyyy-mm-dd format
 b
@@ -106,8 +106,8 @@ b
     {
       if(as.integer(date[i])<10)   ##<<  Checking for the dates less than 10 and concatinating 0 
       {
-        equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm0",date[i],mont[i],year[i],"bhav.csv.zip"))
-        derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo0",date[i],mont[i],year[i],"bhav.csv.zip"))
+      #  equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm0",date[i],mont[i],year[i],"bhav.csv.zip"))
+      #  derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo0",date[i],mont[i],year[i],"bhav.csv.zip"))
       #  wdm[i]<-as.character(composeURL("www.nseindia.com/content/historical/WDM/",year[i],"/",mont[i],"/wdmlist_0",date[i],atom[i,2],year[i],".csv"))
       #  debt<-as.character(composeURL("www.nseindia.com/archives/debt/cbm/cbm_trd",year[i],atom[i,2],"0",date[i],".csv"))
       #  rdm<-as.character(composeURL("www.nseindia.com/content/historical/RDM/",year[i],"/",mont[i],"/rdm0",date[i],mont[i],year[i],"bhav.csv.zip"))
@@ -115,8 +115,8 @@ b
       }
       else
       {
-        equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm",date[i],mont[i],year[i],"bhav.csv.zip"))
-        derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo",date[i],mont[i],year[i],"bhav.csv.zip"))
+       # equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm",date[i],mont[i],year[i],"bhav.csv.zip"))
+      #  derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo",date[i],mont[i],year[i],"bhav.csv.zip"))
       #  wdm[i]<-as.character(composeURL("www.nseindia.com/content/historical/WDM/",year[i],"/",mont[i],"/wdmlist_",date[i],atom[i,2],year[i],".csv"))
       #  debt<-as.character(composeURL("www.nseindia.com/archives/debt/cbm/cbm_trd",year[i],atom[i,2],date[i],".csv"))
       #  rdm<-as.character(composeURL("www.nseindia.com/content/historical/RDM/",year[i],"/",mont[i],"/rdm",date[i],mont[i],year[i],"bhav.csv.zip"))
@@ -139,30 +139,30 @@ b
   
   
   ### Downloading the zipped files for equitites
-  sapply(
-  equity,
+  #sapply(
+ # equity,
   ### Vector having the URLs for the equities
-  downloadE)
+ # downloadE)
 
   ### Downloading the zipped files for derivatives
 
-  sapply(derivative,
+ # sapply(derivative,
   ### Vector having the URLs for the derivatives
-  downloadD)
+ # downloadD)
   
   w<-getwd()
-  extractall(w,w)  ##<< Calling the 
+ # extractall(w,w)  ##<< Calling the
+  fldrtomysql(conn,w)
   close(mylog)  ##<< Closing the download log connection
   close(mylog2)  ##<< Closing the database connection 
 }
 
 ### Adding the data from files into the database
 fldrtomysql <- function(
-### This functions takes saves the contents of all the csv file in the folder folderpath in the table tablename.
+### Reades all the .csv files and calls rdtomysql() function
 connection,
-### connection with the MySQL server
 folderpath)
-### This functions takes saves the contents of all the csv file present in the folder folderpath
+### folderpath: path of the folder
 {
   temp <- getwd()
   setwd(folderpath)
@@ -188,44 +188,39 @@ folderpath)
   
   }
 }
-
-rdtomysql <- function
-### This functions saves the data content of the file given by filename to the mysql table tablename of database corresponding to the connection
-(connection,
-### connection with the MySQL server
-filename,
-### filename: name of the csv file or the complete path in case it is not located in your current working directory
-tablename)
-### tablename: table name in database corrosponding to connection
+### Adds a csv to the database
+rdtomysql <- function(connection, filename, tablename)
 {
   data <- read.table(filename,header = T, sep = ",")  ##<<  reads the data plus an extra NULL column
   data$X<- NULL     ##<<  deleting an extra column read
+
   connection= conn
   ### Writing log - 3 fields - time , type , the file added
   cat(as.character(timestamp()),"adding to DB ", filename, "\n",file = mylog2, sep = ",")
   if(tablename=="equity")
   {
+    print(filename)
     ifelse(dbExistsTable(connection, tablename),dbWriteTable(connection, name =tablename, value=data, append = T),dbWriteTable(connection, name = tablename, value=data))
-
+    
   }  
     
   if(tablename=="fo")
   {
-
-    dataf<- data[data$STRIKE_PR ==0,]  ##<< seperating the rows corresponding to Future
-    dataf$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
-    dataf$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
-    datao<- data[data$STRIKE_PR >0,]  ##<< seperating the rows corresponding to Options
-    ifelse(dbExistsTable(connection, "future"),dbWriteTable(connection, name ="future", value=dataf, append = T),dbWriteTable(connection, name = "future", value=dataf))
+      names(data)<-c("INSTRUMENT","SYMBOL","EXPIRY_DT","STRIKE_PR","OPTION_TYP","OPEN","HIGH","LOW","CLOSE","SETTLE_PR","CONTRACTS","VAL_INLAKH","OPEN_INT","CHG_IN_OI","TIMESTAMP")
+    #dataf1<-data[grep("XX", data$OPTION_TYP, ignore.case=T),]  ##<< seperating the rows corresponding to Future
+    dataf1<- data[data$STRIKE_PR ==0,]
+    print(filename) 
+    dataf1$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
+   dataf1$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
+    datao<- data[data$STRIKE_PR > 0,]  ##<< seperating the rows corresponding to Options
+    ifelse(dbExistsTable(connection, "future"),dbWriteTable(connection, name ="future", value=dataf1, append = T),dbWriteTable(connection, name = "future", value=dataf1))
     ifelse(dbExistsTable(connection, "options"),dbWriteTable(connection, name ="options", value=datao, append = T),dbWriteTable(connection, name = "options", value=datao))
   }  
   
 }
 
-downloadD<-function
-### Downloading Equity file(zip) from the URL and saving in the current working directory.
-(sURL)
-### The URL of the file to be downloaded
+### Downloading Derivative file from the URL and name the file
+downloadD<-function(sURL)
 {
   #Sys.sleep(poisson())
   if(!is.na(sURL))
@@ -239,11 +234,8 @@ downloadD<-function
     writeBin(tContent, c )    
   }
 }
-
-downloadE<-function
-### Downloading Equity file(zip) from the URL and saving in the current working directory. 
-(sURL)
-### The URL of the file to be downloaded
+### Downloading Equity file from the URL and name the file
+downloadE<-function(sURL)
 {
  # Sys.sleep(poisson())
   if(!is.na(sURL))
@@ -258,8 +250,8 @@ downloadE<-function
   }
 }
 
-poisson<- function()
 ### Gives an integer following the poisson distribution with parameter 4
+poisson<- function()
 {
   k = 0
   p = 1.0
@@ -274,12 +266,8 @@ poisson<- function()
   return (k)
 }
 
-extractall <- function
-### This function extracts all zip folders contained in the folder infldrpath to the targetfolder.
-(infldrpath,
-### infldrpath: path of the folder including folder name
-targetfldrpath)
-### targetfldrpath: path of the folder to extract to.
+### Extracts all the zip files in the mentioned folder to target folder path
+extractall <- function(infldrpath,targetfldrpath)
 {
   temp <- getwd()
   setwd(infldrpath)
@@ -292,14 +280,8 @@ targetfldrpath)
     extract(paste(infldrpath,"/",name,sep = ""),targetfldrpath)
   }
 }
-
-extract <- function
-### This function is our purpose specific because it extracts only the csv file whose name it derives from the zip folder name.
-### This function extracts the csv file corresponding to the zip folder name, given by infldrpath, to the folder targetfldrpath.
-(infldrpath,
-### infldrpath: the path of the folder containing the zip. The path ends with the name of the zip folder.
- targetfldrpath)
-### targetfldrpath: path of the folder to extract to.
+### Extracts a single named zip file
+extract <- function(infldrpath, targetfldrpath)
 {
   pathvector= strsplit(infldrpath, "/")[[1]]
   fldrname = pathvector[length(pathvector)]

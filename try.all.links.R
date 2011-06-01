@@ -2,21 +2,21 @@ library(timeDate)
 library(fBasics)
 library(fImport)
 library("RCurl")
-library (bitops)
-library (methods)
+library(bitops)
+library(methods)
 library(RMySQL)
 
 m <- dbDriver("MySQL")
-conn<-dbConnect(
-m,
+#conn<-dbConnect(
+#m,
 ### The name of the connection
-dbname = "nsedb",      
+#dbname = "nsedb",      
 ### The name of database to connect
-user = "root",
+#user = "root",
 ### The username for MySQL
-password = "intern123", 
+#password = "intern123", 
 ### The password for MySQL
-host = "localhost")
+#host = "localhost")
 ### The host for MySQL 
 
 ### For logging downloading using connection
@@ -31,7 +31,7 @@ mylog2 <- file("log2.csv", "w")  ##<< For logging the files written to database
 ### Function takes the start date and the end date for the period for which you want to make the 
 ### the database.
 get.bhavcopy<-function(
-### The function to run the main process i.e. to get data from the nse website and store it in a MySQL database.
+### The function to run the main process
 a,
 ### The starting date in yyyy-mm-dd format
 b
@@ -102,8 +102,8 @@ b
 ### creating URLs 
   for(i in 1:length(tS))
   {
-    if(trading[i]=="Working Day"||settlement[i]=="Working Day")  ##<< Creating URLs for working days
-    {
+   # if(trading[i]=="Working Day"||settlement[i]=="Working Day")  ##<< Creating URLs for working days
+   # {
       if(as.integer(date[i])<10)   ##<<  Checking for the dates less than 10 and concatinating 0 
       {
         equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm0",date[i],mont[i],year[i],"bhav.csv.zip"))
@@ -122,12 +122,12 @@ b
       #  rdm<-as.character(composeURL("www.nseindia.com/content/historical/RDM/",year[i],"/",mont[i],"/rdm",date[i],mont[i],year[i],"bhav.csv.zip"))
       #  slbs<-as.character(composeURL("www.nseindia.com/archives/slbs/bhavcopy/SLBM_BC_",date[i],atom[i,2],year[i],".DAT"))
       }
-    }
-    else   ##<< Adding NA to all the holidays
-    {
-      equity[i]<-NA
-      derivative[i]<-NA
-    }
+  #  }
+  #  else   ##<< Adding NA to all the holidays
+  #  {
+  #    equity[i]<-NA
+   #   derivative[i]<-NA
+  #  }
   }
   #all<-cbind(char,day,trading,settlement,reason,date,mont,year,equity,derivative,wdm,debt,rdm,slbs)
   #file <- tempfile()
@@ -158,11 +158,10 @@ b
 
 ### Adding the data from files into the database
 fldrtomysql <- function(
-### This functions takes saves the contents of all the csv file in the folder folderpath in the table tablename.
+### Reades all the .csv files and calls rdtomysql() function
 connection,
-### connection with the MySQL server
 folderpath)
-### This functions takes saves the contents of all the csv file present in the folder folderpath
+### folderpath: path of the folder
 {
   temp <- getwd()
   setwd(folderpath)
@@ -188,15 +187,8 @@ folderpath)
   
   }
 }
-
-rdtomysql <- function
-### This functions saves the data content of the file given by filename to the mysql table tablename of database corresponding to the connection
-(connection,
-### connection with the MySQL server
-filename,
-### filename: name of the csv file or the complete path in case it is not located in your current working directory
-tablename)
-### tablename: table name in database corrosponding to connection
+### Adds a csv to the database
+rdtomysql <- function(connection, filename, tablename)
 {
   data <- read.table(filename,header = T, sep = ",")  ##<<  reads the data plus an extra NULL column
   data$X<- NULL     ##<<  deleting an extra column read
@@ -212,7 +204,7 @@ tablename)
   if(tablename=="fo")
   {
 
-    dataf<- data[data$STRIKE_PR ==0,]  ##<< seperating the rows corresponding to Future
+    dataf<-data[grep("XX", data$OPTION_TYP, ignore.case=T),]  ##<< seperating the rows corresponding to Future
     dataf$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
     dataf$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
     datao<- data[data$STRIKE_PR >0,]  ##<< seperating the rows corresponding to Options
@@ -222,44 +214,49 @@ tablename)
   
 }
 
-downloadD<-function
-### Downloading Equity file(zip) from the URL and saving in the current working directory.
-(sURL)
-### The URL of the file to be downloaded
+### Downloading Derivative file from the URL and name the file
+downloadD<-function(sURL)
 {
   #Sys.sleep(poisson())
-  if(!is.na(sURL))
+ tryCatch( if(!is.na(sURL))
   {
-    cat(as.character(timestamp()),"  downloading ", sURL,"\n",file = mylog, sep = ",")
+    
     options(HTTPUserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6;en-US; rv:1.9.2.12) Gecko/20101026 Firefox/3.6.12")
     tContent <- getURLContent(sURL, verbose = TRUE, useragent = getOption("HTTPUserAgent"))
+    cat(as.character(timestamp()),"  downloading ", sURL,"\n",file = mylog, sep = ",")
     attributes(tContent) = NULL
     t<-nchar(sURL)
     c<-substr(sURL, t-22 ,t)
     writeBin(tContent, c )    
-  }
+  } ,
+  error=function(e) {
+  cat(as.character(timestamp()),"  URL NOT FOUND ", sURL,"\n",file = mylog, sep = ",")
+ } )
 }
-
-downloadE<-function
-### Downloading Equity file(zip) from the URL and saving in the current working directory. 
-(sURL)
-### The URL of the file to be downloaded
+### Downloading Equity file from the URL and name the file
+downloadE<-function(sURL)
 {
+  tryCatch(
  # Sys.sleep(poisson())
   if(!is.na(sURL))
   {
-    cat(as.character(timestamp()),"downloading ", sURL, "\n",file = mylog, sep = ",")
+    
     options(HTTPUserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6;en-US; rv:1.9.2.12) Gecko/20101026 Firefox/3.6.12")
     tContent <- getURLContent(sURL, verbose = TRUE, useragent = getOption("HTTPUserAgent"))
     attributes(tContent) = NULL
+    cat(as.character(timestamp()),"downloading ", sURL, "\n",file = mylog, sep = ",")
     t<-nchar(sURL)
     c<-substr(sURL, t-22 ,t)
     writeBin(tContent, c )    
+  } , error=function(e) 
+  {
+  cat(as.character(timestamp()),"  URL NOT FOUND ", sURL,"\n",file = mylog, sep = ",")
   }
+    )
 }
 
-poisson<- function()
 ### Gives an integer following the poisson distribution with parameter 4
+poisson<- function()
 {
   k = 0
   p = 1.0
@@ -274,12 +271,8 @@ poisson<- function()
   return (k)
 }
 
-extractall <- function
-### This function extracts all zip folders contained in the folder infldrpath to the targetfolder.
-(infldrpath,
-### infldrpath: path of the folder including folder name
-targetfldrpath)
-### targetfldrpath: path of the folder to extract to.
+### Extracts all the zip files in the mentioned folder to target folder path
+extractall <- function(infldrpath,targetfldrpath)
 {
   temp <- getwd()
   setwd(infldrpath)
@@ -292,14 +285,8 @@ targetfldrpath)
     extract(paste(infldrpath,"/",name,sep = ""),targetfldrpath)
   }
 }
-
-extract <- function
-### This function is our purpose specific because it extracts only the csv file whose name it derives from the zip folder name.
-### This function extracts the csv file corresponding to the zip folder name, given by infldrpath, to the folder targetfldrpath.
-(infldrpath,
-### infldrpath: the path of the folder containing the zip. The path ends with the name of the zip folder.
- targetfldrpath)
-### targetfldrpath: path of the folder to extract to.
+### Extracts a single named zip file
+extract <- function(infldrpath, targetfldrpath)
 {
   pathvector= strsplit(infldrpath, "/")[[1]]
   fldrname = pathvector[length(pathvector)]
