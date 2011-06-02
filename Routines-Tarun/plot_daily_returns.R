@@ -2,7 +2,14 @@ library(lattice)
 library(fBasics)
 library(fImport)
 library(RMySQL)
-routines<-function(a,b,s)
+returns<-function(
+a,
+### a takes starting date as input. FORMAT: "yy-mm-dd"
+b,
+### b takes end date as input
+s
+### s takes vector of stocks symbols. ex., c("ABB","ACC")
+)
 {
 m <- dbDriver("MySQL", max.con = 100)
 con <- dbConnect(m, user="root", password = "intern123", host = "localhost", dbname="nsedb")
@@ -34,6 +41,7 @@ for (i in 1:length(tS)){
   year[i]<-atom[i,1]
   date[i]<-atom[i,3]
 }
+### Marking all the Weekends as holidays
 for(i in 1:length(char)){
   if(day[i]=="Sat" || day[i]=="Sun"){
     trading[i]<-"Holiday"
@@ -53,48 +61,49 @@ for(i in 1:length(char)){
       reason[i]<-as.character(holiday[j,3])
     }
   }
- }
-l<-length(s)
-t<-length(tS)
-mat <- matrix(seq(t*l)-seq(t*l), nrow = l, ncol=t, byrow=TRUE)
-temp<-0
-W=""
-for(i in 1:t){
+}
+nstks<-length(s)
+days<-length(tS)
+temp<-0          ## to keep the counter of number of working days
+strdates=""      ## string of dates that will be called in sql query
+for(i in 1:days){
   if(trading[i]=="Working Day"||settlement[i]=="Working Day"){
-    temp<-temp+1
-    w<-paste(date[i],mont[i],year[i],sep="-")
-    W<-paste(W,",'",w,"'",sep="")
+    temp<-temp+1        ### + 1 working day
+    if(as.numeric(date[i])<10 && as.numeric(year[i])>2010 ) ## to handle the case of year 2011 with dates as 01,02...
+      singledate<-paste("0",date[i],"-",mont[i],"-",year[i],sep="")
+    else
+      singledate<-paste(date[i],mont[i],year[i],sep="-")
+    strdates<-paste(strdates,",'",singledate,"'",sep="")
   }
 }
-W<-substr(W,2,nchar(W))
-
-S=""
+strdates<-substr(strdates,2,nchar(strdates)) ## ignores initial comma
+### string of stock name that will be called in sql query
+strStk=""
 for(i in 1:l){
-  S<-paste(S,",'",s[i],"'",sep="")
+  strStk<-paste(strStk,",'",s[i],"'",sep="")
 }
-
-S<-substr(S,2,nchar(S))
-
-
-query<-paste("SELECT CLOSE,PREVCLOSE,TIMESTAMP,SYMBOL FROM equity WHERE TIMESTAMP IN ","(",W,")"," AND SYMBOL IN","(",S,")","AND SERIES ='EQ' ORDER BY SYMBOL",sep="")
-C<-dbGetQuery(con,query)
-ret<-C[1]-C[2]
-pvalue<-seq(length(s))
-show_pvalue<-seq(length(s))
-for(i in 1:length(s)){
-  #print(ret[(1+((i-1)*(temp))):(i*temp),1])
-  test<-shapiro.test(ret[(1+((i-1)*(temp))):(i*temp),1])
+strStk<-substr(strStk,2,nchar(strStk))
+### creates a sql query using strStk and strdates
+query<-paste("SELECT CLOSE,PREVCLOSE,TIMESTAMP,SYMBOL FROM equity WHERE TIMESTAMP IN ","(",strdates,")"," AND SYMBOL IN","(",strStk,")"," AND SERIES ='EQ' ORDER BY SYMBOL",sep="")
+table<-dbGetQuery(con,query) ## implements the query
+ret<-table[1]-table[2]       ## calculates return in a vector 
+pvalue<-seq(nstks)           ## will hold the p values of each stock returns
+show_pvalue<-seq(nstks)      ## will hold "pvalue = x" where x is rounded p value of each stock with 3 decimal digits 
+## calculate the p value of each stock
+for(i in 1:length(nstks)){  
+  test<-shapiro.test(ret[(1+((i-1)*(temp))):(i*temp),1]) ## return values are stored in column order by each stock
   pvalue[i]<-test[[2]]
   show_pvalue[i]<-paste("pvalue=",round(pvalue[i],3))
 }
-par(bg="gray")
-col<-heat.colors(l)
+par(bg="gray")          ## sets the backgroud color of graph as gray
+col<-heat.colors(nstks) ## creates a vector containing unique colors for each stock 
+### plots the graph with 1st stock returns and labels, limits for x and y axis
 plot(ret[1:temp,1],type="l",col=col[1],xlim=c(1,temp),ylim=c(min(ret),max(ret)),main="Return in given stocks per day",xlab="days",
-    ylab="Return (Rupees)",lwd=2)
-
+    ylab="Return (Rupees)",lwd=2)  
+### plots returns for each stock with different colours
 for(i in 2:l){   
   lines(ret[(1+((i-1)*(temp))):(i*temp),1],type="l",col=col[i],lwd=2)
   }  
-leg<-paste(s,show_pvalue,sep=" , ")
-legend("topright",legend=leg,col=col,lty=1,lwd=2)
- }
+leg<-paste(s,show_pvalue,sep=" , ") ## creates a vector containing stock name and p value. Ex, ABB , pvalue=0.3
+legend("topright",legend=leg,col=col,lty=1,lwd=2) ## puts the legend at topright position with values in leg vector 
+}
