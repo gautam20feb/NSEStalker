@@ -87,11 +87,11 @@ strStk<-substr(strStk,2,nchar(strStk))
 query<-paste("SELECT CLOSE,PREVCLOSE,TIMESTAMP,SYMBOL FROM equity WHERE TIMESTAMP IN ","(",strdates,")"," AND SYMBOL IN","(",strStk,")"," AND SERIES ='EQ' ORDER BY SYMBOL",sep="")
 table<-dbGetQuery(con,query) ## implements the query
 ret<-table[1]-table[2]       ## calculates return in a vector 
-coeffk<-cor.test((ret[1:(temp),1]),(ret[(1+temp):(2*temp),1]),method="kendall") ## return values are stored in column order by each stock
-show_coeffk<-paste("kendall=",round(coeffk[[4]],3))
-coeffp<-cor.test((ret[1:(temp),1]),(ret[(1+temp):(2*temp),1])) ## return values are stored in column order by each stock
+coeffk<-cor.test((ret[1:(temp),1]),(ret[(1+temp):(2*temp),1]),method="kendall") ## calculates kendall coeffecients
+show_coeffk<-paste("kendall=",round(coeffk[[4]],3)) ## creates string to diplay
+coeffp<-cor.test((ret[1:(temp),1]),(ret[(1+temp):(2*temp),1])) 
 show_coeffp<-paste("pearson=",round(coeffp[[4]],3))
-coeffs<-cor.test((ret[1:(temp),1]),(ret[(1+temp):(2*temp),1]),method="spearman") ## return values are stored in column order by each stock
+coeffs<-cor.test((ret[1:(temp),1]),(ret[(1+temp):(2*temp),1]),method="spearman") 
 show_coeffs<-paste("spearson=",round(coeffs[[4]],3))
 par(bg="gray")          ## sets the backgroud color of graph as gray
 col<-heat.colors(nstks) ## creates a vector containing unique colors for each stock 
@@ -103,6 +103,6 @@ for(i in 2:nstks){
   lines(ret[(1+((i-1)*(temp))):(i*temp),1],type="l",col=col[i],lwd=2)
   }  
 temp2<-paste(show_coeffp,show_coeffk)
-leg<-paste(s,c(temp2,show_coeffs),sep="   ") ## creates a vector containing stock name and p value. Ex, ABB , pvalue=0.3
+leg<-paste(s,c(temp2,show_coeffs),sep="   ") ## creates a vector containing stock name and correlation coeffecients
 legend("topright",legend=leg,col=col,lty=1,lwd=2) ## puts the legend at topright position with values in leg vector 
 }

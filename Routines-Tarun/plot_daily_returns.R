@@ -88,12 +88,14 @@ query<-paste("SELECT CLOSE,PREVCLOSE,TIMESTAMP,SYMBOL FROM equity WHERE TIMESTAM
 table<-dbGetQuery(con,query) ## implements the query
 ret<-table[1]-table[2]       ## calculates return in a vector 
 pvalue<-seq(nstks)           ## will hold the p values of each stock returns
-show_pvalue<-seq(nstks)      ## will hold "pvalue = x" where x is rounded p value of each stock with 3 decimal digits 
+show<-seq(nstks)      ## will hold "pvalue = x" where x is rounded p value of each stock with 3 decimal digits 
 ## calculate the p value of each stock
 for(i in 1:nstks){  
   test<-shapiro.test(ret[(1+((i-1)*(temp))):(i*temp),1]) ## return values are stored in column order by each stock
   pvalue[i]<-test[[2]]
-  show_pvalue[i]<-paste("pvalue=",round(pvalue[i],3))
+  mean<-mean(ret[(1+((i-1)*(temp))):(i*temp),1])
+  var<-var(ret[(1+((i-1)*(temp))):(i*temp),1])
+  show[i]<-paste("pvalue=",round(pvalue[i],3)," mean=",round(mean,3)," var=",round(var,3))
 
 }
 par(bg="gray")          ## sets the backgroud color of graph as gray
@@ -109,6 +111,6 @@ plot(ret[1:temp,1],type="l",col=col[1],xlim=c(1,temp),ylim=c(min(ret),max(ret)),
 for(i in 2:nstks){   
   lines(ret[(1+((i-1)*(temp))):(i*temp),1],type="l",col=col[i],lwd=2)
 }  
-leg<-paste(s,show_pvalue,sep=" , ") ## creates a vector containing stock name and p value. Ex, ABB , pvalue=0.3
+leg<-paste(s,show,sep=" , ") ## creates a vector containing stock name and p value. Ex, ABB , pvalue=0.3
 legend("topright",legend=leg,col=col,lty=1,lwd=2) ## puts the legend at topright position with values in leg vector 
 }
