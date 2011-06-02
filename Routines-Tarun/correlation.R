@@ -2,7 +2,7 @@ library(lattice)
 library(fBasics)
 library(fImport)
 library(RMySQL)
-returns<-function(
+correl<-function(
 a,
 ### a takes starting date as input. FORMAT: "yy-mm-dd"
 b,
@@ -87,28 +87,22 @@ strStk<-substr(strStk,2,nchar(strStk))
 query<-paste("SELECT CLOSE,PREVCLOSE,TIMESTAMP,SYMBOL FROM equity WHERE TIMESTAMP IN ","(",strdates,")"," AND SYMBOL IN","(",strStk,")"," AND SERIES ='EQ' ORDER BY SYMBOL",sep="")
 table<-dbGetQuery(con,query) ## implements the query
 ret<-table[1]-table[2]       ## calculates return in a vector 
-pvalue<-seq(nstks)           ## will hold the p values of each stock returns
-show_pvalue<-seq(nstks)      ## will hold "pvalue = x" where x is rounded p value of each stock with 3 decimal digits 
-## calculate the p value of each stock
-for(i in 1:nstks){  
-  test<-shapiro.test(ret[(1+((i-1)*(temp))):(i*temp),1]) ## return values are stored in column order by each stock
-  pvalue[i]<-test[[2]]
-  show_pvalue[i]<-paste("pvalue=",round(pvalue[i],3))
-
-}
+coeffk<-cor.test((ret[1:(temp),1]),(ret[(1+temp):(2*temp),1]),method="kendall") ## return values are stored in column order by each stock
+show_coeffk<-paste("kendall=",round(coeffk[[4]],3))
+coeffp<-cor.test((ret[1:(temp),1]),(ret[(1+temp):(2*temp),1])) ## return values are stored in column order by each stock
+show_coeffp<-paste("pearson=",round(coeffp[[4]],3))
+coeffs<-cor.test((ret[1:(temp),1]),(ret[(1+temp):(2*temp),1]),method="spearman") ## return values are stored in column order by each stock
+show_coeffs<-paste("spearson=",round(coeffs[[4]],3))
 par(bg="gray")          ## sets the backgroud color of graph as gray
 col<-heat.colors(nstks) ## creates a vector containing unique colors for each stock 
 ### plots the graph with 1st stock returns and labels, limits for x and y axis
-
-
 plot(ret[1:temp,1],type="l",col=col[1],xlim=c(1,temp),ylim=c(min(ret),max(ret)),main="Return in given stocks per day",xlab="days",
-    ylab="Return (Rupees)",lwd=2) 
-    
-    
+    ylab="Return (Rupees)",lwd=2)  
 ### plots returns for each stock with different colours
 for(i in 2:nstks){   
   lines(ret[(1+((i-1)*(temp))):(i*temp),1],type="l",col=col[i],lwd=2)
-}  
-leg<-paste(s,show_pvalue,sep=" , ") ## creates a vector containing stock name and p value. Ex, ABB , pvalue=0.3
+  }  
+temp2<-paste(show_coeffp,show_coeffk)
+leg<-paste(s,c(temp2,show_coeffs),sep="   ") ## creates a vector containing stock name and p value. Ex, ABB , pvalue=0.3
 legend("topright",legend=leg,col=col,lty=1,lwd=2) ## puts the legend at topright position with values in leg vector 
 }
