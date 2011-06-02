@@ -5,19 +5,7 @@ library("RCurl")
 library (bitops)
 library (methods)
 library(RMySQL)
-
-m <- dbDriver("MySQL")
-conn<-dbConnect(
-m,
-### The name of the connection
-dbname = "nsedb",      
-### The name of database to connect
-user = "root",
-### The username for MySQL
-password = "intern123", 
-### The password for MySQL
-host = "localhost")
-### The host for MySQL 
+library(XML)
 
 ### For logging downloading using connection
 mylog <- file(
@@ -30,16 +18,36 @@ mylog2 <- file("database.log.csv", "w")  ##<< For logging the files written to d
 
 mylog3<- file("error.log.csv" , "w")  ##<< For logging the errors
 
-### Function takes the start date and the end date for the period for which you want to make the 
-### the database.
+### Defining the type of connection
+m <- dbDriver("MySQL", max.con = 25)
+
+### Reading the machines.xml file
+doc = xmlRoot(xmlTreeParse("./config/machines.xml")) ##<< parses all of the config file
+tmp = xmlSApply(doc , function(x) xmlSApply(x, xmlValue)) ##<< creates a matrix of machines information
+tmp = t(tmp) ##<< takes transpose 
+n<-nrow(tmp) ##<< get the number of users
+machines = as.data.frame(matrix((tmp), n)) ##<< produces a dataframe for the matrix
+names(machines) = names(doc[[1]]) ##<< names the corresponding columns
+ 
+
+### Function takes the start date and the end date for the period for which you want to make the database.
 get.bhavcopy<-function(
 ### The function to run the main process i.e. to get data from the nse website and store it in a MySQL database.
 a,
 ### The starting date in yyyy-mm-dd format
-b
+b,
 ### The starting date in yyyy-mm-dd format
+user.name="intern"
+### name of the machine to which you want to add the data
 )
 {
+  pos=which(machines[,1]==user.name)
+  usr=as.character(machines[pos,1])
+  hst=as.character(machines[pos,2])
+  dbnm=as.character(machines[pos,3])
+  pswd=as.character(machines[pos,4])
+  conn <- dbConnect(m, user=usr, password = pswd, host = hst, dbname= dbnm) ## sets the connection with the required database
+ 
   holiday<-read.csv("./data/holiday.csv", header = T)
   tS = timeSequence(from = a, to = b, by = "day")
 
@@ -144,24 +152,29 @@ write.csv(x,file="./data/list_of_urls.csv")
 
  
   w<-getwd()
-  
+###################################### Extracting #############################################################  
   ### Calling the extractall function
   extract.all.files(w,w)  
-  
+###################################### Adding to Database ##################################################### 
   read.to.database.all(conn,w)
   
   ### Closing the download log connection
   close(mylog)  
   
-  ### Closing the database connection
+  ### Closing the database log connection
   close(mylog2)   
+  
+  ### Closing the error connection
   close (mylog3)
 }
 
+
+################################## The Functions Used #############################################################
+
 ### Adding the data from files into the database
-read.to.database.all <- function(
 ### This functions takes saves the contents of all the csv file in the folder folderpath in the table tablename.
-connection,
+read.to.database.all <- function(
+conn,
 ### connection with the MySQL server
 folderpath)
 ### This functions takes saves the contents of all the csv file present in the folder folderpath
@@ -179,11 +192,11 @@ folderpath)
     {
       if(type=="cm"){
       
-      read.to.database.one.file(connection,paste(folderpath,"/",name,sep=""),"equity")
+      read.to.database.one.file(conn,paste(folderpath,"/",name,sep=""),"equity")
       } 
       if(type=="fo") {
       
-      read.to.database.one.file(connection,paste(folderpath,"/",name,sep=""),"fo")
+      read.to.database.one.file(conn,paste(folderpath,"/",name,sep=""),"fo")
       }
     
    }
@@ -191,9 +204,10 @@ folderpath)
   }
 }
 
-read.to.database.one.file <- function
+
 ### This functions saves the data content of the file given by filename to the mysql table tablename of database corresponding to the connection
-(connection,
+read.to.database.one.file <- function
+(conn,
 ### connection with the MySQL server
 filename,
 ### filename: name of the csv file or the complete path in case it is not located in your current working directory
@@ -202,12 +216,12 @@ tablename)
 {
   data <- read.table(filename,header = T, sep = ",")  ##<<  reads the data plus an extra NULL column
   data$X<- NULL     ##<<  deleting an extra column read
-  connection= conn
+  
   ### Writing log - 3 fields - time , type , the file added
   cat(as.character(timestamp()),"adding to DB ", filename, "\n",file = mylog2, sep = ",")
   if(tablename=="equity")
   {
-    ifelse(dbExistsTable(connection, tablename),dbWriteTable(connection, name =tablename, value=data, append = T),dbWriteTable(connection, name = tablename, value=data))
+    ifelse(dbExistsTable(conn, tablename),dbWriteTable(conn, name =tablename, value=data, append = T),dbWriteTable(conn, name = tablename, value=data))
 
   }  
     
@@ -235,19 +249,21 @@ tablename)
   dataf3$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
   
   
-  ifelse(dbExistsTable(connection, "options"),dbWriteTable(connection, name ="options", value=datao1, append = T),dbWriteTable(connection, name = "options", value=datao1))
-  ifelse(dbExistsTable(connection, "options"),dbWriteTable(connection, name ="options", value=datao2, append = T),dbWriteTable(connection, name = "options", value=datao2))
+  ifelse(dbExistsTable(conn, "options"),dbWriteTable(conn, name ="options", value=datao1, append = T),dbWriteTable(conn, name = "options", value=datao1))
+  ifelse(dbExistsTable(conn, "options"),dbWriteTable(conn, name ="options", value=datao2, append = T),dbWriteTable(conn, name = "options", value=datao2))
   
-  ifelse(dbExistsTable(connection, "future"),dbWriteTable(connection, name ="future", value=dataf1, append = T),dbWriteTable(connection, name = "future", value=dataf1))
-  ifelse(dbExistsTable(connection, "future"),dbWriteTable(connection, name ="future", value=dataf2, append = T),dbWriteTable(connection, name = "future", value=dataf2))
-  ifelse(dbExistsTable(connection, "future"),dbWriteTable(connection, name ="future", value=dataf3, append = T),dbWriteTable(connection, name = "future", value=dataf3))
+  ifelse(dbExistsTable(conn, "future"),dbWriteTable(conn, name ="future", value=dataf1, append = T),dbWriteTable(conn, name = "future", value=dataf1))
+  ifelse(dbExistsTable(conn, "future"),dbWriteTable(conn, name ="future", value=dataf2, append = T),dbWriteTable(conn, name = "future", value=dataf2))
+  ifelse(dbExistsTable(conn, "future"),dbWriteTable(conn, name ="future", value=dataf3, append = T),dbWriteTable(conn, name = "future", value=dataf3))
   
   }  
   
 }
 
-download.FUT.OPT<-function
+
+
 ### Downloading Equity file(zip) from the URL and saving in the current working directory.
+download.FUT.OPT<-function
 (sURL)
 ### The URL of the file to be downloaded
 {
@@ -267,8 +283,10 @@ download.FUT.OPT<-function
  } )
 }
 
+
+
+### Downloading Equity file(zip) from the URL and saving in the current working directory.
 download.STK<-function
-### Downloading Equity file(zip) from the URL and saving in the current working directory. 
 (sURL)
 ### The URL of the file to be downloaded
 {
@@ -289,8 +307,10 @@ download.STK<-function
  
 }
 
-poisson<- function()
+
+
 ### Gives an integer following the poisson distribution with parameter 4
+poisson<- function()
 {
   k = 0
   p = 1.0
@@ -305,8 +325,10 @@ poisson<- function()
   return (k)
 }
 
-extract.all.files <- function
+
+
 ### This function extracts all zip folders contained in the folder infldrpath to the targetfolder.
+extract.all.files <- function
 (infldrpath,
 ### infldrpath: path of the folder including folder name
 targetfldrpath)
@@ -323,10 +345,9 @@ targetfldrpath)
     extract.one.file(paste(infldrpath,"/",name,sep = ""),targetfldrpath)
   }
 }
-
-extract.one.file <- function
 ### This function is our purpose specific because it extracts only the csv file whose name it derives from the zip folder name.
 ### This function extracts the csv file corresponding to the zip folder name, given by infldrpath, to the folder targetfldrpath.
+extract.one.file <- function
 (infldrpath,
 ### infldrpath: the path of the folder containing the zip. The path ends with the name of the zip folder.
  targetfldrpath)
