@@ -218,11 +218,11 @@ tablename)
   data$X<- NULL     ##<<  deleting an extra column read
   
   ### Writing log - 3 fields - time , type , the file added
-  cat(as.character(timestamp()),"adding to DB ", filename, "\n",file = mylog2, sep = ",")
+  
   if(tablename=="equity")
   {
     ifelse(dbExistsTable(conn, tablename),dbWriteTable(conn, name =tablename, value=data, append = T),dbWriteTable(conn, name = tablename, value=data))
-
+    cat(as.character(timestamp()),"added to equity ", filename, "\n",file = mylog2, sep = ",")
   }  
     
   if(tablename=="fo")
@@ -241,20 +241,34 @@ tablename)
   
   #dataf<- data[data$STRIKE_PR ==0,]  ##<< seperating the rows corresponding to Future
   #datao<- data[data$STRIKE_PR >0,]  ##<< seperating the rows corresponding to Options
-  dataf1$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
-  dataf1$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
+  if(nrow(datao1)>0) {
+  ifelse(dbExistsTable(conn, "options"),dbWriteTable(conn, name ="options", value=datao1, append = T),dbWriteTable(conn, name = "options", value=datao1))
+  cat(as.character(timestamp()),"added Options Index to options ", filename, "\n",file = mylog2, sep = ",")
+  }
+   if(nrow(datao2)>0) {
+  ifelse(dbExistsTable(conn, "options"),dbWriteTable(conn, name ="options", value=datao2, append = T),dbWriteTable(conn, name = "options", value=datao2))
+  cat(as.character(timestamp()),"added Options Stock to options ", filename, "\n",file = mylog2, sep = ",")
+  }
+  
+  if(nrow(dataf1)>0) {
+   dataf1$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
+   dataf1$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
+   ifelse(dbExistsTable(conn, "future"),dbWriteTable(conn, name ="future", value=dataf1, append = T),dbWriteTable(conn, name = "future", value=dataf1))
+  cat(as.character(timestamp()),"added Future Index to table Future ", filename, "\n",file = mylog2, sep = ",")
+  }
+  if(nrow(dataf2)>0) {
   dataf2$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
   dataf2$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
+  ifelse(dbExistsTable(conn, "future"),dbWriteTable(conn, name ="future", value=dataf2, append = T),dbWriteTable(conn, name = "future", value=dataf2))
+  cat(as.character(timestamp()),"added Future Int to table Future ", filename, "\n",file = mylog2, sep = ",")
+  }
+  if(nrow(dataf3)>0) {
   dataf3$STRIKE_PR<- NULL   ##<< deleting unused column STRIKE_PR from futures 
   dataf3$OPTION_TYP<-NULL   ##<< deleting unused column OPTION_TYP from futures
-  
-  
-  ifelse(dbExistsTable(conn, "options"),dbWriteTable(conn, name ="options", value=datao1, append = T),dbWriteTable(conn, name = "options", value=datao1))
-  ifelse(dbExistsTable(conn, "options"),dbWriteTable(conn, name ="options", value=datao2, append = T),dbWriteTable(conn, name = "options", value=datao2))
-  
-  ifelse(dbExistsTable(conn, "future"),dbWriteTable(conn, name ="future", value=dataf1, append = T),dbWriteTable(conn, name = "future", value=dataf1))
-  ifelse(dbExistsTable(conn, "future"),dbWriteTable(conn, name ="future", value=dataf2, append = T),dbWriteTable(conn, name = "future", value=dataf2))
   ifelse(dbExistsTable(conn, "future"),dbWriteTable(conn, name ="future", value=dataf3, append = T),dbWriteTable(conn, name = "future", value=dataf3))
+  cat(as.character(timestamp()),"added Future Stock to table future ", filename, "\n",file = mylog2, sep = ",")
+  }
+  
   
   }  
   
