@@ -1,8 +1,11 @@
 library(lattice)
 library(fBasics)
 library(fImport)
+library(RMySQL)
 routines<-function(a,b,s)
 {
+m <- dbDriver("MySQL", max.con = 100)
+con <- dbConnect(m, user="root", password = "intern123", host = "localhost", dbname="nsedb")
 holiday<-read.csv("holiday.csv")
 tS = timeSequence(from = a, to = b, by = "day")
 char<-as.character(tS)
@@ -50,60 +53,48 @@ for(i in 1:length(char)){
       reason[i]<-as.character(holiday[j,3])
     }
   }
-}
+ }
 l<-length(s)
 t<-length(tS)
 mat <- matrix(seq(t*l)-seq(t*l), nrow = l, ncol=t, byrow=TRUE)
 temp<-0
+W=""
 for(i in 1:t){
   if(trading[i]=="Working Day"||settlement[i]=="Working Day"){
     temp<-temp+1
-    if(as.integer(date[i])<10){
-      temp1<-as.character(composeURL("cm0",date[i],mont[i],year[i],"bhav.csv"))
-      equity[i]<-substr(temp1,8,26)
-    }
-    else{
-      temp1<-as.character(composeURL("cm",date[i],mont[i],year[i],"bhav.csv"))
-      equity[i]<-substr(temp1,8,26)
-    }
-    db<-read.csv(equity[i])
-    for(g in 1:l){
-      cs<-which(db[,1]==s[g])
-      mat[g,i]<-log(db[cs,6]/db[cs,8])
-    }
+    w<-paste(date[i],mont[i],year[i],sep="-")
+    W<-paste(W,",'",w,"'",sep="")
   }
-  else{
-    for(g in 1:l){
-      mat[g,i]<-50000
-    }
-  }
-}  
-D <- matrix(seq(temp*l)-seq(temp*l), nrow = l, ncol=temp, byrow=TRUE)
-k<-1
-j<-1
-while((k<(t+1))||j<(temp+1)){
-  if(mat[1,k]!=50000){
-    D[,j]=mat[,k]
-    j<-j+1
-  }
-  k<-k+1
 }
+W<-substr(W,2,nchar(W))
+
+S=""
+for(i in 1:l){
+  S<-paste(S,",'",s[i],"'",sep="")
+}
+
+S<-substr(S,2,nchar(S))
+
+
+query<-paste("SELECT CLOSE,PREVCLOSE,TIMESTAMP,SYMBOL FROM equity WHERE TIMESTAMP IN ","(",W,")"," AND SYMBOL IN","(",S,")","AND SERIES ='EQ' ORDER BY SYMBOL",sep="")
+C<-dbGetQuery(con,query)
+ret<-C[1]-C[2]
 pvalue<-seq(length(s))
+show_pvalue<-seq(length(s))
 for(i in 1:length(s)){
-  test<-shapiro.test(D[i,])
+  #print(ret[(1+((i-1)*(temp))):(i*temp),1])
+  test<-shapiro.test(ret[(1+((i-1)*(temp))):(i*temp),1])
   pvalue[i]<-test[[2]]
-  show_pvalue[i]<-paste("pvalue = ",round(pvalue[i],3))
-  }
+  show_pvalue[i]<-paste("pvalue=",round(pvalue[i],3))
+}
 par(bg="gray")
 col<-heat.colors(l)
-plot(D[1,],type="l",col=col[1],xlim=c(1,temp+1),ylim=c(min(D),max(D)),main="Return in given stocks per day",xlab="days",
-    ylab="Return (dollar)",lwd=2)
-text(temp,D[1,temp],as.character(show_pvalue[1]),pos=4,offset=1)
-for(i in 2:l){   
-  lines(D[i,],type="l",col=col[i],lwd=2)
-  text(temp,D[i,temp],as.character(show_pvalue[i]),pos=4,offset=1)
-  }  
-legend("topright",legend=s,col=col,lty=1,lwd=2)
-pvalue
+plot(ret[1:temp,1],type="l",col=col[1],xlim=c(1,temp),ylim=c(min(ret),max(ret)),main="Return in given stocks per day",xlab="days",
+    ylab="Return (Rupees)",lwd=2)
 
-}
+for(i in 2:l){   
+  lines(ret[(1+((i-1)*(temp))):(i*temp),1],type="l",col=col[i],lwd=2)
+  }  
+leg<-paste(s,show_pvalue,sep=" , ")
+legend("topright",legend=leg,col=col,lty=1,lwd=2)
+ }
