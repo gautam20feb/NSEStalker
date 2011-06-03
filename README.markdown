@@ -39,7 +39,7 @@ Unit tests for all the code.
 Few scripts to plot various graphs using Google Motion Charts.
 
 ### To do
-1.
+1. Make Available the glocal path to the scripts
 2.
 3.
 
