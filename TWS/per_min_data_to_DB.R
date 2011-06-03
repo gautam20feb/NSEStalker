@@ -88,7 +88,7 @@ user.name="intern"
   for(i in 1:no)  ##<< Loop for different stocks
   {
     
-    tablename<-as.character(stk[i,2])
+    tablename<-as.character(stk[i,4])
     #Sys.sleep(300)
     for(j in sequence)  ##<< Loop for all the different set of 4 days for any stock
       {
@@ -108,7 +108,7 @@ user.name="intern"
        d <-reqHistoricalData(tws,t,duration="4 D",file=paste("./per_min_data/",as.character(stk[i,2]),".per.day.min",date,".csv"),barSize="1 min",endDateTime=edt,verbose = TRUE,)
        data <- read.table(paste("./per_min_data/",as.character(stk[i,2]),".per.day.min",date,".csv"),header = T, sep = ",")
        names(data)<-c("TIMESTAMP", "OPEN","HIGH","LOW","CLOSE","VOLUME","WAP","HASGAPS","COUNT")
-   
+      
        ifelse(dbExistsTable(conn, tablename),dbWriteTable(conn, name =tablename, value=data, append = T),dbWriteTable(conn, name = tablename, value=data))
        cat(as.character(timestamp()),paste("added to",tablename,"data for last 4 days with end date",enddatetime,sep=" ") , "\n",file = mylog2, sep = ",")
        } 
