@@ -1,4 +1,4 @@
 1. NAGARCONST,MUNDRAPORT -couldn't find the symbol
 2. MySql doesn't detect special characters so I replaced "&" by "AND" and "-" by ""
 3. In Tws if we have been requesting for a ticker and meanwhile the Internet got disconnected, TWS doesn't accept any other request till it serves the first one so the data got corrupted.
-4. 
+4. The per minute data for an year for each year has around 94,500 rows but some have relatively lower number of rows . Example- Bhushan Steel , Auropharma
