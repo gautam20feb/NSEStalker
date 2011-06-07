@@ -7,6 +7,8 @@ library(XML)
 library(xts)
 tws<-twsConnect(clientId=99)
 
+mylog2 <- file("database.log.csv", "w")  ##<< For logging the files written to database
+
 ################################# Connecting to database #########################################
 ### Defining the type of connection
 m <- dbDriver("MySQL", max.con = 25)
@@ -47,8 +49,8 @@ user.name="intern"
        s<-stk[i,3]
        s<-as.character(s)
        t <-twsSTK(s, exch ="NSE" ,currency="INR")
-       d <-reqHistoricalData(tws,t,duration="1 Y",file=paste("./daily_data/",as.character(stk[i,2]),".daily",date,".csv"),barSize="1 day",verbose = TRUE,)
-       data <- read.table(paste("./daily_data/",as.character(stk[i,2]),".daily",date,".csv"),header = T, sep = ",")
+       d <-reqHistoricalData(tws,t,duration="1 Y",file=paste("./daily_data/",as.character(stk[i,2]),".daily",date,".csv",sep=""),barSize="1 day",verbose = TRUE,)
+       data <- read.table(paste("./daily_data/",as.character(stk[i,2]),".daily",date,".csv",sep=""),header = T, sep = ",")
        names(data)<-c("TIMESTAMP", "OPEN","HIGH","LOW","CLOSE","VOLUME","WAP","HASGAPS","COUNT")
    
        ifelse(dbExistsTable(conn, tablename),dbWriteTable(conn, name =tablename, value=data, append = T),dbWriteTable(conn, name = tablename, value=data))
