@@ -5,11 +5,11 @@ library (methods)
 library(RMySQL)
 library(XML)
 library(xts)
-tws<-twsConnect(clientId=8)
+tws<-twsConnect(clientId=10)
 
 ############################## Getting the list of working day #########################################
 holiday<-read.csv("./data/holiday.csv", header = T)
-tS = timeSequence(from = "2010-06-03", to = "2011-06-02", by = "day")
+tS = timeSequence(from = "2010-06-08", to = "2011-06-03", by = "day")
 char<-as.character(tS)
 day<-dayOfWeek(tS)
 hols<-as.character(seq(length(char))) ##<<  The holiday or working day  
@@ -68,7 +68,7 @@ stk<-read.csv("./data/STK.with.Sym.csv", sep=",", header=T)
 no<- nrow(stk)
 
 n<-length(wday)
-sequence<-seq(4,n,by=4)
+sequence<-seq(5,n,by=5)
 
 ### Function to start the execution 
 Tws.per.min.data.to.db<-function(
@@ -105,12 +105,19 @@ user.name="intern"
   
        t <-twsSTK(s, exch ="NSE" ,currency="INR")
 
-       d <-reqHistoricalData(tws,t,duration="4 D",file=paste("./per_min_data/",as.character(stk[i,2]),".per.day.min",date,".csv"),barSize="1 min",endDateTime=edt,verbose = TRUE,)
-       data <- read.table(paste("./per_min_data/",as.character(stk[i,2]),".per.day.min",date,".csv"),header = T, sep = ",")
+       d <-reqHistoricalData(tws,t,duration="5 D",file=paste("./per_min_data/",as.character(stk[i,2]),".per.day.min",date,".csv"),barSize="1 min",endDateTime=edt,verbose = TRUE,)
+       data <- read.table(paste("./per_min_data/",as.character(stk[i,2]),".per.day.min",date,".csv"),header = F, sep = ",")
        names(data)<-c("TIMESTAMP", "OPEN","HIGH","LOW","CLOSE","VOLUME","WAP","HASGAPS","COUNT")
-      
+      if(nrow(data)==0)
+      {
+        cat(as.character(timestamp()),paste("added to",tablename," ERROR ",enddatetime,sep=" ") , "\n",file = mylog2, sep = ",")
+     } 
+     else 
+     {
        ifelse(dbExistsTable(conn, tablename),dbWriteTable(conn, name =tablename, value=data, append = T),dbWriteTable(conn, name = tablename, value=data))
-       cat(as.character(timestamp()),paste("added to",tablename,"data for last 4 days with end date",enddatetime,sep=" ") , "\n",file = mylog2, sep = ",")
-       } 
+       cat(as.character(timestamp()),paste("added to",tablename,"data for last 5 days with end date",enddatetime,sep=" ") , "\n",file = mylog2, sep = ",")
+     }
+      
+      } 
    }
 }
