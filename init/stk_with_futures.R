@@ -19,5 +19,6 @@ listSTK<-function()
     i=i+1
   }
   length(list)
+  return(paste(list,collapse = ","))
   write.csv(list,"../data/stk_with_fut.csv")
 }
