@@ -12,6 +12,7 @@ annotatedtimeline <-function(numdays,instr)
   
   start <- strftime(as.POSIXlt(Sys.time() - nDays*24*3600), format="%Y-%m-%d") 
   end <- strftime(as.POSIXlt(Sys.time()), format = "%Y-%m-%d")  
+
   x <- get.hist.quote(instrument = instrument, start = start, end = end) 
   x<- ts(x)
   frame <- data.frame(attr(x,"index"),x)
@@ -32,4 +33,5 @@ AnnoTimeLine  <- gvisAnnotatedTimeLine(bind, datevar="Date",
 plot(AnnoTimeLine) 
 # Create Google Gadget
 cat(createGoogleGadget(AnnoTimeLine), file="annotimeline.xml")
+
 }

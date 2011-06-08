@@ -11,8 +11,12 @@ plotbarchart <- function(numdays, instr)
   instrument <- instr
   
   start <- strftime(as.POSIXlt(Sys.time() - nDays*24*3600), format="%Y-%m-%d") 
-  end <- strftime(as.POSIXlt(Sys.time()), format = "%Y-%m-%d")  
+  print(start)
+   end <- strftime(as.POSIXlt(Sys.time()), format = "%Y-%m-%d")
+     print(end)
   x <- get.hist.quote(instrument = instrument, start = start, end = end) 
+ 
   x<- ts(x)
-  plotmyOHLC(x, ylab = "price", main = instrument)
+  print(x)
+ plotmyOHLC(x, ylab = "price", main = instrument)
 }
