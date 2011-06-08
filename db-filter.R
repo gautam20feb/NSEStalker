@@ -1,6 +1,9 @@
-filterEQ <- function(con,tablename)
+filterEQ <- function(con,reftable,eqtable)
 {
-    print(paste("delete from", tablename, "where 'SYMBOL' not in (", listSTK(), ")"))
-    dbSendQuery(con,paste("delete from", tablename, "where SYMBOL not in (", listSTK(), ")"))
+  data <- dbGetQuery(con, paste("select distinct SYMBOL from", reftable, "group by SYMBOL"))
+  print(data)
+  print(list)
+    print(paste("delete from", eqtable, "where SYMBOL not in (",paste("'",data[[1]],"'", collapse = ", ",sep = ""), ")"))
+    dbSendQuery(con,paste("delete from", eqtable, "where SYMBOL not in (",paste("'",data[[1]],"'", collapse = ", ",sep = ""), ")"))
     
 }
