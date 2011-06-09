@@ -40,6 +40,11 @@ Few scripts to plot various graphs using Google Motion Charts.
 
 ### To do
 1. Make Available the glocal path to the scripts
-2.
-3.
+2. Add the data for the working weekends
+3. Sort the database
+4. Find the Symbols for the two stocks for TWS
+5. update the Databases
+6. Filter the databases
+7. Synchronise the databases
+
 
