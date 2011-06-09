@@ -17,7 +17,7 @@ csvtodb <- function(folder,dbname)
     files <- dir()
     for (name in files)
     {
-      temp = strsplit(names , ".")
+      temp = unlist(strsplit(name , "\\."))
     tablename = temp[1]
       data <- read.csv(paste(folder,"/", name, sep = ""),row.names = NULL)
       dbWriteTable(con, tablename, data, row.names = F)
