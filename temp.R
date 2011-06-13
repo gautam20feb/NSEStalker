@@ -14,7 +14,7 @@ data_path <- "./data/"
 ### variables ###
 
 
-create.connection <- function(user.name)
+create.connection <- function(machine.name)
 {
 m <- dbDriver("MySQL", max.con = 25)
 
@@ -26,13 +26,59 @@ n<-nrow(tmp) ##<< get the number of users
 machines = as.data.frame(matrix((tmp), n)) ##<< produces a dataframe for the matrix
 names(machines) = names(doc[[1]]) ##<< names the corresponding columns
 
-pos=which(machines[,1]==user.name)
-usr=as.character(machines[pos,1])
-hst=as.character(machines[pos,2])
-dbnm=as.character(machines[pos,3])
-pswd=as.character(machines[pos,4])
+pos=which(machines[,1]==machine.name)
+usr=as.character(machines[pos,2])
+hst=as.character(machines[pos,3])
+dbnm=as.character(machines[pos,4])
+pswd=as.character(machines[pos,5])
 conn <- dbConnect(m, user=usr, password = pswd, host = hst, dbname= dbnm)
 conn
+}
+
+go.db <- function(user="")
+{
+if (user=="")
+{
+cat("machine name as *user name*@*machine name*")
+user <- scan(what = "", nmax = 1)
+}
+ ### Menu ###
+ cat(" 1. Type 1 for downloading from nse and then storing it in the database", "\n",
+      "2. Type 2 for filtering the equities' table", "\n",
+      "3. Type 3 for updating", "\n",
+      "4. Type 4 for first migration step i.e. to export data from database as csv files", "\n",
+      "5. Type 5 for second migration step i.e. to import data form csv to database")
+ option <- scan(what = "", nmax = 1)
+ if (option == 1)
+ { 
+   cat("enter starting date")
+   a <- scan(what = "", nmax = 1)
+   cat("enter ending date")
+   b <- scan(what = "", nmax = 1)
+   get.bhavcopy(a, b, user)
+   }
+   else if (option == 2)
+   {
+    cat("enter refrence future table name")
+    reftable <- scan(what = "", nmax = 1)
+    cat("enter equity table name to be filtered")
+    eqtable <- scan(what = "", nmax = 1)
+    filterEQ(user, reftable, eqtable)
+    }
+    else if (option == 3)
+    {}
+   else if (option == 4)
+   {
+    cat("folder to output csv files to")
+    folder  <- scan(what = "", nmax = 1)
+    csvtodb(user, folder)
+    }
+   else if (option == 5)
+   {
+     cat("folder to take read csv files from")
+    folder <- scan(what = "", nmax = 1)
+    dbtocsv(folder, user)
+    }
 }
 
 ### For logging downloading using connection
@@ -46,35 +92,18 @@ mylog2 <- file(paste(log_path, "database.log.csv", sep = ""), "w")  ##<< For log
 
 mylog3<- file(paste(log_path, "error.log.csv", sep = "") , "w")  ##<< For logging the errors
 
-### Defining the type of connection
-m <- dbDriver("MySQL", max.con = 25)
-
-### Reading the machines.xml file
-doc = xmlRoot(xmlTreeParse(paste(config_path, "machines.xml", sep = ""))) ##<< parses all of the config file
-tmp = xmlSApply(doc , function(x) xmlSApply(x, xmlValue)) ##<< creates a matrix of machines information
-tmp = t(tmp) ##<< takes transpose 
-n<-nrow(tmp) ##<< get the number of users
-machines = as.data.frame(matrix((tmp), n)) ##<< produces a dataframe for the matrix
-names(machines) = names(doc[[1]]) ##<< names the corresponding columns
- 
-
 ### Function takes the start date and the end date for the period for which you want to make the database.
 get.bhavcopy<-function(
 ### The function to run the main process i.e. to get data from the nse website and store it in a MySQL database.
 a,
 ### The starting date in yyyy-mm-dd format
 b,
-### The starting date in yyyy-mm-dd format
-user.name="intern"
+### The ending date in yyyy-mm-dd format
+user.name= "root@localhost"
 ### name of the machine to which you want to add the data
 )
 {
-  pos=which(machines[,1]==user.name)
-  usr=as.character(machines[pos,1])
-  hst=as.character(machines[pos,2])
-  dbnm=as.character(machines[pos,3])
-  pswd=as.character(machines[pos,4])
-  conn <- dbConnect(m, user=usr, password = pswd, host = hst, dbname= dbnm) ## sets the connection with the required database
+  conn <- create_connection(user.name) ## sets the connection with the required database
  
   holiday<-read.csv(paste(data_path, "holiday.csv", sep = ""), header = T)
   tS = timeSequence(from = a, to = b, by = "day")
@@ -194,6 +223,7 @@ write.csv(x,file=paste(data_path, "list_of_urls.csv", sep = ""))
   
   ### Closing the error connection
   close (mylog3)
+  dbDisconnect(conn)
 }
 
 
@@ -415,9 +445,8 @@ eqtable)
 {
   con <- create.connection(user)
   data <- dbGetQuery(con, paste("select distinct SYMBOL from", reftable, "group by SYMBOL"))
-  print(paste("delete from", eqtable, "where SYMBOL not in (",paste("'",data[[1]],"'", collapse = ", ",sep = ""), ")"))
-  dbGetQuery(con,paste("delete from", eqtable, "where SYMBOL not in (",paste("'",data[[1]],"'", collapse = ", ",sep = ""), ")"))
-    
+  query <- dbGetQuery(con,paste("delete from", eqtable, "where SYMBOL not in (",paste("'",data[[1]],"'", collapse = ", ",sep = ""), ")"))
+  dbDisconnect(con)  
 }
 
 dbtocsv <- function
@@ -434,6 +463,7 @@ folder = getwd())
     data <- dbReadTable(con,name,row.names = NULL)    
   write.csv(data,paste(folder, "/", name,".csv", sep = ""), row.names = F)
   }
+  dbDisconnect(con)
 }
 
 csvtodb <- function
@@ -452,5 +482,6 @@ user)
       data <- read.csv(paste(folder,"/", name, sep = ""),row.names = NULL)
       dbWriteTable(con, tablename, data, row.names = F)
     }
+    dbDisconnect(con)
 }
 
