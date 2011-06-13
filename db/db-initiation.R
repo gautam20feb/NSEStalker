@@ -9,14 +9,14 @@ library(XML)
 
 ### For logging downloading using connection
 mylog <- file(
-"downloading.log.csv",
+"./log/downloading.log.csv",
 ### Name of the Log file
 "w")  
 ### writing privileges
 
-mylog2 <- file("database.log.csv", "w")  ##<< For logging the files written to database
+mylog2 <- file("./log/database.log.csv", "w")  ##<< For logging the files written to database
 
-mylog3<- file("error.log.csv" , "w")  ##<< For logging the errors
+mylog3<- file("./log/error.log.csv" , "w")  ##<< For logging the errors
 
 ### Defining the type of connection
 m <- dbDriver("MySQL", max.con = 25)
