@@ -7,28 +7,90 @@ library (methods)
 library(RMySQL)
 library(XML)
 
-### For logging downloading using connection
-mylog <- file(
-"./log/downloading.log.csv",
-### Name of the Log file
-"w")  
-### writing privileges
+### variables ###
+log_path <- "./log/"
+config_path <- "./config/"
+data_path <- "./data/"
+### variables ###
 
-mylog2 <- file("./log/database.log.csv", "w")  ##<< For logging the files written to database
 
-mylog3<- file("./log/error.log.csv" , "w")  ##<< For logging the errors
-
-### Defining the type of connection
+create.connection <- function(machine.name)
+{
 m <- dbDriver("MySQL", max.con = 25)
 
 ### Reading the machines.xml file
-doc = xmlRoot(xmlTreeParse("./config/machines.xml")) ##<< parses all of the config file
+doc = xmlRoot(xmlTreeParse(paste(config_path,"machines.xml", sep = ""))) ##<< parses all of the config file
 tmp = xmlSApply(doc , function(x) xmlSApply(x, xmlValue)) ##<< creates a matrix of machines information
 tmp = t(tmp) ##<< takes transpose 
 n<-nrow(tmp) ##<< get the number of users
 machines = as.data.frame(matrix((tmp), n)) ##<< produces a dataframe for the matrix
 names(machines) = names(doc[[1]]) ##<< names the corresponding columns
- 
+
+pos=which(machines[,1]==machine.name)
+usr=as.character(machines[pos,2])
+hst=as.character(machines[pos,3])
+dbnm=as.character(machines[pos,4])
+pswd=as.character(machines[pos,5])
+conn <- dbConnect(m, user=usr, password = pswd, host = hst, dbname= dbnm)
+conn
+}
+
+go.db <- function(user="")
+{
+if (user=="")
+{
+cat("machine name as *user name*@*machine name*")
+user <- scan(what = "", nmax = 1)
+}
+ ### Menu ###
+ cat(" 1. Type 1 for downloading from nse and then storing it in the database", "\n",
+      "2. Type 2 for filtering the equities' table", "\n",
+      "3. Type 3 for updating", "\n",
+      "4. Type 4 for first migration step i.e. to export data from database as csv files", "\n",
+      "5. Type 5 for second migration step i.e. to import data form csv to database")
+ option <- scan(what = "", nmax = 1)
+ if (option == 1)
+ { 
+   cat("enter starting date")
+   a <- scan(what = "", nmax = 1)
+   cat("enter ending date")
+   b <- scan(what = "", nmax = 1)
+   get.bhavcopy(a, b, user)
+   }
+   else if (option == 2)
+   {
+    cat("enter refrence future table name")
+    reftable <- scan(what = "", nmax = 1)
+    cat("enter equity table name to be filtered")
+    eqtable <- scan(what = "", nmax = 1)
+    filterEQ(user, reftable, eqtable)
+    }
+    else if (option == 3)
+    {}
+   else if (option == 4)
+   {
+    cat("folder to output csv files to")
+    folder  <- scan(what = "", nmax = 1)
+    csvtodb(user, folder)
+    }
+   else if (option == 5)
+   {
+     cat("folder to take read csv files from")
+    folder <- scan(what = "", nmax = 1)
+    dbtocsv(folder, user)
+    }
+}
+
+### For logging downloading using connection
+mylog <- file(
+paste(log_path, "downloading.log.csv", sep = ""),
+### Name of the Log file
+"w")  
+### writing privileges
+
+mylog2 <- file(paste(log_path, "database.log.csv", sep = ""), "w")  ##<< For logging the files written to database
+
+mylog3<- file(paste(log_path, "error.log.csv", sep = "") , "w")  ##<< For logging the errors
 
 ### Function takes the start date and the end date for the period for which you want to make the database.
 get.bhavcopy<-function(
@@ -36,19 +98,14 @@ get.bhavcopy<-function(
 a,
 ### The starting date in yyyy-mm-dd format
 b,
-### The starting date in yyyy-mm-dd format
-user.name="intern"
+### The ending date in yyyy-mm-dd format
+user.name= "root@localhost"
 ### name of the machine to which you want to add the data
 )
 {
-  pos=which(machines[,1]==user.name)
-  usr=as.character(machines[pos,1])
-  hst=as.character(machines[pos,2])
-  dbnm=as.character(machines[pos,3])
-  pswd=as.character(machines[pos,4])
-  conn <- dbConnect(m, user=usr, password = pswd, host = hst, dbname= dbnm) ## sets the connection with the required database
+  conn <- create_connection(user.name) ## sets the connection with the required database
  
-  holiday<-read.csv("./data/holiday.csv", header = T)
+  holiday<-read.csv(paste(data_path, "holiday.csv", sep = ""), header = T)
   tS = timeSequence(from = a, to = b, by = "day")
 
   char<-as.character(tS)
@@ -133,7 +190,7 @@ user.name="intern"
 
 all<-cbind(char,day,trading,settlement,reason,date,mont,year,equity,derivative)
 x <- matrix(all, nrow =length(char),ncol=10, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL")))
-write.csv(x,file="./data/list_of_urls.csv")
+write.csv(x,file=paste(data_path, "list_of_urls.csv", sep = ""))
 
 
 ################################## Downloading ###################################################
@@ -166,6 +223,7 @@ write.csv(x,file="./data/list_of_urls.csv")
   
   ### Closing the error connection
   close (mylog3)
+  dbDisconnect(conn)
 }
 
 
@@ -375,3 +433,55 @@ extract.one.file <- function
   zip.file.extract(filename,zipname =fldrname,dir =targetfldrpath)
   setwd(temp)
 }
+
+filterEQ<- function
+### removes data corresponding to all those stocks which do not have futures.
+(user,
+## user name to create the connection
+reftable = "",
+### the reference future tablename from the same database
+eqtable)
+### name of the equity table to be filtered
+{
+  con <- create.connection(user)
+  data <- dbGetQuery(con, paste("select distinct SYMBOL from", reftable, "group by SYMBOL"))
+  query <- dbGetQuery(con,paste("delete from", eqtable, "where SYMBOL not in (",paste("'",data[[1]],"'", collapse = ", ",sep = ""), ")"))
+  dbDisconnect(con)  
+}
+
+dbtocsv <- function
+### the function returns the tables in the given database in the form of csv files, one for each table in the given folder.
+(user,
+### user name to create connection to the database
+folder = getwd())
+### folder to which the database is to be copied in the form of csv files
+{
+  con<-create.connection(user)
+  tables <- dbListTables(con)
+  for (name in tables)
+  {
+    data <- dbReadTable(con,name,row.names = NULL)    
+  write.csv(data,paste(folder, "/", name,".csv", sep = ""), row.names = F)
+  }
+  dbDisconnect(con)
+}
+
+csvtodb <- function
+### the functions takes all the csv files in the given folder and stores them as different tables in the given database.
+(folder,
+### folder which contains the csv files to be moved to database
+user)
+### user name to create connection to the database
+{
+    con<-create.connection(user)
+    files <- dir()
+    for (name in files)
+    {
+      temp = unlist(strsplit(name , "\\."))
+    tablename = temp[1]
+      data <- read.csv(paste(folder,"/", name, sep = ""),row.names = NULL)
+      dbWriteTable(con, tablename, data, row.names = F)
+    }
+    dbDisconnect(con)
+}
+
