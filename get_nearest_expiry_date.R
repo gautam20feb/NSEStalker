@@ -3,7 +3,7 @@ library(fBasics)
 library(fImport)
 holiday<-read.csv("./data/holiday.csv", header = F)
 
-### The function gives a file having the working days and corresponding nearest expiry date
+### The function returns a matrix and also gives a file having the working days and corresponding nearest expiry date
 get.nearest.expiry.date<-function(
 start.date = "2001-01-01"
 ### The starting date
@@ -100,7 +100,8 @@ for(i in 1:length(tS))
     }
     
   }
-wday<- as.data.frame(wday)
-names(wday)<-c("Day","Nearest Expiry Day")
-write.csv(wday,file="./data/nearestexpirytime.csv")
+wday1<- as.data.frame(wday)
+names(wday1)<-c("Day","Nearest Expiry Day")
+write.csv(wday1,file="./data/nearestexpirytime.csv")
+return(wday)
 }
