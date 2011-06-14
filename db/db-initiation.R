@@ -227,6 +227,7 @@ tablename)
     
   if(tablename=="fo")
   {
+  names(data)<-c("INSTRUMENT","SYMBOL","EXPIRY_DT","STRIKE_PR","OPTION_TYP","OPEN","HIGH","LOW","CLOSE","SETTLE_PR","CONTRACTS","VAL_INLAKH","OPEN_INT","CHG_IN_OI","TIMESTAMP")
   datao1<-data[grep("OPTIDX", data$INSTRUMENT, ignore.case=T),]
   datao2<-data[grep("OPTSTK", data$INSTRUMENT, ignore.case=T),]
   dataf1<-data[grep("FUTIDX", data$INSTRUMENT, ignore.case=T),]
@@ -234,11 +235,11 @@ tablename)
   dataf3<-data[grep("FUTSTK", data$INSTRUMENT, ignore.case=T),]
 
   
-  if( ( nrow(dataf1)+nrow(dataf2)+nrow(dataf3)+nrow(datao1)+nrow(datao2))!=nrow(data) )
-  {
-    cat(as.character(timestamp()),"  Error in Data ", filename,"\n",file = mylog3, sep = ",")
-  }
-  
+#   if( ( nrow(dataf1)+nrow(dataf2)+nrow(dataf3)+nrow(datao1)+nrow(datao2))!=nrow(data) )
+#   {
+#     cat(as.character(timestamp()),"  Error in Data ", filename,"\n",file = mylog3, sep = ",")
+#   }
+#   
   #dataf<- data[data$STRIKE_PR ==0,]  ##<< seperating the rows corresponding to Future
   #datao<- data[data$STRIKE_PR >0,]  ##<< seperating the rows corresponding to Options
   if(nrow(datao1)>0) {
