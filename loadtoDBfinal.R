@@ -95,6 +95,7 @@ tablename)
   data <- read.table(filename,header = T, sep = ",")  ##<<  reads the data plus an extra NULL column
   data$X<- NULL     ##<<  deleting an extra column read
   
+  
   ### Writing log - 3 fields - time , type , the file added
   
   if(tablename=="equity")
@@ -105,6 +106,7 @@ tablename)
     
   if(tablename=="fo")
   {
+  names(data)<-c("INSTRUMENT","SYMBOL","EXPIRY_DT","STRIKE_PR","OPTION_TYP","OPEN","HIGH","LOW","CLOSE","SETTLE_PR","CONTRACTS","VAL_INLAKH","OPEN_INT","CHG_IN_OI","TIMESTAMP")
   datao1<-data[grep("OPTIDX", data$INSTRUMENT, ignore.case=T),]
   datao2<-data[grep("OPTSTK", data$INSTRUMENT, ignore.case=T),]
   dataf1<-data[grep("FUTIDX", data$INSTRUMENT, ignore.case=T),]
