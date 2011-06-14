@@ -14,8 +14,8 @@ data_path <- "./data/"
 ### variables ###
 
 gen.machines.dataframe <- function()
+### Reads the machines.xml file and returns a dataframe with available machines' information i.e. machine name, user name, database, password, host name
 {
-  ### Reading the machines.xml file
 doc = xmlRoot(xmlTreeParse(paste(config_path,"machines.xml", sep = ""))) ##<< parses all of the config file
 tmp = xmlSApply(doc , function(x) xmlSApply(x, xmlValue)) ##<< creates a matrix of machines information
 tmp = t(tmp) ##<< takes transpose 
@@ -25,7 +25,12 @@ names(machines) = names(doc[[1]]) ##<< names the corresponding columns
 machines
 }
 
-create.connection <- function(machine.name, machines)
+create.connection <- function(
+### Returns a MySQL connection 
+machine.name,
+### the machine to which the connection is to be made
+machines)
+### dataframe with available machines' information i.e. machine name, user name, database, password, host name
 {
 m <- dbDriver("MySQL", max.con = 25)
 
@@ -38,7 +43,10 @@ conn <- dbConnect(m, user=usr, password = pswd, host = hst, dbname= dbnm)
 conn
 }
 
-go.db <- function(user="")
+go.db <- function(
+### The main function, provides the menu to access rest of the functions in the script
+user="")
+### the name of the machine to connect to
 {
 if (user=="")
 {
