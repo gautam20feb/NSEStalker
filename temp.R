@@ -79,13 +79,13 @@ user <- scan(what = "", nmax = 1)
    {
     cat("folder to output csv files to")
     folder  <- scan(what = "", nmax = 1)
-    csvtodb(user, folder)
+    dbtocsv(user, folder)
     }
    else if (option == 6)
    {
      cat("folder to take read csv files from")
     folder <- scan(what = "", nmax = 1)
-    dbtocsv(folder, user)
+    csvtodb(folder, user)
     }
 }
 
@@ -198,10 +198,6 @@ user,
 folderpath = paste(data_path, "downloaded", sep = ""))
 ### This functions takes saves the contents of all the csv file present in the folder folderpath
 {
- mylog2 <- file(paste(log_path, "database.log.csv", sep = ""), "w")  ##<< For logging the files written to database
-
-mylog3<- file(paste(log_path, "error.log.csv", sep = "") , "w")  ##<< For logging the errors
-
   machines <- gen.machines.dataframe()
   conn <- create.connection(user, machines)
   temp <- getwd()
@@ -227,8 +223,7 @@ mylog3<- file(paste(log_path, "error.log.csv", sep = "") , "w")  ##<< For loggin
    }
   
   }
-  close(mylog2)
-  close(mylog3)
+ 
   dbDisconnect(conn)
 }
 
@@ -245,7 +240,7 @@ tablename)
   data <- read.table(filename,header = T, sep = ",")  ##<<  reads the data plus an extra NULL column
   data$X<- NULL     ##<<  deleting an extra column read
   
-  mylog2 <- file(paste(log_path, "database.log.csv", sep = ""), "w")  ##<< For logging the files written to database
+  mylog2 <- file(paste(log_path, "database.log.csv", sep = ""), "a")  ##<< For logging the files written to database
   
   ### Writing log - 3 fields - time , type , the file added
   
@@ -312,6 +307,14 @@ download.FUT.OPT<-function
 (sURL)
 ### The URL of the file to be downloaded
 {
+### For logging downloading using connection
+mylog <- file(
+paste(log_path, "downloading.log.csv", sep = ""),
+### Name of the Log file
+"a")  
+### writing privileges
+
+mylog3<- file(paste(log_path, "error.log.csv", sep = "") , "a")  ##<< For logging the errors
   #Sys.sleep(poisson())
   tryCatch(if(!is.na(sURL))
   {
@@ -326,6 +329,8 @@ download.FUT.OPT<-function
   error=function(e) {
   cat(as.character(timestamp()),"  URL NOT FOUND ", sURL,"\n",file = mylog3 , sep = ",")
  } )
+close(mylog)
+close(mylog3)
 }
 
 
@@ -335,6 +340,15 @@ download.STK<-function
 (sURL)
 ### The URL of the file to be downloaded
 {
+
+### For logging downloading using connection
+mylog <- file(
+paste(log_path, "downloading.log.csv", sep = ""),
+### Name of the Log file
+"a")  
+### writing privileges
+
+mylog3<- file(paste(log_path, "error.log.csv", sep = "") , "a")  ##<< For logging the errors
  # Sys.sleep(poisson())
   tryCatch(if(!is.na(sURL))
   {
@@ -349,7 +363,8 @@ download.STK<-function
   error=function(e) {
   cat(as.character(timestamp()),"  URL NOT FOUND ", sURL,"\n",file = mylog3, sep = ",")
  } )
- 
+ close(mylog)
+close(mylog3)
 }
 
 
@@ -450,14 +465,19 @@ user)
 {
     machines <-gen.machines.dataframe()
     con<-create.connection(user, machines)
+    temdir <- getwd()
+    setwd(folder)
     files <- dir()
     for (name in files)
     {
       temp = unlist(strsplit(name , "\\."))
     tablename = temp[1]
-      data <- read.csv(paste(folder,"/", name, sep = ""),row.names = NULL)
+      data <- read.csv(paste(folder,"/", name, sep = ""),row.names = NULL, nrows = 1)
+      filename <-paste(folder,"/", name, sep = "")
       dbWriteTable(con, tablename, data, row.names = F)
+      res <- dbGetQuery(con, paste("load data infile '",filename, "' into table ", tablename, " FIELDS TERMINATED BY ',' ENCLOSED BY '\"' IGNORE 2 LINES", sep = ""))
     }
+    setwd(temdir)
     dbDisconnect(con)
 }
 
