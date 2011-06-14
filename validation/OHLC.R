@@ -10,6 +10,7 @@ conn1<-dbConnect(m, dbname = "nsedb", user = "root", password = "intern123", hos
 ### File connections for logging "Uncommon Dates" and "Tracking Status"
 datelog<-file("Diff_date_log.csv","w")
 mylog2 <- file("Stk_OHLC_Validation_log.csv", "w")  ##<< For logging the files written to database
+error<-file("Error_validation_log.csv","w")
 
 ### Initialization of vectors
 open_diff<-c()
@@ -66,13 +67,19 @@ if (nrow(nse_companies) != length(common_companies)) print("Error : List of Comp
      close_diff[i]<-open_nsedb[1,7]-open_TWS[1,6]
      comp[i]<-common_companies[j]
      
+     ### Logging cited errors during validation
+     if(open_diff[i] > 2|| high_diff > 2 || low_diff > 2 || close_diff > 2)
+     {
+       cat(as.character(j),"Company:",common_companies[j],"Date:",common_dates[i],"Open_diff=",open_diff[i],"High_diff=",high_diff[i],"Low_diff=",low_diff[i],"Close_diff=",close_diff[i],"\n",file = error, sep = ",")
+     }
+     
      ### Logging for tracking status
-     cat(as.character(timestamp()),"Date",common_dates[i],"Stock",as.character(j),common_companies[j],"CPU Time for SQL Query","T1",t1,"T2",t2,"\n",file = mylog2, sep = ",")
+     cat(as.character(timestamp()),"Date",common_dates[i],"Stock",as.character(j),common_companies[j],"CPU Time for SQL Query","T1=(",t1,")  T2=(",t2,")","\n",file = mylog2, sep = ",")
      
    }
    ### Writing output of validation to csv
    all<-cbind(comp,common_dates,open_diff,high_diff,low_diff,close_diff)
-   write.table(all, file="validation.csv", append=TRUE, sep=",")
+   write.table(all, file="validation.csv",col.names=NA, append=TRUE, sep=",")
 }
 
 dbDisconnect(conn)
