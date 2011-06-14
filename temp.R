@@ -472,10 +472,24 @@ user)
     {
       temp = unlist(strsplit(name , "\\."))
     tablename = temp[1]
-      data <- read.csv(paste(folder,"/", name, sep = ""),row.names = NULL, nrows = 1)
-      filename <-paste(folder,"/", name, sep = "")
-      dbWriteTable(con, tablename, data, row.names = F)
-      res <- dbGetQuery(con, paste("load data infile '",filename, "' into table ", tablename, " FIELDS TERMINATED BY ',' ENCLOSED BY '\"' IGNORE 2 LINES", sep = ""))
+    skip <- 0
+    nrows <- 1000
+    filename <-paste(folder,"/", name, sep = "")
+     res <- try(
+       {data <- read.csv(filename,row.names = NULL, nrows = nrows,skip = skip)
+      columns <- names(data)
+      dbWriteTable(con, tablename, data, row.names = F, append = T)
+      skip <- skip + nrows + 1
+       }, T)
+    while (class(res) != "try-error")
+    {
+      res <- try(
+        {data <- read.csv(filename,row.names = NULL, nrows = nrows,skip = skip, header = F,blank.lines.skip = F)
+      names(data) <- columns
+      dbWriteTable(con, tablename, data, row.names = F, append = T)
+      skip <- skip + nrows + 1
+      }, T)
+      }
     }
     setwd(temdir)
     dbDisconnect(con)

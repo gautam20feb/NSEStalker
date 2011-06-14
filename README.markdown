@@ -46,5 +46,6 @@ Few scripts to plot various graphs using Google Motion Charts.
 5. update the Databases
 6. Filter the databases
 7. Synchronise the databases
+8. In Script temp.R, function csvtodb, while reading a table from database into a dataframe one may encounter an error in case the data from the table should be too large to load as a dataframe. For now this issue has been ignored, see to it if a problem is reported.
 
 
