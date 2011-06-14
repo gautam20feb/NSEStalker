@@ -13,18 +13,21 @@ config_path <- "./config/"
 data_path <- "./data/"
 ### variables ###
 
-
-create.connection <- function(machine.name)
+gen.machines.dataframe <- function()
 {
-m <- dbDriver("MySQL", max.con = 25)
-
-### Reading the machines.xml file
+  ### Reading the machines.xml file
 doc = xmlRoot(xmlTreeParse(paste(config_path,"machines.xml", sep = ""))) ##<< parses all of the config file
 tmp = xmlSApply(doc , function(x) xmlSApply(x, xmlValue)) ##<< creates a matrix of machines information
 tmp = t(tmp) ##<< takes transpose 
 n<-nrow(tmp) ##<< get the number of users
 machines = as.data.frame(matrix((tmp), n)) ##<< produces a dataframe for the matrix
 names(machines) = names(doc[[1]]) ##<< names the corresponding columns
+machines
+}
+
+create.connection <- function(machine.name, machines)
+{
+m <- dbDriver("MySQL", max.con = 25)
 
 pos=which(machines[,1]==machine.name)
 usr=as.character(machines[pos,2])
@@ -43,11 +46,12 @@ cat("machine name as *user name*@*machine name*")
 user <- scan(what = "", nmax = 1)
 }
  ### Menu ###
- cat(" 1. Type 1 for downloading from nse and then storing it in the database", "\n",
-      "2. Type 2 for filtering the equities' table", "\n",
-      "3. Type 3 for updating", "\n",
-      "4. Type 4 for first migration step i.e. to export data from database as csv files", "\n",
-      "5. Type 5 for second migration step i.e. to import data form csv to database")
+ cat(" 1. Type 1 for downloading from nse and then storing the data as csv files in the ./data/downloaded", "\n",
+      "2. Type 2 for importing all the data from given directory to the database storing equities' data in table equity and derivatives' data in table fo ", "\n",
+      "3. Type 3 for filtering the equities' table i.e. rejecting data for stocks not having futures", "\n",
+      "4. Type 4 for updating", "\n",
+      "5. Type 5 to export data from database as csv files", "\n",
+      "6. Type 6 to import data form csv to database")
  option <- scan(what = "", nmax = 1)
  if (option == 1)
  { 
@@ -59,21 +63,25 @@ user <- scan(what = "", nmax = 1)
    }
    else if (option == 2)
    {
+    read.to.database.all(user)
+    }
+   else if (option == 3)
+   {
     cat("enter refrence future table name")
     reftable <- scan(what = "", nmax = 1)
     cat("enter equity table name to be filtered")
     eqtable <- scan(what = "", nmax = 1)
     filterEQ(user, reftable, eqtable)
     }
-    else if (option == 3)
+    else if (option == 4)
     {}
-   else if (option == 4)
+   else if (option == 5)
    {
     cat("folder to output csv files to")
     folder  <- scan(what = "", nmax = 1)
     csvtodb(user, folder)
     }
-   else if (option == 5)
+   else if (option == 6)
    {
      cat("folder to take read csv files from")
     folder <- scan(what = "", nmax = 1)
@@ -81,19 +89,8 @@ user <- scan(what = "", nmax = 1)
     }
 }
 
-### For logging downloading using connection
-mylog <- file(
-paste(log_path, "downloading.log.csv", sep = ""),
-### Name of the Log file
-"w")  
-### writing privileges
-
-mylog2 <- file(paste(log_path, "database.log.csv", sep = ""), "w")  ##<< For logging the files written to database
-
-mylog3<- file(paste(log_path, "error.log.csv", sep = "") , "w")  ##<< For logging the errors
-
 ### Function takes the start date and the end date for the period for which you want to make the database.
-get.bhavcopy<-function(
+download.to.database<-function(
 ### The function to run the main process i.e. to get data from the nse website and store it in a MySQL database.
 a,
 ### The starting date in yyyy-mm-dd format
@@ -104,95 +101,20 @@ user.name= "root@localhost"
 )
 {
   conn <- create_connection(user.name) ## sets the connection with the required database
- 
-  holiday<-read.csv(paste(data_path, "holiday.csv", sep = ""), header = T)
-  tS = timeSequence(from = a, to = b, by = "day")
+  generate.urls(a,b)
+  
+  ### For logging downloading using connection
+mylog <- file(
+paste(log_path, "downloading.log.csv", sep = ""),
+### Name of the Log file
+"w")  
+### writing privileges
 
-  char<-as.character(tS)
-  day<-dayOfWeek(tS)
-  trading<-as.character(seq(length(char)))   ##<<  The trading days
-  settlement<-as.character(seq(length(char))) ##<<  The settlement days
-  reason<-as.character(seq(length(char)))    ##<<  Reason for being a holiday
-  mont<-as.character(seq(length(char)))      ##<< Month
-  year<-as.character(seq(length(char)))       
-  date<-as.character(seq(length(char)))
-  equity<-as.character(seq(length(char)))        ##<<  URLs for equities
-  derivative<-as.character(seq(length(char)))    ##<<  URLs for derivatives
-  atom<-atoms(tS)
-  for (i in 1:length(tS))
-  {
-    if(atom[i,2]==1) mont[i]<-"JAN"
-    if(atom[i,2]==2) mont[i]<-"FEB"
-    if(atom[i,2]==3) mont[i]<-"MAR"
-    if(atom[i,2]==4) mont[i]<-"APR"
-    if(atom[i,2]==5) mont[i]<-"MAY"
-    if(atom[i,2]==6) mont[i]<-"JUN"
-    if(atom[i,2]==7) mont[i]<-"JUL"
-    if(atom[i,2]==8) mont[i]<-"AUG"
-    if(atom[i,2]==9) mont[i]<-"SEP"
-    if(atom[i,2]==10) mont[i]<-"OCT"
-    if(atom[i,2]==11) mont[i]<-"NOV"
-    if(atom[i,2]==12) mont[i]<-"DEC"
-    year[i]<-atom[i,1]
-    date[i]<-atom[i,3]
-  }
-  ### Marking all the Weekends as holidays
-  for(i in 1:length(char))    
-  {
-    if(day[i]=="Sat" || day[i]=="Sun")
-    {
-      trading[i]<-"Holiday"
-      settlement[i]<-"Holiday"
-      reason[i]<-"Weekend"
-    }
-    else
-    {
-      trading[i]<-"Working Day"
-      settlement[i]<-"Working Day"
-      reason[i]<-""
-    }
+mylog2 <- file(paste(log_path, "database.log.csv", sep = ""), "w")  ##<< For logging the files written to database
 
-  ### Marking all the holidays as as listed in holiday.csv
-    for(j in 1:nrow(holiday))     
-    {
-      if(as.character(char[i]) == as.character(holiday[j,1]))
-      {
-        trading[i]<-"Holiday"
-        settlement[i]<-"Holiday"
-        reason[i]<-as.character(holiday[j,3])
-      }
-    }
-  }
-### creating URLs 
-  for(i in 1:length(tS))
-  {
-    if(trading[i]=="Working Day"||settlement[i]=="Working Day")  ##<< Creating URLs for working days
-    {
-      if(as.integer(date[i])<10)   ##<<  Checking for the dates less than 10 and concatinating 0 
-      {
-        equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm0",date[i],mont[i],year[i],"bhav.csv.zip"))
-        derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo0",date[i],mont[i],year[i],"bhav.csv.zip"))
-      }
-      else
-      {
-        equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm",date[i],mont[i],year[i],"bhav.csv.zip"))
-        derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo",date[i],mont[i],year[i],"bhav.csv.zip"))
-      }
-    }
-    else   ##<< Adding NA to all the holidays
-    {
-      equity[i]<-NA
-      derivative[i]<-NA
-    }
-  }
+mylog3<- file(paste(log_path, "error.log.csv", sep = "") , "w")  ##<< For logging the errors
 
-################################## Printing ###################################################
-
-all<-cbind(char,day,trading,settlement,reason,date,mont,year,equity,derivative)
-x <- matrix(all, nrow =length(char),ncol=10, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL")))
-write.csv(x,file=paste(data_path, "list_of_urls.csv", sep = ""))
-
-
+  
 ################################## Downloading ###################################################
 
   ### Downloading the zipped files for equitites
@@ -204,24 +126,63 @@ write.csv(x,file=paste(data_path, "list_of_urls.csv", sep = ""))
   ### Downloading the zipped files for derivatives
   sapply(derivative,
   ### Vector having the URLs for the derivatives
-  download.FUT.OPT)
- 
+  download.FUT.OPT)   
 
- 
-  w<-getwd()
 ###################################### Extracting #############################################################  
   ### Calling the extractall function
-  extract.all.files(w,w)  
-###################################### Adding to Database ##################################################### 
-  read.to.database.all(conn,w)
-  
+  dir<-getwd()
+  extract.all.files(dir,dir)  
   ### Closing the download log connection
-  close(mylog)  
+  close(mylog)
   
+###################################### Adding to Database ##################################################### 
+  read.to.database.all(conn,w)  
   ### Closing the database log connection
-  close(mylog2)   
-  
+  close(mylog2)     
   ### Closing the error connection
+  close (mylog3)
+  dbDisconnect(conn)
+}
+
+get.bhavcopy<-function(
+### The function to download the bhavcopies as zip files to the current directory and unzipping them in the same
+a,
+### The starting date in yyyy-mm-dd format
+b)
+### The ending date in yyyy-mm-dd format
+{
+  
+  generate.urls(a,b)
+  ### For logging downloading using connection
+mylog <- file(
+paste(log_path, "downloading.log.csv", sep = ""),
+### Name of the Log file
+"w")  
+### writing privileges
+
+mylog3<- file(paste(log_path, "error.log.csv", sep = "") , "w")  ##<< For logging the errors
+
+  
+################################## Downloading ###################################################
+
+  ### Downloading the zipped files for equitites
+  sapply(
+  equity,
+  ### Vector having the URLs for the equities
+  download.STK)
+
+  ### Downloading the zipped files for derivatives
+  sapply(derivative,
+  ### Vector having the URLs for the derivatives
+  download.FUT.OPT)   
+
+###################################### Extracting #############################################################  
+  ### Calling the extractall function
+  dir<-paste(data_path, "downloaded", sep = "")
+  extract.all.files(dir,dir)  
+  ### Closing the download log connection
+  close(mylog) 
+  ### Closing the database log  
   close (mylog3)
   dbDisconnect(conn)
 }
@@ -232,11 +193,17 @@ write.csv(x,file=paste(data_path, "list_of_urls.csv", sep = ""))
 ### Adding the data from files into the database
 ### This functions takes saves the contents of all the csv file in the folder folderpath in the table tablename.
 read.to.database.all <- function(
-conn,
+user,
 ### connection with the MySQL server
-folderpath)
+folderpath = paste(data_path, "downloaded", sep = ""))
 ### This functions takes saves the contents of all the csv file present in the folder folderpath
 {
+ mylog2 <- file(paste(log_path, "database.log.csv", sep = ""), "w")  ##<< For logging the files written to database
+
+mylog3<- file(paste(log_path, "error.log.csv", sep = "") , "w")  ##<< For logging the errors
+
+  machines <- gen.machines.dataframe()
+  conn <- create.connection(user, machines)
   temp <- getwd()
   setwd(folderpath)
   names <-dir()
@@ -260,6 +227,9 @@ folderpath)
    }
   
   }
+  close(mylog2)
+  close(mylog3)
+  dbDisconnect(conn)
 }
 
 
@@ -274,6 +244,8 @@ tablename)
 {
   data <- read.table(filename,header = T, sep = ",")  ##<<  reads the data plus an extra NULL column
   data$X<- NULL     ##<<  deleting an extra column read
+  
+  mylog2 <- file(paste(log_path, "database.log.csv", sep = ""), "w")  ##<< For logging the files written to database
   
   ### Writing log - 3 fields - time , type , the file added
   
@@ -328,7 +300,8 @@ tablename)
   }
   
   
-  }  
+  } 
+  close(mylog2) 
   
 }
 
@@ -443,7 +416,8 @@ reftable = "",
 eqtable)
 ### name of the equity table to be filtered
 {
-  con <- create.connection(user)
+  machines <-gen.machines.dataframe()
+  con <- create.connection(user,machines)
   data <- dbGetQuery(con, paste("select distinct SYMBOL from", reftable, "group by SYMBOL"))
   query <- dbGetQuery(con,paste("delete from", eqtable, "where SYMBOL not in (",paste("'",data[[1]],"'", collapse = ", ",sep = ""), ")"))
   dbDisconnect(con)  
@@ -456,7 +430,8 @@ dbtocsv <- function
 folder = getwd())
 ### folder to which the database is to be copied in the form of csv files
 {
-  con<-create.connection(user)
+    machines <-gen.machines.dataframe()
+  con<-create.connection(user, machines)
   tables <- dbListTables(con)
   for (name in tables)
   {
@@ -473,7 +448,8 @@ csvtodb <- function
 user)
 ### user name to create connection to the database
 {
-    con<-create.connection(user)
+    machines <-gen.machines.dataframe()
+    con<-create.connection(user, machines)
     files <- dir()
     for (name in files)
     {
@@ -485,3 +461,98 @@ user)
     dbDisconnect(con)
 }
 
+  generate.urls <- function(
+  ### generates urls for the bhavcopies corrospoding to a given period and writes them into the csv file named list_of_urls.csv.
+  a,
+  ### starting date of the period
+  b)
+  ### ending date
+  {
+  holiday<-read.csv(paste(data_path, "holiday.csv", sep = ""), header = T)
+  tS = timeSequence(from = a, to = b, by = "day")
+
+  char<-as.character(tS)
+  day<-dayOfWeek(tS)
+  trading<-as.character(seq(length(char)))   ##<<  The trading days
+  settlement<-as.character(seq(length(char))) ##<<  The settlement days
+  reason<-as.character(seq(length(char)))    ##<<  Reason for being a holiday
+  mont<-as.character(seq(length(char)))      ##<< Month
+  year<-as.character(seq(length(char)))       
+  date<-as.character(seq(length(char)))
+  equity<-as.character(seq(length(char)))        ##<<  URLs for equities
+  derivative<-as.character(seq(length(char)))    ##<<  URLs for derivatives
+  atom<-atoms(tS)
+  for (i in 1:length(tS))
+  {
+    if(atom[i,2]==1) mont[i]<-"JAN"
+    if(atom[i,2]==2) mont[i]<-"FEB"
+    if(atom[i,2]==3) mont[i]<-"MAR"
+    if(atom[i,2]==4) mont[i]<-"APR"
+    if(atom[i,2]==5) mont[i]<-"MAY"
+    if(atom[i,2]==6) mont[i]<-"JUN"
+    if(atom[i,2]==7) mont[i]<-"JUL"
+    if(atom[i,2]==8) mont[i]<-"AUG"
+    if(atom[i,2]==9) mont[i]<-"SEP"
+    if(atom[i,2]==10) mont[i]<-"OCT"
+    if(atom[i,2]==11) mont[i]<-"NOV"
+    if(atom[i,2]==12) mont[i]<-"DEC"
+    year[i]<-atom[i,1]
+    date[i]<-atom[i,3]
+  }
+  ### Marking all the Weekends as holidays
+  for(i in 1:length(char))    
+  {
+    if(day[i]=="Sat" || day[i]=="Sun")
+    {
+      trading[i]<-"Holiday"
+      settlement[i]<-"Holiday"
+      reason[i]<-"Weekend"
+    }
+    else
+    {
+      trading[i]<-"Working Day"
+      settlement[i]<-"Working Day"
+      reason[i]<-""
+    }
+
+  ### Marking all the holidays as as listed in holiday.csv
+    for(j in 1:nrow(holiday))     
+    {
+      if(as.character(char[i]) == as.character(holiday[j,1]))
+      {
+        trading[i]<-"Holiday"
+        settlement[i]<-"Holiday"
+        reason[i]<-as.character(holiday[j,3])
+      }
+    }
+  }
+### creating URLs 
+  for(i in 1:length(tS))
+  {
+    if(trading[i]=="Working Day"||settlement[i]=="Working Day")  ##<< Creating URLs for working days
+    {
+      if(as.integer(date[i])<10)   ##<<  Checking for the dates less than 10 and concatinating 0 
+      {
+        equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm0",date[i],mont[i],year[i],"bhav.csv.zip"))
+        derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo0",date[i],mont[i],year[i],"bhav.csv.zip"))
+      }
+      else
+      {
+        equity[i]<-as.character(composeURL("www.nseindia.com/content/historical/EQUITIES/",year[i],"/",mont[i],"/cm",date[i],mont[i],year[i],"bhav.csv.zip"))
+        derivative[i]<-as.character(composeURL("www.nseindia.com/content/historical/DERIVATIVES/",year[i],"/",mont[i],"/fo",date[i],mont[i],year[i],"bhav.csv.zip"))
+      }
+    }
+    else   ##<< Adding NA to all the holidays
+    {
+      equity[i]<-NA
+      derivative[i]<-NA
+    }
+  }
+
+################################## Printing ###################################################
+
+all<-cbind(char,day,trading,settlement,reason,date,mont,year,equity,derivative)
+x <- matrix(all, nrow =length(char),ncol=10, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL")))
+write.csv(x,file=paste(data_path, "list_of_urls.csv", sep = ""))
+}
+ 
