@@ -1,6 +1,7 @@
 listSTK<-function()
 {
-  db<-read.csv("fo31JAN2011bhav.csv")
+  data_path <- "./data/"
+  db<-read.csv(paste(data_path, "fo31JAN2011bhav.csv", sep = ""))
   t<-seq(800)-seq(800)
   for(i in 1:800)
     if ((db[i,2]==db[i+1,2])&&(db[i+1,2]==db[i+2,2])&&(db[i+2,2]!=db[i+3,2])&&(db[i,1]=="FUTSTK"))
