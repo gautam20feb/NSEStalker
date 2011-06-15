@@ -1,23 +1,24 @@
-Package : NSEStalkeR
-Version : 1.0.1
-Date : 2011-06-18
-Title : Download, Fix and Manage data from NSE
-Author@R : c( person("Soumendra Prasad Dhanee", "Developer", email="soumendra@gmail.com")
-              person("Aartika Rai", "Developer", email = "
-              person("Gautam Garg",
-              person("Rajesh Kella",
-              person("Tarun Jain",
-              person("Swetha Boddu",
+Package: NSEStalkeR
+Version: 1.0.1
+Date: 2011-06-18
+Title: Download, Fix and Manage data from NSE
+Author@R: c( person("Soumendra Prasad Dhanee", "Developer", email="soumendra@gmail.com")
+              person("Aartika Rai", "Developer", email = "aartika.iitd@gmail.com"
+              person("Gautam Garg", "Developer", email = "gautam20feb@gmail.com"
+              person("Rajesh Kella", "Developer", email = "krajesh1990@gmail.com"
+              person("Tarun Jain", "Developer", email = "tarunjain15@gmail.com"
+              person("Swetha Boddu", "Developer", email = "swethab.iitkgp@gmail.com"
             )
-Author : Soumendra Prasad Dhanee (soumendra@gmail.com) with contributions from A, B, C, D, E
-Maintainer : Soumendra Prasad Dhanee (soumendra@gmail.com)
-Depends : R(>=2.12.0), IBrokers, RMySQL, X, Y, Z
-Suggests : fgui
-Description : One paragraph description of what the package does
-License : GPL(>=3)|Mozilla Public License
-URL : the-git-hub-url
-BugReports : github-bugreport-url
-SystemRequirements : IB TWS + IB TWS API (>=9.65)
+Author: Soumendra Prasad Dhanee (soumendra@gmail.com) with contributions from Aartika Rai (aartika.iitd@gmail.com), Gautam Garg (gautam20feb@gmail.com), 
+         Rajesh Kella (krajesh1990@gmail.com), Tarun Jain (tarunjain15@gmail.com), Swetha Boddu (swethab.iitkgp@gmail.com)
+Maintainer: Soumendra Prasad Dhanee (soumendra@gmail.com)
+Depends: R(>=2.12.0), IBrokers, RMySQL, timeDate, fBasics, fImport, RCurl, bitops, methods, RMySQL, XML, timeSeries
+Suggests: fgui
+Description: One paragraph description of what the package does
+License: GPL(>=3)|Mozilla Public License
+URL: http://soumendra.github.com/NSEStalker/
+BugReports: https://github.com/soumendra/NSEStalker/issues
+SystemRequirements: IB TWS + IB TWS API (>=9.65)
 
 
 

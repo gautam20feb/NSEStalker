@@ -7,11 +7,9 @@ library (methods)
 library(RMySQL)
 library(XML)
 
-### variables ###
-log_path <- "./log/"
-config_path <- "./config/"
-data_path <- "./data/"
-### variables ###
+log_path <- "./log/" ##<< variable
+config_path <- "./config/" ##<< varibale
+data_path <- "./data/" ##<< variable
 
 gen.machines.dataframe <- function()
 ### Reads the machines.xml file and returns a dataframe with available machines' information i.e. machine name, user name, database, password, host name
@@ -53,14 +51,14 @@ if (user=="")
 cat("machine name as *user name*@*machine name*")
 user <- scan(what = "", nmax = 1)
 }
- ### Menu ###
+
  cat(" 1. Type 1 for downloading from nse and then storing the data as csv files in the ./data/downloaded", "\n",
       "2. Type 2 for importing all the data from given directory to the database storing equities' data in table equity and derivatives' data in table fo ", "\n",
       "3. Type 3 for filtering the equities' table i.e. rejecting data for stocks not having futures", "\n",
       "4. Type 4 for updating", "\n",
       "5. Type 5 to export data from database as csv files", "\n",
       "6. Type 6 to import data form csv to database")
- option <- scan(what = "", nmax = 1)
+ option <- scan(what = "", nmax = 1)  ##<< The main Menu 
  if (option == 1)
  { 
    cat("enter starting date")
