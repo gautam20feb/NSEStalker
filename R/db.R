@@ -7,9 +7,9 @@ library (methods)
 library(RMySQL)
 library(XML)
 
-log_path <- "./log/" ##<< variable
-config_path <- "./config/" ##<< varibale
-data_path <- "./data/" ##<< variable
+log_path <- "../log/" ##<< variable
+config_path <- "../config/" ##<< varibale
+data_path <- "../data/" ##<< variable
 
 gen.machines.dataframe <- function()
 ### Reads the machines.xml file and returns a dataframe with available machines' information i.e. machine name, user name, database, password, host name
@@ -23,13 +23,13 @@ names(machines) = names(doc[[1]]) ##<< names the corresponding columns
 machines
 }
 
-create.connection <- function(
-### Returns a MySQL connection 
-machine.name,
+create.connection <- function
+### Creates a MySQL connection 
+(machine.name,
 ### the machine to which the connection is to be made
-machines)
+machines
 ### dataframe with available machines' information i.e. machine name, user name, database, password, host name
-{
+){
 m <- dbDriver("MySQL", max.con = 25)
 
 pos=which(machines[,1]==machine.name)
@@ -39,13 +39,14 @@ dbnm=as.character(machines[pos,4])
 pswd=as.character(machines[pos,5])
 conn <- dbConnect(m, user=usr, password = pswd, host = hst, dbname= dbnm)
 conn
+### the created MySQL connection is returned
 }
 
-go.db <- function(
+go.db <- function
 ### The main function, provides the menu to access rest of the functions in the script
-user="")
+(user=""
 ### the name of the machine to connect to
-{
+){
 if (user=="")
 {
 cat("machine name as *user name*@*machine name*")
@@ -95,10 +96,9 @@ user <- scan(what = "", nmax = 1)
     }
 }
 
-### Function takes the start date and the end date for the period for which you want to make the database.
-download.to.database<-function(
+download.to.database<-function
 ### The function to run the main process i.e. to get data from the nse website and store it in a MySQL database.
-a,
+(a,
 ### The starting date in yyyy-mm-dd format
 b,
 ### The ending date in yyyy-mm-dd format
@@ -106,7 +106,7 @@ user.name= "root@localhost"
 ### name of the machine to which you want to add the data
 )
 {
-  conn <- create_connection(user.name) ## sets the connection with the required database
+  conn <- create_connection(user.name) ##<< sets the connection with the required database
   generate.urls(a,b)
   
 ### For logging downloading using connection
