@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<environment>
+  	<machine>
+  		<username> Ophelia </username>
+   	        <host> 192.168.1.106 </host>
+   	        <dbname> DB1 </dbname>
+   	        <password> intern123 </password>
+  	</machine>
+  	<machine>
+  		<username> 102 </username>
+  		<host> 192.168.1.102 </host>
+    	        <dbname> DB2 </dbname>
+    	        <password> intern123 </password>
+ 	 </machine>
+  	<machine>
+		<username>103</username>    
+    	        <host>192.168.1.103</host>
+    	        <dbname>DB3</dbname>
+    	        <password>intern123</password>
+  	</machine>
+  	<machine>
+	 	<username>104</username>    
+    	<host>192.168.1.104</host>
+    	<dbname>DB4</dbname>
+    	<password>intern123</password>
+  	</machine>
+  	<machine>
+		<username>105</username>    
+    	        <host>192.168.1.105</host>
+   	        <dbname>DB5</dbname>
+                <password>intern123</password>
+  	</machine>
+  	<machine>
+	 	<username>107</username>    
+    	        <host>192.168.1.107</host>
+    	        <dbname>DB6</dbname>
+    	        <password>intern123</password>
+        </machine>
+  	<machine>
+	 	<username>intern</username>    
+    	        <host>localhost</host>
+    	        <dbname>DB_NSE</dbname>
+    	        <password>intern123</password>
+        </machine>
+        <machine>
+	 	<username>root</username>    
+    	        <host>localhost</host>
+    	        <dbname>nsedb</dbname>
+    	        <password>intern123</password>
+        </machine>
+</environment>

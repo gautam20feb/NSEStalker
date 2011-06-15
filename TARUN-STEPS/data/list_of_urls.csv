@@ -1,0 +1,20 @@
+"","Date","Day","For Trading","For Settlement","Reason","Date","Month","Year","Equity URL","Derivative URL"
+"1","2011-05-26","Thu","Working Day","Working Day","","26","MAY","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/MAY/cm26MAY2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/MAY/fo26MAY2011bhav.csv.zip"
+"2","2011-05-27","Fri","Working Day","Working Day","","27","MAY","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/MAY/cm27MAY2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/MAY/fo27MAY2011bhav.csv.zip"
+"3","2011-05-28","Sat","Holiday","Holiday","Weekend","28","MAY","2011",NA,NA
+"4","2011-05-29","Sun","Holiday","Holiday","Weekend","29","MAY","2011",NA,NA
+"5","2011-05-30","Mon","Working Day","Working Day","","30","MAY","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/MAY/cm30MAY2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/MAY/fo30MAY2011bhav.csv.zip"
+"6","2011-05-31","Tue","Working Day","Working Day","","31","MAY","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/MAY/cm31MAY2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/MAY/fo31MAY2011bhav.csv.zip"
+"7","2011-06-01","Wed","Working Day","Working Day","","1","JUN","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/JUN/cm01JUN2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/JUN/fo01JUN2011bhav.csv.zip"
+"8","2011-06-02","Thu","Working Day","Working Day","","2","JUN","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/JUN/cm02JUN2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/JUN/fo02JUN2011bhav.csv.zip"
+"9","2011-06-03","Fri","Working Day","Working Day","","3","JUN","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/JUN/cm03JUN2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/JUN/fo03JUN2011bhav.csv.zip"
+"10","2011-06-04","Sat","Holiday","Holiday","Weekend","4","JUN","2011",NA,NA
+"11","2011-06-05","Sun","Holiday","Holiday","Weekend","5","JUN","2011",NA,NA
+"12","2011-06-06","Mon","Working Day","Working Day","","6","JUN","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/JUN/cm06JUN2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/JUN/fo06JUN2011bhav.csv.zip"
+"13","2011-06-07","Tue","Working Day","Working Day","","7","JUN","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/JUN/cm07JUN2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/JUN/fo07JUN2011bhav.csv.zip"
+"14","2011-06-08","Wed","Working Day","Working Day","","8","JUN","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/JUN/cm08JUN2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/JUN/fo08JUN2011bhav.csv.zip"
+"15","2011-06-09","Thu","Working Day","Working Day","","9","JUN","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/JUN/cm09JUN2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/JUN/fo09JUN2011bhav.csv.zip"
+"16","2011-06-10","Fri","Working Day","Working Day","","10","JUN","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/JUN/cm10JUN2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/JUN/fo10JUN2011bhav.csv.zip"
+"17","2011-06-11","Sat","Holiday","Holiday","Weekend","11","JUN","2011",NA,NA
+"18","2011-06-12","Sun","Holiday","Holiday","Weekend","12","JUN","2011",NA,NA
+"19","2011-06-13","Mon","Working Day","Working Day","","13","JUN","2011","http://www.nseindia.com/content/historical/EQUITIES/2011/JUN/cm13JUN2011bhav.csv.zip","http://www.nseindia.com/content/historical/DERIVATIVES/2011/JUN/fo13JUN2011bhav.csv.zip"

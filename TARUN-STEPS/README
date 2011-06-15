@@ -1,0 +1,3 @@
+1) Use loadtoDB.R and "csv_files_01Jan2001_to_25May2011_corrected" folder containing config folder, to upload all the unzipped bhavcopies into the database.
+2) Run NSESTALKER for remaining dates. This will download,unzip and upload the data into the database.
+3) Run STEP3- 
