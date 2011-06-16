@@ -6,5 +6,5 @@ sapply(db[,2],create.db)
     
 create.db<-function(x)
 {
-  dbGetQuery(con,paste("create database ",x,sep="")) ## implements the query
+  try(dbGetQuery(con,paste("create database ",x,sep="")),silent=TRUE) ## implements the query
 }
