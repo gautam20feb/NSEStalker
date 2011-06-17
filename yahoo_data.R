@@ -1,0 +1,20 @@
+setwd("~/Dropbox/Intern/Yahoo Data")
+library(fBasics)
+library(fImport)
+library(RMySQL)
+symbols <- read.table("~/Dropbox/Intern/Yahoo Data/symbols.csv", header= FALSE,sep=";", quote="\"")
+m <- dbDriver("MySQL", max.con = 100)
+con <- dbConnect(m, user="swetha", password = "intern123", host = "localhost", dbname="yahoo_data")
+mylog2 <- file("log.csv", "w")
+
+for(i in 1:nrow(symbols))
+try({
+  data1<-yahooSeries(as.character(symbols[i,2]),from = "2010-07-01", to= Sys.timeDate())
+  data<-as.data.frame(data1)
+  colnames(data) <- paste(c("Open", "High", "Low", "Close", "Volume", "A.Close"),sep = ",")
+
+ifelse(dbExistsTable(con,as.character(symbols[i,1])),dbWriteTable(con,symbols[i,1], value=data, append = T),dbWriteTable(con,as.character(symbols[i,1]), value=data))
+cat(as.character(timestamp()),"adding to DB ", i,as.character(symbols[i,1]), "\n",file = mylog2, sep = ",")
+},silent=TRUE)
+list<-dbListTables(con)
+diff<-setdiff(symbols[,1],list)
