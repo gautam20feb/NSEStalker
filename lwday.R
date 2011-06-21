@@ -2,7 +2,7 @@ library(timeDate)
 library(fBasics)
 library(fImport)
 
-holiday<-read.csv("holiday.csv",header=F)
+holiday<-read.csv("./data/holiday.csv",header=F)
 tS = timeSequence(from = "2001-01-01", to = "2011-12-31", by = "day")
 tSm = timeSequence(from = "2001-01-01", to = "2011-12-31", by = "month")
 
@@ -86,7 +86,7 @@ file <- tempfile()
 x <- matrix(all, nrow =length(char),ncol=10, dimnames = list(c(), c("Date", "Day","For Trading", "For Settlement", "Reason", "Date", "Month","Year","Equity URL","Derivative URL")))
 write.csv(x, file)
 read.csv(file)
-write.csv(x,file="output.csv")
+write.csv(x,file="./data/output.csv")
 
 ############################### Last Working Day ###########################################
 lwday <- timeLastNdayInMonth(tSm, nday = 4)
@@ -104,6 +104,6 @@ for(i in 1:length(lwday))
     z[i]<-(z[i]-1)
   }
 }
-write.csv(lwday,file="lwday.csv")
+write.csv(lwday,file="./data/lwday.csv")
 
 
