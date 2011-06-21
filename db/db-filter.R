@@ -1,14 +1,18 @@
+library(gregmisc)
 filterEQ<- function
 ### removes data corresponding to all those stocks which do not have futures.
 (con,
 ## the connection pointing to the mysql database
-reftable,
+reftable="future"
+,
 ### the reference future tablename from the same database
-eqtable)
+eqtable="equity"
+)
 ### name of the equity table to be filtered
 {
-  data <- dbGetQuery(con, paste("select distinct SYMBOL from", reftable, "group by SYMBOL"))
-  print(paste("delete from", eqtable, "where SYMBOL not in (",paste("'",data[[1]],"'", collapse = ", ",sep = ""), ")"))
-  dbGetQuery(con,paste("delete from", eqtable, "where SYMBOL not in (",paste("'",data[[1]],"'", collapse = ", ",sep = ""), ")"))
-    
+  futures_list<-trim(read.csv("./data/futures_list.csv", header=F)[,1])
+  query<-paste("delete from", eqtable, "where SYMBOL not in (",paste("'",futures_list,"'", collapse = ", ",sep = ""), ")")
+  dbGetQuery(con,query)
+  query1<-paste("delete from", reftable, "where SYMBOL not in (",paste("'",futures_list,"'", collapse = ", ",sep = ""), ")")
+  dbGetQuery(con,query1)
 }
