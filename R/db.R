@@ -6,6 +6,7 @@ library (bitops)
 library (methods)
 library(RMySQL)
 library(XML)
+library(gregmisc)
 
 log_path <- "../log/" ##<< variable
 config_path <- "../config/" ##<< varibale
@@ -439,8 +440,12 @@ eqtable)
 {
   machines <-gen.machines.dataframe()
   con <- create.connection(user,machines)
-  data <- dbGetQuery(con, paste("select distinct SYMBOL from", reftable, "group by SYMBOL"))
-  query <- dbGetQuery(con,paste("delete from", eqtable, "where SYMBOL not in (",paste("'",data[[1]],"'", collapse = ", ",sep = ""), ")"))
+  f<-paste(data_path,"futures_list.csv",sep="")
+  futures_list<-trim(read.csv(f, header=F)[,1])
+  query<-paste("delete from", eqtable, "where SYMBOL not in (",paste("'",futures_list,"'", collapse = ", ",sep = ""), ")")
+  dbGetQuery(con,query)
+  query1<-paste("delete from", reftable, "where SYMBOL not in (",paste("'",futures_list,"'", collapse = ", ",sep = ""), ")")
+  dbGetQuery(con,query1)
   dbDisconnect(con)  
 }
 
