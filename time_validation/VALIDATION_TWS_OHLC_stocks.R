@@ -7,6 +7,7 @@ library(RMySQL)
 library(XML)
 library(xts)
 library(timeDate)
+library(gregmisc)
 
 source("../lib/read_machines.R")
 source("../lib/create_connection.R")
