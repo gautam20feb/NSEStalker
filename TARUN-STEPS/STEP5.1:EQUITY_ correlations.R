@@ -45,19 +45,22 @@ CreatesEquityPairCorrelation <- function (start.date, end.date){
 CalculatesCorrelationOfPair <- function (a){
   a <- as.matrix (a)
   # calculates kendall coeffecients
-  coeffk <<- cor.test (log.returns[, a[1]], log.returns[, a[2]], method = "kendall")
-  coeffp<<-cor.test(log.returns[,a[1]],log.returns[,a[2]])
-  coeffs<<-cor.test(log.returns[,a[1]],log.returns[,a[2]],method="spearman")
-  coeffk1<<-cor.test(close.value[,a[1]],close.value[,a[2]],method="kendall") ## calculates kendall coeffecients
-  coeffp1<<-cor.test(close.value[,a[1]],close.value[,a[2]]) 
-  coeffs1<<-cor.test(close.value[,a[1]],close.value[,a[2]],method="spearman")
-  print(c(a[1],a[2]))
-  print(c(stocks.name[a[1]],stocks.name[a[2]]))
-  tobe<<-c(stocks.name[a[1]],stocks.name[a[2]],round(coeffk[[4]],3),round(coeffp[[4]],3),round(coeffs[[4]],3),round(coeffk1[[4]],3),round(coeffp1[[4]],3),round(coeffs1[[4]],3))    
-  d<-data.frame()
-  r<-rbind(d,tobe)
-  names(r)<-c("stock1","stock2","kend_ret","pears_ret","spear_ret","kend_price","pears_price","spear_price")
-  row.names(r)<-krownm
-  krownm<<-krownm+1
-  dbWriteTable(con, name ="equity_correlation", value=r,append=T)
+  kendall.results.logreturn  <<- cor.test (log.returns[, a[1]], log.returns[, a[2]], method = "kendall" )
+  pearson.results.logreturn  <<- cor.test (log.returns[, a[1]], log.returns[, a[2]])
+  spearman.results.logreturn <<- cor.test (log.returns[, a[1]], log.returns[, a[2]], method = "spearman")
+  kendall.results.closeval   <<- cor.test (close.value[, a[1]], close.value[, a[2]], method = "kendall" )
+  pearson.results.closeval   <<- cor.test (close.value[, a[1]], close.value[, a[2]]) 
+  spearman.results.closeval  <<- cor.test (close.value[, a[1]], close.value[, a[2]], method = "spearman")
+  print (c(a[1], a[2]))
+  print (c(stocks.name[a[1]], stocks.name[a[2]]))
+  tobe <<- c(stocks.name[a[1]], stocks.name[a[2]], round (kendall.results.logreturn[[4]], 3), 
+             round (pearson.results.logreturn[[4]], 3), round (spearman.results.logreturn[[4]], 3), 
+             round (kendall.results.closeval[[4]], 3), round (pearson.results.closeval[[4]], 3),
+             round (spearman.results.closeval[[4]], 3))    
+  d <- data.frame()
+  pair.correlation.row <- rbind(d,tobe)
+  names (pair.correlation.row) <- c("stock1","stock2","kend_ret","pears_ret","spear_ret","kend_price","pears_price","spear_price")
+  row.names (pair.correlation.row) <- krownm
+  krownm <<- krownm+1
+  dbWriteTable(con, name = "equity_correlation", value = pair.correlation.row, append = T)
 }
