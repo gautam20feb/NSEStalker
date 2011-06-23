@@ -1,14 +1,41 @@
 library (RMySQL)
-m <- dbDriver ("MySQL")  # Defining driver
-# Connection to TWS Database
-conn <- dbConnect (m, dbname = "TWS_daily_data", user = "root", password = "intern123", host = "localhost")
-# Connection to NSEDB
-conn1 <- dbConnect (m, dbname = "nsedb", user = "root", password = "intern123", host = "localhost")
+
+# Load the NSE(.csv) files to Data Base
+AddNseCsvFilesToDatabase<-function
+### The main function
+(user.name = "root@Ophelia"
+### name of the machine to which you want to add the data
+) {
+  library(fImport)
+  library (bitops)
+  library (methods)
+  library(RMySQL)
+  library(XML)
+ 
+  driver<- dbDriver("MySQL" , max.con = 1000) ##<< Defining the type of connection
+
+  doc.xml = xmlRoot(xmlTreeParse("../config/machines.xml"))  ##<< parses all of the config file
+  xml.matrix = xmlSApply(doc.xml , function(x) xmlSApply(x, xmlValue))  ##<< creates a matrix of machines information
+  xml.matrix = t(xml.matrix) ##<< takes transpose of matrix to make it standard
+  number.of.users <- nrow(xml.matrix) ##<< get the number of users
+  machines = as.data.frame(matrix((xml.matrix), number.of.users)) ##<< produces a dataframe for the matrix
+  names(machines) = names(doc.xml[[1]]) ##<< names the corresponding columns
+ 
+  pos=which(machines[,1]==user.name)  ##<< To find which user is using the code and get his info
+  usr=unlist(strsplit(user.name,"@"))[1]
+  hst=as.character(machines[pos,2])
+  pswd=as.character(machines[pos,3])
+ 
+  conn <- dbConnect(driver, user=usr, password = pswd, host = hst, dbname= "TWS_OHLC_stocks") ##<< sets the connection with the required database
+  conn1 <- dbConnect(driver, user=usr, password = pswd, host = hst, dbname= "NSE_raw_database") ##<< sets the connection with the required database
+ 
+ }
 
 # File connections for logging "Uncommon Dates" and "Tracking Status"
-datelog <- file ("Stk_Differences_in_dates_log.csv", "w")
-log.file <- file ("Stk_OHLC_Validation_log.csv", "w")  ##<< For logging the files written to database
-error <- file ("Stk_Error_validation_log.csv", "w")
+
+datelog <- file ("../log/Stk_Differences_in_dates_log.csv", "w")
+log.file <- file ("../log/Stk_OHLC_Validation_log.csv", "w")  ##<< For logging the files written to database
+error <- file ("../log/Stk_Error_validation_log.csv", "w")
 
 # Initialization of vectors
 open.diff <- c()
