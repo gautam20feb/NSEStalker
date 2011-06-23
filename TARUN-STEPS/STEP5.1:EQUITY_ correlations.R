@@ -1,58 +1,63 @@
-library(lattice)
-library(fBasics)
-library(fImport)
-library(RMySQL)
+library (lattice)
+library (fBasics)
+library (fImport)
+library (RMySQL)
 m <- dbDriver("MySQL", max.con = 100)
 con <- dbConnect(m, user="root", password = "intern123", host = "localhost", dbname="NSE derivedDB")
-ser <-function(start,end)
-{
-  query1<-paste("SELECT DISTINCT SYMBOL,COUNT(*) as OCCURENCE FROM equity_with_futures WHERE TIMESTAMP BETWEEN '",start,"' AND '",end,"' GROUP BY SYMBOL",sep="") 
-  query<-paste("SELECT SYMBOL,CLOSE,PREVCLOSE FROM equity_with_futures WHERE TIMESTAMP BETWEEN '",start,"' AND '",end,"'",sep="")
-  table1<-dbGetQuery(con,query1)
-  tab<-dbGetQuery(con,query)
-  stock<-as.data.frame(table1[,1])
-  colnames(stock)<-c("stock")
-  faulty<-which(table1[,2] != max(table1[,2]))
-  fs<-table1[faulty,1] 
-  sapply(fs,function(x) tab<<-tab[(tab$SYMBOL)!= x,] )
-  sapply(fs,function(x) stock<<-as.data.frame(stock[(stock$stock)!= x,] ))
-  stk<-as.character(stock[,1])
-  assign("stk", stk, envir=globalenv())
-  cls<-tab[2]  
-  ret<-log(tab[2]/tab[3])
-  ret<-as.matrix(round(ret,3))
-  dim(ret)<-c(max(table1[,2]),(length(table1[,1])-length(fs)))
-  cls<-as.matrix(round(cls,3))
-  dim(cls)<-c(max(table1[,2]),(length(table1[,1])-length(fs)))
-  assign("ret1", ret, envir=globalenv())
-  assign("cls1", cls, envir=globalenv())
-  l1<-seq(length(table1[,1])-length(fs))
-  l2<-seq(length(table1[,1])-length(fs))
-  out <- apply(expand.grid(l1,l2), MARGIN = 1, function(x) if(x[1]>x[2]) c(x[1],x[2]) else c(NA,NA))
-  out<-t(na.omit(t(out)))
-  out<-as.data.frame(out)
-  k<-1
-  assign("k", k, envir=globalenv())
-  sapply(out,cal)
-  
+CreatesEquityPairCorrelation <- function (start.date, end.date){
+  query.occurence <- paste ("SELECT DISTINCT SYMBOL, COUNT(*) as OCCURENCE FROM equity_with_futures WHERE
+                             TIMESTAMP BETWEEN '", start.date, "' AND '", end.date ,"' GROUP BY SYMBOL", 
+                             sep="") 
+  query.data <- paste ("SELECT SYMBOL, CLOSE, PREVCLOSE FROM equity_with_futures WHERE TIMESTAMP BETWEEN '", 
+                       start.date, "' AND '", end, "'", sep="")
+  stock.occurence <- dbGetQuery (con, query.occurence)
+  ret.cls.data <- dbGetQuery (con, query.data)
+  stock <- as.data.frame (stock.occurence[, 1])
+  colnames (stock) <- c ("stock")
+  faulty <- which (stock.occurence[, 2] != max (stock.occurence[, 2]))
+  faulty.stocks <- stock.occurence[faulty, 1] 
+  sapply (faulty.stocks, function (x) ret.cls.data <<- ret.cls.data [(ret.cls.data$SYMBOL) != x, ])
+  sapply (faulty.stocks, function (x) stock <<- as.data.frame (stock[(stock$stock) != x, ] ))
+  stocks.name <- as.character (stock[, 1])
+  assign ("stocks.name", stocks.name, envir=globalenv())
+  close.value <- ret.cls.data[2]  
+  log.returns <- log (ret.cls.data[2] / ret.cls.data[3])
+  log.returns <- as.matrix (round (log.returns, 3))
+  dim (log.returns) <- c(max (stock.occurence[, 2]), (length (stock.occurence[, 1]) - length (faulty.stocks)))
+  close.value <- as.matrix (round (close.value, 3))
+  dim (close.value) <- c(max (stock.occurence[, 2]), (length (stock.occurence[, 1]) - length (faulty.stocks)))
+  assign ("log.returns", log.returns, envir = globalenv())
+  assign ("close.value", close.value, envir = globalenv())
+  len.relevant.stks<-seq(length(stock.occurence[,1])-length(faulty.stocks))
+  pairs <- apply (expand.grid (len.relevant.stks, len.relevant.stks), MARGIN = 1, function(x) 
+                if (x[1] > x[2]) 
+                  c(x[1], x[2]) 
+                else 
+                  c(NA, NA)
+                )
+  relevant.pairs <- t (na.omit (t (pairs)))
+  relevant.pairs <- as.data.frame (relevant.pairs)
+  krownm <- 1
+  assign ("krownm", krownm, envir=globalenv())
+  sapply (relevant.pairs, CalculatesCorrelationOfPair)  
 }
 
-cal<-function(a)
-{
-    a<-as.matrix(a)
-    coeffk<<-cor.test(ret1[,a[1]],ret1[,a[2]],method="kendall") ## calculates kendall coeffecients
-    coeffp<<-cor.test(ret1[,a[1]],ret1[,a[2]])
-    coeffs<<-cor.test(ret1[,a[1]],ret1[,a[2]],method="spearman")
-    coeffk1<<-cor.test(cls1[,a[1]],cls1[,a[2]],method="kendall") ## calculates kendall coeffecients
-    coeffp1<<-cor.test(cls1[,a[1]],cls1[,a[2]]) 
-    coeffs1<<-cor.test(cls1[,a[1]],cls1[,a[2]],method="spearman")
-    print(c(a[1],a[2]))
-    print(c(stk[a[1]],stk[a[2]]))
-    tobe<<-c(stk[a[1]],stk[a[2]],round(coeffk[[4]],3),round(coeffp[[4]],3),round(coeffs[[4]],3),round(coeffk1[[4]],3),round(coeffp1[[4]],3),round(coeffs1[[4]],3))    
-    d<-data.frame()
-    r<-rbind(d,tobe)
-    names(r)<-c("stock1","stock2","kend_ret","pears_ret","spear_ret","kend_price","pears_price","spear_price")
-    row.names(r)<-k
-    k<<-k+1
-    dbWriteTable(con, name ="equity_correlation", value=r,append=T)
+CalculatesCorrelationOfPair <- function (a){
+  a <- as.matrix (a)
+  # calculates kendall coeffecients
+  coeffk <<- cor.test (log.returns[, a[1]], log.returns[, a[2]], method = "kendall")
+  coeffp<<-cor.test(log.returns[,a[1]],log.returns[,a[2]])
+  coeffs<<-cor.test(log.returns[,a[1]],log.returns[,a[2]],method="spearman")
+  coeffk1<<-cor.test(close.value[,a[1]],close.value[,a[2]],method="kendall") ## calculates kendall coeffecients
+  coeffp1<<-cor.test(close.value[,a[1]],close.value[,a[2]]) 
+  coeffs1<<-cor.test(close.value[,a[1]],close.value[,a[2]],method="spearman")
+  print(c(a[1],a[2]))
+  print(c(stocks.name[a[1]],stocks.name[a[2]]))
+  tobe<<-c(stocks.name[a[1]],stocks.name[a[2]],round(coeffk[[4]],3),round(coeffp[[4]],3),round(coeffs[[4]],3),round(coeffk1[[4]],3),round(coeffp1[[4]],3),round(coeffs1[[4]],3))    
+  d<-data.frame()
+  r<-rbind(d,tobe)
+  names(r)<-c("stock1","stock2","kend_ret","pears_ret","spear_ret","kend_price","pears_price","spear_price")
+  row.names(r)<-krownm
+  krownm<<-krownm+1
+  dbWriteTable(con, name ="equity_correlation", value=r,append=T)
 }
