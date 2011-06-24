@@ -28,61 +28,59 @@ conn<-dbConnect(driver, user=usr, password = pswd, host = hst, dbname= "YAHOO_OH
   ##<< sets the connection with the required database
 conn1<-dbConnect(driver, user=usr, password = pswd, host = hst, dbname= "TWS_OHLC_stocks")
   ##<< sets the connection with the required database
+}
  
+datelog<-file("../log/Stk_IB_yahoo_diff_date_log.csv","w")  # 
+mylog2 <- file("../log/Stk_yahoo_IB_OHLC_validation_log.csv","w")  ##<< For logging the files written to database
 
-datelog<-file("Diff_date_log.csv","w")
-mylog2 <- file("yahoo_TWS_OHLC_validation_log.csv","w")  ##<< For logging the files written to database
+# Initialization of vectors
+open.diff <- c()
+high.diff <- c()
+low.diff <- c()
+close.diff <- c()
+company <- c()
+common.dates <- c()
+diff <- c()
 
-open_diff<-c()
-high_diff<-c()
-low_diff<-c()
-close_diff<-c()
-company<-c()
-common_dates<-c()
-diff<-c()
+yahoo.companies <- as.data.frame (dbListTables (conn))
+tws.companies <- dbGetQuery (conn1, "SELECT `NAME_USED` FROM Stocks")
 
-yahoo_companies<-as.data.frame(dbListTables(conn))
-tws_companies<-dbGetQuery(conn1,"SELECT `NAME_USED` FROM Stocks")
+common.companies <- as.data.frame (intersect (yahoo.companies[ ,1], tws.companies[ ,1]))
 
-common_companies<-as.data.frame(intersect(yahoo_companies[,1],tws_companies[,1]))
-
-if (length(yahoo_companies) != length(common_companies)) print("Error : List of Companies from Yahoo is not the same as List of comapnies from NSEDB")
-for(j in 1:length(common_companies))
- {
-   query<-paste("SELECT `row_names` FROM `",yahoo_companies[j,1],"`",sep="")
-   date_yahoo<-dbGetQuery(conn,query)
+if (length (yahoo.companies) != length (common.companies)) print ("Error : List of Companies from Yahoo is not the same as List of comapnies from NSEDB")
+for (j in 1 : length (common.companies)) {
+  query <- paste ("SELECT `TIMESTAMP` FROM `", yahoo.companies[j,1], "`", sep = "")
+  date.yahoo <- dbGetQuery (conn, query)
    
-   query<-paste("SELECT TIMESTAMP FROM `",yahoo_companies[j,1],"`",sep="")
-   date_TWS<-dbGetQuery(conn1,query)
+  query <- paste ("SELECT TIMESTAMP FROM `", yahoo.companies[j,1], "`", sep = "")
+  date.TWS <- dbGetQuery (conn1, query)
   
-   common_dates<-intersect(date_yahoo[,1],date_TWS[,1])
-   diff<-setdiff(date_yahoo[,1],date_TWS[,1])
+  common.dates <- intersect (date.yahoo[ ,1], date.TWS[ ,1])
+  diff <- setdiff (date.yahoo[ ,1], date.TWS[ ,1])
    
-   cat(as.character(j),common_companies[j,1],diff,"\n",file = datelog, sep = ",")
+  cat (as.character (j), common.companies[j,1],diff,"\n",file = datelog, sep = ",")
    
-    query<-paste("SELECT * FROM `",yahoo_companies[j,1],"`",sep="")
-     open_TWS<-dbGetQuery(conn1,query)
+  query <- paste ("SELECT * FROM `", yahoo.companies[j,1], "`", sep = "")
+  open.TWS <- dbGetQuery (conn1, query)
      
-     query<-paste("SELECT * FROM `",yahoo_companies[j,1],"`",sep="")
-     open_yahoo<-dbGetQuery(conn,query)
+  query <- paste ("SELECT * FROM `", yahoo.companies[j,1], "`", sep = "")
+  open.yahoo <- dbGetQuery (conn, query)
    
-   for(i in 1:length(common_dates))
-   {
-    x<-as.character(which(open_TWS$TIMESTAMP==common_dates[i]))
-    y<-as.character(which(open_yahoo$row_names==common_dates[i]))
+  for (i in 1 : length (common.dates)){
+    x <- as.character (which (open.TWS$TIMESTAMP == common.dates[i]))
+    y <- as.character (which (open.yahoo$row.names == common.dates[i]))
      
-     open_diff[i]<-open_TWS[x,3]-open_yahoo[y,2]
-     high_diff[i]<-open_TWS[x,4]-open_yahoo[y,3]
-     low_diff[i]<-open_TWS[x,5]-open_yahoo[y,4]
-     close_diff[i]<-open_TWS[x,6]-open_yahoo[y,5]
-     company[i]<-common_companies[j,1]
+    open.diff[i] <- open.TWS[x,3] - open.yahoo[y,2]
+    high.diff[i] <- open.TWS[x,4] - open.yahoo[y,3]
+    low.diff[i] <- open.TWS[x,5] - open.yahoo[y,4]
+    close.diff[i] <- open.TWS[x,6] - open.yahoo[y,5]
+    company[i] <- common.companies[j,1]
    }
    
-     cat(as.character(timestamp()),"Date",common_dates[i],"Stock",as.character(j),common_companies[j],"\n",file = mylog2, sep = ",")
+   cat (as.character (timestamp()), "Date", common.dates[i], "Stock", as.character (j), common.companies[j], "\n", file = mylog2, sep = ",")
    
-   all<-cbind(company,common_dates,open_diff,high_diff,low_diff,close_diff)
-   write.table(all, file="validation_IB.csv", col.names=NA,append=TRUE, sep=",")
+   all <- cbind (company, common.dates, open.diff, high.diff, low.diff, close.diff)
+   write.table (all, file = "../log/Stk_IB_yahoo_OHLC_validation_data.csv", col.names = NA, append = TRUE, sep = ",")
 }
-
-dbDisconnect(conn)
-dbDisconnect(conn1)
+dbDisconnect (conn)
+dbDisconnect (conn1)
