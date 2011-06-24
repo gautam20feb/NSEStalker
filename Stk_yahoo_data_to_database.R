@@ -7,8 +7,6 @@ library (timeDate)
 
 source("../lib/read_machines.R")
 source("../lib/create_connection.R")
-
-connection.log <- file (paste ("../log/", as.character (timestamp()), "_yahoo_data_download_log.csv", sep = ""), "w") ##<< For logging the files written to database
 config_path<-"../config/"
 
 AddYahooToDatabse <- function(
@@ -16,6 +14,7 @@ AddYahooToDatabse <- function(
 user.name = "intern@Ophelia"
 ### The default user name is intern
 ){
+  connection.log <- file (paste ("../log/", as.character (timestamp()), "_yahoo_data_download_log.csv", sep = ""), "w") ##<< For logging the files written to database
   machines = GenerateMachimesDataframe(config_path)
   connection.YAHOO_OHLC_stocks <- CreateConnection (user.name , machines ,"YAHOO_OHLC_stocks") # Setting up connection. Create yahoo_data in phpmyadmin before running this
   
@@ -39,4 +38,5 @@ user.name = "intern@Ophelia"
   print(list)
   print(diff)
   dbDisconnect(connection.YAHOO_OHLC_stocks)
+  close(connection.log)
   }

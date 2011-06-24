@@ -4,9 +4,6 @@ library (RMySQL)
 
 source("../lib/read_machines.R")
 source("../lib/create_connection.R")
-
-connection.log <- file (paste ("../log/", as.character (timestamp()), "_Stk_yahoo_IB_OHLC_validation_log.csv", sep = ""), "w") ##<< For logging the files written to database
-datelog<-file(paste("../log/", as.character (timestamp()), "_Stk_IB_yahoo_diff_date_log.csv"),"w")  
 config_path<-"../config/"
 
 ValidateIBandYahooDatabse <- function(
@@ -14,6 +11,8 @@ ValidateIBandYahooDatabse <- function(
 user.name = "intern@Ophelia"
 ### The default user name is intern
 ){
+  connection.log <- file (paste ("../log/", as.character (timestamp()), "_Stk_yahoo_IB_OHLC_validation_log.csv", sep = ""), "w") ##<< For logging the files written to database
+  datelog<-file(paste("../log/", as.character (timestamp()), "_Stk_IB_yahoo_diff_date_log.csv"),"w")
   
   machines = GenerateMachimesDataframe(config_path)
   ### sets the connection with the required database
@@ -62,11 +61,13 @@ user.name = "intern@Ophelia"
       low.diff[i] <- open.TWS[x,5] - open.yahoo[y,4]
       close.diff[i] <- open.TWS[x,6] - open.yahoo[y,5]
       company[i] <- common.companies[j,1]
+      cat ("Validating YAHOO_OHLC_stocks and TWS_OHLC_stocks", timestamp(), "Date", common.dates[i], "Stock", as.character (j), common.companies[j], "\n", file = connection.log, sep = ",")
     }
-    cat ("Validating YAHOO_OHLC_stocks and TWS_OHLC_stocks", timestamp(), "Date", common.dates[i], "Stock", as.character (j), common.companies[j], "\n", file = mylog2, sep = ",")
     all <- cbind (company, common.dates, open.diff, high.diff, low.diff, close.diff)
     write.table (all, file = "../log/Stk_IB_yahoo_OHLC_validation_data.csv", col.names = NA, append = TRUE, sep = ",")
   }
   dbDisconnect (connection.YAHOO_OHLC_stocks)
   dbDisconnect (connection.TWS_OHLC_stocks)
+  close(connection.log)
+  close(datelog)
 }
