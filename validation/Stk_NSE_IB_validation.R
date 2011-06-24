@@ -1,5 +1,3 @@
-library (RMySQL)
-
 # Load the NSE(.csv) files to Data Base
 AddNseCsvFilesToDatabase<-function
 ### The main function

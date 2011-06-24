@@ -1,9 +1,34 @@
-setwd("~/Dropbox/Intern/Validation/")
+# Load the NSE(.csv) files to Data Base
+AddNseCsvFilesToDatabase <- function
+### The main function
+(user.name = "root@Ophelia"
+### name of the machine to which you want to add the data
+) {
+  library (fImport)
+  library (bitops)
+  library (methods)
+  library (RMySQL)
+  library (XML)
+ 
+  driver <- dbDriver("MySQL" , max.con = 1000) ##<< Defining the type of connection
 
-library(RMySQL)
-m<- dbDriver("MySQL")
-conn<-dbConnect(m, dbname = "yahoo_data", user = "swetha", password = "intern123", host = "localhost")
-conn1<-dbConnect(m, dbname = "TWS_daily_data", user = "swetha", password = "intern123", host = "localhost")
+  doc.xml = xmlRoot(xmlTreeParse("../config/machines.xml"))  ##<< parses all of the config file
+  xml.matrix = xmlSApply(doc.xml , function(x) xmlSApply(x, xmlValue))  ##<< creates a matrix of machines information
+  xml.matrix = t(xml.matrix)  ##<< takes transpose of matrix to make it standard
+  number.of.users <- nrow(xml.matrix)  ##<< get the number of users
+  machines = as.data.frame(matrix((xml.matrix), number.of.users)) ##<< produces a dataframe for the matrix
+  names (machines) = names (doc.xml[[1]]) ##<< names the corresponding columns
+ 
+  pos = which (machines[, 1] == user.name)  ##<< To find which user is using the code and get his info
+  usr = unlist (strsplit(user.name, "@"))[1]
+  hst = as.character(machines[pos, 2])
+  pswd = as.character(machines[pos, 3])
+  
+conn<-dbConnect(driver, user=usr, password = pswd, host = hst, dbname= "YAHOO_OHLC_stocks")
+  ##<< sets the connection with the required database
+conn1<-dbConnect(driver, user=usr, password = pswd, host = hst, dbname= "TWS_OHLC_stocks")
+  ##<< sets the connection with the required database
+ 
 
 datelog<-file("Diff_date_log.csv","w")
 mylog2 <- file("yahoo_TWS_OHLC_validation_log.csv","w")  ##<< For logging the files written to database
