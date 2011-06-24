@@ -13,7 +13,7 @@ config_path <- "../config/"
 futures_list<-read.csv("../data/futures_list.csv", sep=",", header=T)
 
 TwsPerminMissingFutureFiles <- function( 
-### Adds the permin future files 
+### Adds the permin future missing files 
 user.name="intern@Ophelia"
 ){
   no<- nrow(futures_list)
