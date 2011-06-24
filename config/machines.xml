@@ -4,56 +4,48 @@
                 <machinename>intern@Ophelia</machinename>
   		<username>intern</username>
    	        <host>192.168.1.106</host>
-   	        <dbname>DB1</dbname>
    	        <password>intern123</password>
   	</machine>
   	<machine>
                 <machinename>intern@102</machinename>
   		<username>intern</username>
   		<host>192.168.1.102</host>
-    	        <dbname>DB2</dbname>
     	        <password>intern123</password>
  	</machine>
   	<machine>
                 <machinename>intern@103</machinename>
 		<username>intern</username>    
     	        <host>192.168.1.103</host>
-    	        <dbname>DB3</dbname>
     	        <password>intern123</password>
   	</machine>
   	<machine>
                 <machinename>intern@104</machinename>
 	 	<username>intern</username>    
     	        <host>192.168.1.104</host>
-    	        <dbname>DB4</dbname>
     	        <password>intern123</password>
   	</machine>
   	<machine>
                 <machinename>intern@105</machinename>
 		<username>intern</username>    
     	        <host>192.168.1.105</host>
-   	        <dbname>DB5</dbname>
                 <password>intern123</password>
   	</machine>
   	<machine>
                 <machinename>intern@107</machinename>
 	 	<username>intern</username>    
     	        <host>192.168.1.107</host>
-    	        <dbname>DB6</dbname>
     	        <password>intern123</password>
         </machine>
   	<machine>
                 <machinename>intern@localhost</machinename>
 	 	<username>intern</username>    
     	        <host>localhost</host>
-    	        <dbname>nsedb</dbname>
     	        <password>intern123</password>
         </machine>
         <machine>
                 <machinename>root@localhost</machinename>
 	 	<username>root</username>    
     	        <host>localhost</host>
-    	        <dbname>nsedb</dbname>
     	        <password>intern123</password>
         </machine>
 </environment>
