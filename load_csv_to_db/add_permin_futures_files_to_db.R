@@ -8,7 +8,7 @@ library(gregmisc)
 source("../lib/read_machines.R")
 source("../lib/create_connection.R")
 connection.log <- file(paste("../log/" ,as.character(timestamp()),"log.csv",sep="") , "w")  ##<< For logging the files written to database
-
+expiry.dates <- read.csv("../data/nearest_expiry_date.csv", header= T,sep= ",")
 config_path <- "../config/"
 futures_list<-read.csv("../data/futures_list.csv", sep=",", header=T)
 
@@ -41,6 +41,12 @@ tablename)
   VERSION<- 0
   data<-cbind(data,VERSION)
   names(data)<-c("TIMESTAMP","OPEN","HIGH","LOW","CLOSE","VOLUME","WAP","HASGAPS","COUNT","VERSION")
+  date <-unlist (strsplit(as.character(data$TIMESTAMP)[1]," "))[1]
+  index <- (which(expiry.dates[,2] ==  date))
+  exp.date <- as.character(expiry.dates[index,3])
+  data <- cbind(data,exp.date)
+  names(data)<-c("TIMESTAMP","OPEN","HIGH","LOW","CLOSE","VOLUME","WAP","HASGAPS","COUNT","VERSION","EXPIRY_DT")
+
   ifelse(dbExistsTable(conn, tablename),dbWriteTable(conn, name =tablename, value=data, append = T),dbWriteTable(conn, name = tablename, value=data))
   cat("TWS_PERMIN_futures" ,timestamp(),"AddOneTwsPerminFile",paste("Written future to", tablename ,sep=" "),"\n",file = connection.log, sep = ",")
 
