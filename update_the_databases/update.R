@@ -26,7 +26,7 @@ connection.log <- file(paste("../log/" ,as.character(timestamp()),"log.csv",sep=
 
 config_path <- "../config/"
 
-# tws<-twsConnect(clientId=1)
+tws<-twsConnect(clientId=1)
 
 
 UpdateAllDatabases <- function(
@@ -80,7 +80,7 @@ user.name="intern@Ophelia"
 ###################################   TWS OHLC  ############################################  
   
   query2<-"SELECT MIN(END_DATE),VERSION FROM TWS_OHLC_stocks"
-  result <-  as.character(dbGetQuery(connection.METADATA_DATABASE,query2))
+  result <-(dbGetQuery(connection.METADATA_DATABASE,query2))
     min.end.date.tws.ohlc.stk <- result[1,1]
   version <- as.numeric(result[1,2])
   UpdateTwsOhlc(connection.TWS_OHLC_stocks,min.end.date.tws.ohlc.stk,version)
