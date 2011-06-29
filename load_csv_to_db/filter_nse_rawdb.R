@@ -18,7 +18,7 @@ equity.table="equity"
 ### the equity tablename from the same database
 ) {
   machines=GenerateMachimesDataframe(config_path)
-  connection.NSE_raw_database <- CreateConnection(user.name , machines ,"test")
+  connection.NSE_raw_database <- CreateConnection(user.name , machines ,"NSE_raw_database")
   
   
   futures_list<-trim(read.csv("../data/futures_list.csv", header=T)[,2])

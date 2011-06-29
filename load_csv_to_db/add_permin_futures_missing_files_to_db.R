@@ -22,7 +22,7 @@ user.name="intern@Ophelia"
   w<-getwd()
   setwd("../data/downloaded/TWS_PERMIN_futures_missing/")
   data.path <- getwd()
-  AddAllTwsPerminFiles(connection.TWS_PERMIN_futures,data.path)
+  AddAllTwsPerminMissingFiles(connection.TWS_PERMIN_futures,data.path)
   setwd(w)
   close(connection.log)
 }
@@ -66,7 +66,7 @@ folderpath)
       n2<-n1[1]
       n3<-trim(substr(n2,1,(nchar(n2)-4)))
       ind<-which(trim(futures_list[,2])==n3)
-      AddOneTwsPerminFile(conn,name,as.character(trim(futures_list[ind,4])))
+      AddOneTwsPerminMissingFile(conn,name,as.character(trim(futures_list[ind,4])))
     }
   }
 }

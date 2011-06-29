@@ -76,6 +76,8 @@ tablename
   data <- read.table(filename,header = T, sep = ",")  ##<<  reads the data plus an extra NULL column
   data$X<- NULL     ##<<  deleting an extra column read
   VERSION<- 0
+  data$TOTALTRADES <- NULL
+  data$ISIN <- NULL
   data<- cbind(data,VERSION)
   if (tablename =="equity")
   {

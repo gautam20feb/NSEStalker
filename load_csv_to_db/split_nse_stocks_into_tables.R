@@ -16,8 +16,8 @@ user.name = "intern@Ophelia"
 ### The username@machine to create the connections to
 ) {
   machines=GenerateMachimesDataframe(config_path)
-  connection.NSE_raw_database <- CreateConnection(user.name , machines ,"test")
-  connection.NSE_OHLC_stocks  <- CreateConnection(user.name , machines ,"test2")
+  connection.NSE_raw_database <- CreateConnection(user.name , machines ,"NSE_raw_database")
+  connection.NSE_OHLC_stocks  <- CreateConnection(user.name , machines ,"NSE_OHLC_stocks")
   query1<-paste("SELECT DISTINCT SYMBOL FROM equity ",sep="")
   tables<-dbGetQuery(connection.NSE_raw_database,query1) ##<< The list of all the tables that are there in equity
   tables<-tables[,1]
