@@ -1,229 +1,229 @@
-,"NSE_SYMBOL","TWS_SYMBOL","TABLE_NAME","COMPANY_NAME","YAHOO_NAME"
-1,"BANKNIFTY","BANKNIFTY","BANKNIFTY",,
-2,"CNXIT","CNXIT","CNXIT",,
-3,"MINIFTY","MINIFTY","MINIFTY",,
-4,"NFTYMCAP50","NFTYMCAP51","NFTYMCAP50",,
-5,"NIFTY","NIFTY50","NIFTY",,
-6,"3IINFOTECH ","III","3IINFOTECH ","3i Infotech Limited ","3IINFOTEC.NS"
-7,"ABAN ","ABAN","ABAN ","Aban Offshore Limited ","ABAN.NS"
-8,"ABB ","ABB","ABB ","ABB Limited ","ABB.NS"
-9,"ABGSHIP ","ABGS","ABGSHIP ","ABG Shipyard Limited ","ABGSHIP.NS"
-10,"ABIRLANUVO ","ABNL","ABIRLANUVO ","Aditya Birla Nuvo Limited ","ABIRLANUV.NS"
-11,"ACC ","ACC","ACC ","ACC Limited ","ACC.NS"
-12,"ADANIENT ","ADE","ADANIENT ","Adani Enterprises Limited ","ADANIENT.NS"
-13,"ADANIPOWER ","ADANI","ADANIPOWER ","Adani Power Limited ","ADANIPOWE.NS"
-14,"ALBK ","ALBK","ALBK ","Allahabad Bank ","ALBK.NS"
-15,"ALOKTEXT ","ALOK","ALOKTEXT ","Alok Industries Limited ","ALOKTEXT.NS"
-16,"AMBUJACEM ","ACEM","AMBUJACEM ","Ambuja Cements Limited ","AMBUJACEM.NS"
-17,"ANDHRABANK ","ANDB","ANDHRABANK ","Andhra Bank ","ANDHRABAN.NS"
-18,"APIL ","ABBAP","APIL ","Alstom Projects India Limited ","APIL.NS"
-19,"APOLLOTYRE ","APTY","APOLLOTYRE ","Apollo Tyres Limited ","APOLLOTYR.NS"
-20,"AREVAT&D ","ATD","AREVATANDD ","Areva T&D India Limited ","AREVAT&D.NS"
-21,"ASHOKLEY ","ALBK","ASHOKLEY ","Ashok Leyland Limited ","ASHOKLEY.NS"
-22,"ASIANPAINT ","APNT","ASIANPAINT ","Asian Paints Limited ","ASIANPAIN.NS"
-23,"AUROPHARMA ","ARBP","AUROPHARMA ","Aurobindo Pharma Limited ","AUROPHARM.NS"
-24,"AXISBANK ","AXSB","AXISBANK ","Axis Bank Limited ","AXISBANK.NS"
-25,"BAJAJ-AUTO ","BJAUT","BAJAJAUTO ","Bajaj Auto Limited ","BAJAJAUTO.NS"
-26,"BAJAJHIND ","BJH","BAJAJHIND ","Bajaj Hindusthan Limited ","BAJAJHIND.NS"
-27,"BAJAJHLDNG ","BJHI","BAJAJHLDNG ","Bajaj Holdings & Investment Limited ","BAJAJHLDN.NS"
-28,"BALRAMCHIN ","BRCM","BALRAMCHIN ","Balrampur Chini Mills Limited ","BALRAMCHI.NS"
-29,"BANKBARODA ","BOB","BANKBARODA ","Bank of Baroda ","BANKBAROD.NS"
-30,"BANKINDIA ","BOI","BANKINDIA ","Bank of India ","BANKINDIA.NS"
-31,"BATAINDIA ","BATA","BATAINDIA ","Bata India Limited ","BATAINDIA.NS"
-32,"BEL ","BHE","BEL ","Bharat Electronics Limited ","BEL.NS"
-33,"BEML ","BEML","BEML ","BEML Limited ","BEML.NS"
-34,"BGRENERGY ","BGRL","BGRENERGY ","BGR Energy Systems Limited ","BGRENERGY.NS"
-35,"BHARATFORG ","BHFC","BHARATFORG ","Bharat Forge Limited ","BHARATFOR.NS"
-36,"BHARTIARTL ","BHARTI","BHARTIARTL ","Bharti Airtel Limited ","BHARTIART.NS"
-37,"BHEL ","BHEL","BHEL ","Bharat Heavy Electricals Limited ","BHEL.NS"
-38,"BHUSANSTL ","BHUS","BHUSANSTL ","Bhushan Steel Limited ","BHUSANSTL.NS"
-39,"BIOCON ","BIOS","BIOCON ","Biocon Limited ","BIOCON.NS"
-40,"BOMDYEING ","BD","BOMDYEING ","Bombay Dyeing & Mfg Company Limited ","BOMDYEING.NS"
-41,"BOSCHLTD ","BOS","BOSCHLTD ","Bosch Limited ","BOSCHLTD.NS"
-42,"BPCL ","BPCL","BPCL ","Bharat Petroleum Corporation Limited ","BPCL.NS"
-43,"BRFL ","BRFL","BRFL ","Bombay Rayon Fashions Limited ","BRFL.NS"
-44,"CAIRN ","CAIR","CAIRN ","Cairn India Limited ","CAIRN.NS"
-45,"CANBK ","CBK","CANBK ","Canara Bank ","CANBK.NS"
-46,"CENTRALBK ","CBOI","CENTRALBK ","Central Bank of India ","CENTRALBK.NS"
-47,"CENTURYTEX ","CENT","CENTURYTEX ","Century Textiles & Industries Limited ","CENTURYTE.NS"
-48,"CESC ","CESC","CESC ","CESC Limited ","CESC.NS"
-49,"CHAMBLFERT ","CHMB","CHAMBLFERT ","Chambal Fertilizers & Chemicals Limited ","CHAMBLFER.NS"
-50,"CHENNPETRO ","MRL","CHENNPETRO ","Chennai Petroleum Corporation Limited ","CHENNPETR.NS"
-51,"CIPLA ","CIPLA","CIPLA ","Cipla Limited ","CIPLA.NS"
-52,"COLPAL ","CLGT","COLPAL ","Colgate Palmolive (India) Limited ","COLPAL.NS"
-53,"CONCOR ","CCRI","CONCOR ","Container Corporation of India Limited ","CONCOR.NS"
-54,"COREPROTEC ","CPTL","COREPROTEC ","Core Projects and Technologies Limited ","COREPROTE.NS"
-55,"CROMPGREAV ","CRG","CROMPGREAV ","Crompton Greaves Limited ","CROMPGREA.NS"
-56,"CUMMINSIND ","KKC","CUMMINSIND ","Cummins India Limited ","CUMMINSIN.NS"
-57,"DABUR ","DABUR","DABUR ","Dabur India Limited ","DABUR.NS"
-58,"DCB ","DCB","DCB ","Development Credit Bank Limited ","DCB.NS"
-59,"DCHL ","DECH","DCHL ","Deccan Chronicle Holdings Limited ","DCHL.NS"
-60,"DENABANK ","DBNK","DENABANK ","Dena Bank ","DENABANK.NS"
-61,"DISHTV ","DITV","DISHTV ","Dish TV India Limited ","DISHTV.NS"
-62,"DIVISLAB ","DIVI","DIVISLAB ","Divi's Laboratories Limited ","DIVISLAB.NS"
-63,"DLF ","DLFU","DLF ","DLF Limited ","DLF.NS"
-64,"DRREDDY ","DRRD","DRREDDY ","Dr. Reddy's Laboratories Limited ","DRREDDY.NS"
-65,"EDUCOMP ","EDSL","EDUCOMP ","Educomp Solutions Limited ","EDUCOMP.NS"
-66,"EKC ","EKCL","EKC ","Everest Kanto Cylinder Limited ","EKC.NS"
-67,"ESCORTS ","ESC","ESCORTS ","Escorts Limited ","ESCORTS.NS"
-68,"ESSAROIL ","ESOIL","ESSAROIL ","Essar Oil Limited ","ESSAROIL.NS"
-69,"EXIDEIND ","EXID","EXIDEIND ","Exide Industries Limited ","EXIDEIND.NS"
-70,"FEDERALBNK ","FB","FEDERALBNK ","The Federal Bank Limited ","FEDERALBN.NS"
-71,"FINANTECH ","FTECH","FINANTECH ","Financial Technologies (India) Limited ","FINANTECH.NS"
-72,"FORTIS ","FORH","FORTIS ","Fortis Healthcare Limited ","FORTIS.NS"
-73,"FSL ","FSOL","FSL ","Firstsource Solutions Limited ","FSL.NS"
-74,"GAIL ","GAIL","GAIL ","GAIL (India) Limited ","GAIL.NS"
-75,"GESHIP ","GESCO","GESHIP ","The Great Eastern Shipping Company Limited ","GESHIP.NS"
-76,"GLAXO ","GLXO","GLAXO ","GlaxoSmithKline Pharmaceuticals Limited ","GLAXO.NS"
-77,"GMDCLTD ","GMDC","GMDCLTD ","Gujarat Mineral Development Corporation Limited ","GMDCLTD.NS"
-78,"GMRINFRA ","GMRI","GMRINFRA ","GMR Infrastructure Limited ","GMRINFRA.NS"
-79,"GODREJIND ","GDSP","GODREJIND ","Godrej Industries Limited ","GODREJIND.NS"
-80,"GRASIM ","GRASIM","GRASIM ","Grasim Industries Limited ","GRASIM.NS"
-81,"GSPL ","GUJS","GSPL ","Gujarat State Petronet Limited ","GSPL.NS"
-82,"GTL ","GTS","GTL ","GTL Limited ","GTL.NS"
-83,"GTLINFRA ","GTLI","GTLINFRA ","GTL Infrastructure Limited ","GTLINFRA.NS"
-84,"GTOFFSHORE ","GOFF","GTOFFSHORE ","Great Offshore Limited ","GTOFFSHOR.NS"
-85,"GVKPIL ","GVKP","GVKPIL ","GVK Power & Infrastructure Limited ","GVKPIL.NS"
-86,"HAVELLS ","HAVL","HAVELLS ","Havells India Limited ","HAVELLS.NS"
-87,"HCC ","HCC","HCC ","Hindustan Construction Company Limited ","HCC.NS"
-88,"HCLTECH ","HCLT","HCLTECH ","HCL Technologies Limited ","HCLTECH.NS"
-89,"HDFC ","HDFC","HDFC ","Housing Development Finance Corporation Limited ","HDFC.NS"
-90,"HDFCBANK ","HDFCB","HDFCBANK ","HDFC Bank Limited ","HDFCBANK.NS"
-91,"HDIL ","HDIL","HDIL ","Housing Development and Infrastructure Limited ","HDIL.NS"
-92,"HEROHONDA ","HH","HEROHONDA ","Hero Honda Motors Limited ","HEROHONDA.NS"
-93,"HEXAWARE ","HEXW","HEXAWARE ","Hexaware Technologies Limited ","HEXAWARE.NS"
-94,"HINDALCO ","HNDL","HINDALCO ","Hindalco Industries Limited ","HINDALCO.NS"
-95,"HINDOILEXP ","HOE","HINDOILEXP ","Hindustan Oil Exploration Company Limited ","HINDOILEX.NS"
-96,"HINDPETRO ","HPCL","HINDPETRO ","Hindustan Petroleum Corporation Limited ","HINDPETRO.NS"
-97,"HINDUNILVR ","HUVR","HINDUNILVR ","Hindustan Unilever Limited ","HINDUNILV.NS"
-98,"HINDZINC ","HZ","HINDZINC ","Hindustan Zinc Limited ","HINDZINC.NS"
-99,"HOTELEELA ","LELA","HOTELEELA ","Hotel Leela Venture Limited ","HOTELEELA.NS"
-100,"IBREALEST ","IBREL","IBREALEST ","Indiabulls Real Estate Limited ","IBREALEST.NS"
-101,"ICICIBANK ","ICICIBC","ICICIBANK ","ICICI Bank Limited ","ICICIBANK.NS"
-102,"IDBI ","IDBI","IDBI ","IDBI Bank Limited ","IDBI.NS"
-103,"IDEA ","IDEA","IDEA ","Idea Cellular Limited ","IDEA.NS"
-104,"IDFC ","IDFC","IDFC ","Infrastructure Development Finance Company Limited ","IDFC.NS"
-105,"IFCI ","IFCI","IFCI ","IFCI Limited ","IFCI.NS"
-106,"IGL ","IGL","IGL ","Indraprastha Gas Limited ","IGL.NS"
-107,"INDHOTEL ","IH","INDHOTEL ","The Indian Hotels Company Limited ","INDHOTEL.NS"
-108,"INDIACEM ","ICEM","INDIACEM ","The India Cements Limited ","INDIACEM.NS"
-109,"INDIAINFO ","IIFL","INDIAINFO ","India Infoline Limited ","INDIAINFO.NS"
-110,"INDIANB ","INBK","INDIANB ","Indian Bank ","INDIANB.NS"
-111,"INDUSINDBK ","IIB","INDUSINDBK ","IndusInd Bank Limited ","INDUSINDB.NS"
-112,"INFOSYSTCH ","INFO","INFOSYSTCH ","Infosys Technologies Limited ","INFOSYSTC.NS"
-113,"IOB ","IOB","IOB ","Indian Overseas Bank ","IOB.NS"
-114,"IOC ","IOCL","IOC ","Indian Oil Corporation Limited ","IOC.NS"
-115,"IRB ","IRB","IRB ","IRB Infrastructure Developers Limited ","IRB.NS"
-116,"ISPATIND ","NDEN","ISPATIND ","Ispat Industries Limited ","ISPATIND.NS"
-117,"ITC ","ITC","ITC ","ITC Limited ","ITC.NS"
-118,"IVRCLINFRA ","IVRC","IVRCLINFRA ","IVRCL Infrastructures & Projects Limited ","IVRCLINFR.NS"
-119,"JETAIRWAYS ","JETIN","JETAIRWAYS ","Jet Airways (India) Limited ","JETAIRWAY.NS"
-120,"JINDALSAW ","JSAW","JINDALSAW ","Jindal Saw Limited ","JINDALSAW.NS"
-121,"JINDALSTEL ","JSP","JINDALSTEL ","Jindal Steel & Power Limited ","JINDALSTE.NS"
-122,"JINDALSWHL ","SWH","JINDALSWHL ","Jindal South West Holdings Limited ","JINDALSWH.NS"
-123,"JISLJALEQS ","JI","JISLJALEQS ","Jain Irrigation Systems Limited ","JISLJALEQ.NS"
-124,"JPASSOCIAT ","JPA","JPASSOCIAT ","Jaiprakash Associates Limited ","JPASSOCIA.NS"
-125,"JPPOWER ","JHPL","JPPOWER ","Jaiprakash Power Ventures Limited ","JPPOWER.NS"
-126,"JSWSTEEL ","JSTL","JSWSTEEL ","JSW Steel Limited ","JSWSTEEL.NS"
-127,"KFA ","KAIR","KFA ","Kingfisher Airlines Limited ","KFA.NS"
-128,"KOTAKBANK ","KMB","KOTAKBANK ","Kotak Mahindra Bank Limited ","KOTAKBANK.NS"
-129,"KSOILS ","KSO","KSOILS ","K S Oils Limited ","KSOILS.NS"
-130,"KTKBANK ","KBL","KTKBANK ","The Karnataka Bank Limited ","KTKBANK.NS"
-131,"LICHSGFIN ","LICHF","LICHSGFIN ","LIC Housing Finance Limited ","LICHSGFIN.NS"
-132,"LITL ","LANCI","LITL ","Lanco Infratech Limited ","LITL.NS"
-133,"LT ","LT","LT ","Larsen & Toubro Limited ","LT.NS"
-134,"LUPIN ","LPC","LUPIN ","Lupin Limited ","LUPIN.NS"
-135,"M&M ","MM","MANDM ","Mahindra & Mahindra Limited ","M&M.NS"
-136,"MARUTI ","MSIL","MARUTI ","Maruti Suzuki India Limited ","MARUTI.NS"
-137,"MAX ","MAX","MAX ","Max India Limited ","MAX.NS"
-138,"MCDOWELL-N ","MACH","MCDOWELLN ","United Spirits Limited ","MCDOWELL-.NS"
-139,"MCLEODRUSS ","MCLR","MCLEODRUSS ","Mcleod Russel India Limited ","MCLEODRUS.NS"
-140,"MLL ","MRLN","MLL ","Mercator Lines Limited ","MLL.NS"
-141,"MOSERBAER ","MBI","MOSERBAER ","Moser-Baer (I) Limited ","MOSERBAER.NS"
-142,"MPHASIS ","MPHL","MPHASIS ","MphasiS Limited ","MPHASIS.NS"
-143,"MRF ","MRF","MRF ","MRF Limited ","MRF.NS"
-144,"MRPL ","MRPL","MRPL ","Mangalore Refinery and Petrochemicals Limited ","MRPL.NS"
-145,"MTNL ","MTNL","MTNL ","Mahanagar Telephone Nigam Limited ","MTNL.NS"
-146,"MUNDRAPORT ","NFCL","MUNDRAPORT ","Mundra Port and Special Economic Zone Limited ",
-147,"NAGARFERT ","NACL","NAGARFERT ","Nagarjuna Fertilizer & Chemicals Limited ","NAGARFERT.NS"
-148,"NATIONALUM ","NLC","NATIONALUM ","National Aluminium Company Limited ","NATIONALU.NS"
-149,"NCC ","NHPC","NCC ","NCC Limited ","NA"
-150,"NEYVELILIG ","NMDC","NEYVELILIG ","Neyveli Lignite Corporation Limited ",
-151,"NHPC ","NTPC","NHPC ","NHPC Limited ","NHPC.NS"
-152,"NMDC ","OFSS","NMDC ","NMDC Limited ","NMDC.NS"
-153,"NTPC ","OINL","NTPC ","NTPC Limited ","NTPC.NS"
-154,"OFSS ","ONGC","OFSS ","Oracle Financial Services Software Limited ","OFSS.NS"
-155,"OIL ","ONMB","OIL ","Oil India Limited ","OIL.NS"
-156,"ONGC ","OPTC","ONGC ","Oil & Natural Gas Corporation Limited ","ONGC.NS"
-157,"ONMOBILE ","ORB","ONMOBILE ","OnMobile Global Limited ","ONMOBILE.NS"
-158,"OPTOCIRCUI ","OPTC","OPTOCIRCUI ","Opto Circuits (India) Limited ","OPTOCIRCU.NS"
-159,"ORBITCORP ","ORB","ORBITCORP ","Orbit Corporation Limited ","ORBITCORP.NS"
-160,"ORCHIDCHEM ","OCP","ORCHIDCHEM ","Orchid Chemicals & Pharmaceuticals Limited ","ORCHIDCHE.NS"
-161,"ORIENTBANK ","OBC","ORIENTBANK ","Oriental Bank of Commerce ","ORIENTBAN.NS"
-162,"PANTALOONR ","PF","PANTALOONR ","Pantaloon Retail (India) Limited ","PANTALOON.NS"
-163,"PATELENG ","PEC","PATELENG ","Patel Engineering Limited ","PATELENG.NS"
-164,"PATNI ","PEC","PATNI ","Patni Computer Systems Limited ","PATNI.NS"
-165,"PETRONET ","PLNG","PETRONET ","Petronet LNG Limited ","PETRONET.NS"
-166,"PFC ","POWF","PFC ","Power Finance Corporation Limited ","PFC.NS"
-167,"PIRHEALTH ","PIHC","PIRHEALTH ","Piramal Healthcare Limited ","PIRHEALTH.NS"
-168,"PNB ","PNB","PNB ","Punjab National Bank ","PNB.NS"
-169,"POLARIS ","POL","POLARIS ","Polaris Software Lab Limited ","POLARIS.NS"
-170,"POWERGRID ","PWGR","POWERGRID ","Power Grid Corporation of India Limited ","POWERGRID.NS"
-171,"PRAJIND ","PRJ","PRAJIND ","Praj Industries Limited ","PRAJIND.NS"
-172,"PTC ","PTCIN","PTC ","PTC India Limited ","PTC.NS"
-173,"PUNJLLOYD ","PUNJ","PUNJLLOYD ","Punj Lloyd Limited ","PUNJLLOYD.NS"
-174,"RANBAXY ","RBXY","RANBAXY ","Ranbaxy Laboratories Limited ","RANBAXY.NS"
-175,"RAYMOND ","RCOM","RAYMOND ","RAYMOND LIMITED ","RAYMOND.NS"
-176,"RCOM ","RECL","RCOM ","Reliance Communications Limited ","RCOM.NS"
-177,"RECLTD ","RCAPT","RECLTD ","Rural Electrification Corporation Limited ","RECLTD.NS"
-178,"RELCAPITAL ","RIL","RELCAPITAL ","Reliance Capital Limited ","RELCAPITA.NS"
-179,"RELIANCE ","RELI","RELIANCE ","Reliance Industries Limited ","RELIANCE.NS"
-180,"RELINFRA ","RMW","RELINFRA ","Reliance Infrastructure Limited ","RELINFRA.NS"
-181,"RELMEDIA ","SHRS","RELMEDIA ","Reliance MediaWorks Limited ","RELMEDIA.NS"
-182,"RENUKA ","RLTA","RENUKA ","Shree Renuka Sugars Limited ","RENUKA.NS"
-183,"ROLTA ","RPWR","ROLTA ","Rolta India Limited ","ROLTA.NS"
-184,"RPOWER ","RSI","RPOWER ","Reliance Power Limited ","RPOWER.NS"
-185,"RUCHISOYA ","SAIL","RUCHISOYA ","Ruchi Soya Industries Limited ","RUCHISOYA.NS"
-186,"SAIL ","SBIN","SAIL ","Steel Authority of India Limited ","SAIL.NS"
-187,"SBIN ","SCI","SBIN ","State Bank of India ","SBIN.NS"
-188,"SCI ","SESA","SCI ","Shipping Corporation Of India Limited ","SCI.NS"
-189,"SESAGOA ","SIEM","SESAGOA ","Sesa Goa Limited ","SESAGOA.NS"
-190,"SIEMENS ","SINT","SIEMENS ","Siemens Limited ","SIEMENS.NS"
-191,"SINTEX ","SKNL","SINTEX ","Sintex Industries Limited ","SINTEX.NS"
-192,"SKUMARSYNF ","SOBHA","SKUMARSYNF ","S. Kumars Nationwide Limited ","SKUMARSYN.NS"
-193,"SOBHA ","SREI","SOBHA ","Sobha Developers Limited ","SOBHA.NS"
-194,"SREINFRA ","SHTF","SREINFRA ","SREI Infrastructure Finance Limited ","SREINFRA.NS"
-195,"SRTRANSFIN ","STLT","SRTRANSFIN ","Shriram Transport Finance Company Limited ","SRTRANSFI.NS"
-196,"STER ","SLT","STER ","Sterlite Industries ( India ) Limited ","STER.NS"
-197,"STRTECH ","SOTL","STRTECH ","Sterlite Technologies Limited ","STRTECH.NS"
-198,"SUNPHARMA ","SUNP","SUNPHARMA ","Sun Pharmaceuticals Industries Limited ","SUNPHARMA.NS"
-199,"SUNTV ","SUNTV","SUNTV ","Sun TV Network Limited ","SUNTV.NS"
-200,"SUZLON ","SUEL","SUZLON ","Suzlon Energy Limited ","SUZLON.NS"
-201,"SYNDIBANK ","SNDB","SYNDIBANK ","Syndicate Bank ","SYNDIBANK.NS"
-202,"TATACHEM ","TTCH","TATACHEM ","Tata Chemicals Limited ","TATACHEM.NS"
-203,"TATACOMM ","TCOM","TATACOMM ","Tata Communications Limited ","TATACOMM.NS"
-204,"TATAGLOBAL ","TGBL","TATAGLOBAL ","Tata Global Beverages Limited ","TATAGLOBA.NS"
-205,"TATAMOTORS ","TTMT","TATAMOTORS ","Tata Motors Limited ","TATAMOTOR.NS"
-206,"TATAMTRDVR ","TTMT A","TATAMTRDVR ","Tata Motors Limited ","TATAMTRDV.NS"
-207,"TATAPOWER ","TPWR","TATAPOWER ","Tata Power Company Limited ","TATAPOWER.NS"
-208,"TATASTEEL ","TATA","TATASTEEL ","Tata Steel Limited ","TATASTEEL.NS"
-209,"TCS ","TCS","TCS ","Tata Consultancy Services Limited ","TCS.NS"
-210,"TECHM ","TECHM","TECHM ","Tech Mahindra Limited ","TECHM.NS"
-211,"TITAN ","TTAN","TITAN ","Titan Industries Limited ","TITAN.NS"
-212,"TRIVENI ","TRE","TRIVENI ","Triveni Engineering & Industries Limited ","TRIVENI.NS"
-213,"TTML ","TTLS","TTML ","Tata Teleservices (Maharashtra) Limited ","TTML.NS"
-214,"TULIP ","TTSL","TULIP ","Tulip Telecom Limited ","TULIP.NS"
-215,"TV-18 ","TLEI","TV18 ","Television Eighteen India Limited ","TV-18.NS"
-216,"TVSMOTOR ","TVSL","TVSMOTOR ","TVS Motor Company Limited ","TVSMOTOR.NS"
-217,"UCOBANK ","UCO","UCOBANK ","UCO Bank ","UCOBANK.NS"
-218,"ULTRACEMCO ","UTCEM","ULTRACEMCO ","UltraTech Cement Limited ","ULTRACEMC.NS"
-219,"UNIONBANK ","UNBK","UNIONBANK ","Union Bank of India ","UNIONBANK.NS"
-220,"UNIPHOS ","UNTP","UNIPHOS ","United Phosphorus Limited ","UNIPHOS.NS"
-221,"UNITECH ","UT","UNITECH ","Unitech Limited ","UNITECH.NS"
-222,"VIDEOIND ","VCLF","VIDEOIND ","Videocon Industries Limited ","VIDEOIND.NS"
-223,"VIJAYABANK ","VJYBK","VIJAYABANK ","Vijaya Bank ","VIJAYABAN.NS"
-224,"VOLTAS ","VOLT","VOLTAS ","Voltas Limited ","VOLTAS.NS"
-225,"WELCORP ","WLCO","WELCORP ","Welspun Corp Limited ","WELCORP.NS"
-226,"WIPRO ","WPRO","WIPRO ","Wipro Limited ","WIPRO.NS"
-227,"YESBANK ","YES","YESBANK ","Yes Bank Limited ","YESBANK.NS"
-228,"ZEEL","Z","ZEEL","Zee Entertainment Enterprises Limited ","ZEEL.NS"
+,"NSE_SYMBOL","TWS_SYMBOL","TABLE_NAME","COMPANY_NAME","YAHOO_NAME","SYMBOL","FACE_VALUE"
+1,"BANKNIFTY","BANKNIFTY","BANKNIFTY",,,,
+2,"CNXIT","CNXIT","CNXIT",,,,
+3,"MINIFTY","MINIFTY","MINIFTY",,,,
+4,"NFTYMCAP50","NFTYMCAP51","NFTYMCAP50",,,,
+5,"NIFTY","NIFTY50","NIFTY",,,,
+6,"3IINFOTECH ","III","3IINFOTECH ","3i Infotech Limited ","3IINFOTEC.NS","3IINFOTECH",10
+7,"ABAN ","ABAN","ABAN ","Aban Offshore Limited ","ABAN.NS","ABAN",2
+8,"ABB ","ABB","ABB ","ABB Limited ","ABB.NS","ABB",2
+9,"ABGSHIP ","ABGS","ABGSHIP ","ABG Shipyard Limited ","ABGSHIP.NS","ABGSHIP",10
+10,"ABIRLANUVO ","ABNL","ABIRLANUVO ","Aditya Birla Nuvo Limited ","ABIRLANUV.NS","ABIRLANUVO",10
+11,"ACC ","ACC","ACC ","ACC Limited ","ACC.NS","ACC",10
+12,"ADANIENT ","ADE","ADANIENT ","Adani Enterprises Limited ","ADANIENT.NS","ADANIENT",1
+13,"ADANIPOWER ","ADANI","ADANIPOWER ","Adani Power Limited ","ADANIPOWE.NS","ADANIPOWER",10
+14,"ALBK ","ALBK","ALBK ","Allahabad Bank ","ALBK.NS","ALBK",10
+15,"ALOKTEXT ","ALOK","ALOKTEXT ","Alok Industries Limited ","ALOKTEXT.NS","ALOKTEXT",10
+16,"AMBUJACEM ","ACEM","AMBUJACEM ","Ambuja Cements Limited ","AMBUJACEM.NS","AMBUJACEM",2
+17,"ANDHRABANK ","ANDB","ANDHRABANK ","Andhra Bank ","ANDHRABAN.NS","ANDHRABANK",10
+18,"APIL ","ABBAP","APIL ","Alstom Projects India Limited ","APIL.NS","APIL",10
+19,"APOLLOTYRE ","APTY","APOLLOTYRE ","Apollo Tyres Limited ","APOLLOTYR.NS","APOLLOTYRE",1
+20,"AREVAT&D ","ATD","AREVATANDD ","Areva T&D India Limited ","AREVAT&D.NS","AREVAT&D",2
+21,"ASHOKLEY ","ALBK","ASHOKLEY ","Ashok Leyland Limited ","ASHOKLEY.NS","ASHOKLEY",1
+22,"ASIANPAINT ","APNT","ASIANPAINT ","Asian Paints Limited ","ASIANPAIN.NS","ASIANPAINT",10
+23,"AUROPHARMA ","ARBP","AUROPHARMA ","Aurobindo Pharma Limited ","AUROPHARM.NS","AUROPHARMA",1
+24,"AXISBANK ","AXSB","AXISBANK ","Axis Bank Limited ","AXISBANK.NS","AXISBANK",10
+25,"BAJAJ-AUTO ","BJAUT","BAJAJAUTO ","Bajaj Auto Limited ","BAJAJAUTO.NS","BAJAJ-AUTO",10
+26,"BAJAJHIND ","BJH","BAJAJHIND ","Bajaj Hindusthan Limited ","BAJAJHIND.NS","BAJAJHIND",1
+27,"BAJAJHLDNG ","BJHI","BAJAJHLDNG ","Bajaj Holdings & Investment Limited ","BAJAJHLDN.NS","BAJAJHLDNG",10
+28,"BALRAMCHIN ","BRCM","BALRAMCHIN ","Balrampur Chini Mills Limited ","BALRAMCHI.NS","BALRAMCHIN",1
+29,"BANKBARODA ","BOB","BANKBARODA ","Bank of Baroda ","BANKBAROD.NS","BANKBARODA",10
+30,"BANKINDIA ","BOI","BANKINDIA ","Bank of India ","BANKINDIA.NS","BANKINDIA",10
+31,"BATAINDIA ","BATA","BATAINDIA ","Bata India Limited ","BATAINDIA.NS","BATAINDIA",10
+32,"BEL ","BHE","BEL ","Bharat Electronics Limited ","BEL.NS","BEL",10
+33,"BEML ","BEML","BEML ","BEML Limited ","BEML.NS","BEML",10
+34,"BGRENERGY ","BGRL","BGRENERGY ","BGR Energy Systems Limited ","BGRENERGY.NS","BGRENERGY",10
+35,"BHARATFORG ","BHFC","BHARATFORG ","Bharat Forge Limited ","BHARATFOR.NS","BHARATFORG",2
+36,"BHARTIARTL ","BHARTI","BHARTIARTL ","Bharti Airtel Limited ","BHARTIART.NS","BHARTIARTL",5
+37,"BHEL ","BHEL","BHEL ","Bharat Heavy Electricals Limited ","BHEL.NS","BHEL",10
+38,"BHUSANSTL ","BHUS","BHUSANSTL ","Bhushan Steel Limited ","BHUSANSTL.NS","BHUSANSTL",2
+39,"BIOCON ","BIOS","BIOCON ","Biocon Limited ","BIOCON.NS","BIOCON",5
+40,"BOMDYEING ","BD","BOMDYEING ","Bombay Dyeing & Mfg Company Limited ","BOMDYEING.NS","BOMDYEING",10
+41,"BOSCHLTD ","BOS","BOSCHLTD ","Bosch Limited ","BOSCHLTD.NS","BOSCHLTD",10
+42,"BPCL ","BPCL","BPCL ","Bharat Petroleum Corporation Limited ","BPCL.NS","BPCL",10
+43,"BRFL ","BRFL","BRFL ","Bombay Rayon Fashions Limited ","BRFL.NS","BRFL",10
+44,"CAIRN ","CAIR","CAIRN ","Cairn India Limited ","CAIRN.NS","CAIRN",10
+45,"CANBK ","CBK","CANBK ","Canara Bank ","CANBK.NS","CANBK",10
+46,"CENTRALBK ","CBOI","CENTRALBK ","Central Bank of India ","CENTRALBK.NS","CENTRALBK",10
+47,"CENTURYTEX ","CENT","CENTURYTEX ","Century Textiles & Industries Limited ","CENTURYTE.NS","CENTURYTEX",10
+48,"CESC ","CESC","CESC ","CESC Limited ","CESC.NS","CESC",10
+49,"CHAMBLFERT ","CHMB","CHAMBLFERT ","Chambal Fertilizers & Chemicals Limited ","CHAMBLFER.NS","CHAMBLFERT",10
+50,"CHENNPETRO ","MRL","CHENNPETRO ","Chennai Petroleum Corporation Limited ","CHENNPETR.NS","CHENNPETRO",10
+51,"CIPLA ","CIPLA","CIPLA ","Cipla Limited ","CIPLA.NS","CIPLA",2
+52,"COLPAL ","CLGT","COLPAL ","Colgate Palmolive (India) Limited ","COLPAL.NS","COLPAL",1
+53,"CONCOR ","CCRI","CONCOR ","Container Corporation of India Limited ","CONCOR.NS","CONCOR",10
+54,"COREPROTEC ","CPTL","COREPROTEC ","Core Projects and Technologies Limited ","COREPROTE.NS","COREPROTEC",2
+55,"CROMPGREAV ","CRG","CROMPGREAV ","Crompton Greaves Limited ","CROMPGREA.NS","CROMPGREAV",2
+56,"CUMMINSIND ","KKC","CUMMINSIND ","Cummins India Limited ","CUMMINSIN.NS","CUMMINSIND",2
+57,"DABUR ","DABUR","DABUR ","Dabur India Limited ","DABUR.NS","DABUR",1
+58,"DCB ","DCB","DCB ","Development Credit Bank Limited ","DCB.NS","DCB",10
+59,"DCHL ","DECH","DCHL ","Deccan Chronicle Holdings Limited ","DCHL.NS","DCHL",2
+60,"DENABANK ","DBNK","DENABANK ","Dena Bank ","DENABANK.NS","DENABANK",10
+61,"DISHTV ","DITV","DISHTV ","Dish TV India Limited ","DISHTV.NS","DISHTV",1
+62,"DIVISLAB ","DIVI","DIVISLAB ","Divi's Laboratories Limited ","DIVISLAB.NS","DIVISLAB",2
+63,"DLF ","DLFU","DLF ","DLF Limited ","DLF.NS","DLF",2
+64,"DRREDDY ","DRRD","DRREDDY ","Dr. Reddy's Laboratories Limited ","DRREDDY.NS","DRREDDY",5
+65,"EDUCOMP ","EDSL","EDUCOMP ","Educomp Solutions Limited ","EDUCOMP.NS","EDUCOMP",2
+66,"EKC ","EKCL","EKC ","Everest Kanto Cylinder Limited ","EKC.NS","EKC",2
+67,"ESCORTS ","ESC","ESCORTS ","Escorts Limited ","ESCORTS.NS","ESCORTS",10
+68,"ESSAROIL ","ESOIL","ESSAROIL ","Essar Oil Limited ","ESSAROIL.NS","ESSAROIL",10
+69,"EXIDEIND ","EXID","EXIDEIND ","Exide Industries Limited ","EXIDEIND.NS","EXIDEIND",1
+70,"FEDERALBNK ","FB","FEDERALBNK ","The Federal Bank Limited ","FEDERALBN.NS","FEDERALBNK",10
+71,"FINANTECH ","FTECH","FINANTECH ","Financial Technologies (India) Limited ","FINANTECH.NS","FINANTECH",2
+72,"FORTIS ","FORH","FORTIS ","Fortis Healthcare Limited ","FORTIS.NS","FORTIS",10
+73,"FSL ","FSOL","FSL ","Firstsource Solutions Limited ","FSL.NS","FSL",10
+74,"GAIL ","GAIL","GAIL ","GAIL (India) Limited ","GAIL.NS","GAIL",10
+75,"GESHIP ","GESCO","GESHIP ","The Great Eastern Shipping Company Limited ","GESHIP.NS","GESHIP",10
+76,"GLAXO ","GLXO","GLAXO ","GlaxoSmithKline Pharmaceuticals Limited ","GLAXO.NS","GLAXO",10
+77,"GMDCLTD ","GMDC","GMDCLTD ","Gujarat Mineral Development Corporation Limited ","GMDCLTD.NS","GMDCLTD",2
+78,"GMRINFRA ","GMRI","GMRINFRA ","GMR Infrastructure Limited ","GMRINFRA.NS","GMRINFRA",1
+79,"GODREJIND ","GDSP","GODREJIND ","Godrej Industries Limited ","GODREJIND.NS","GODREJIND",1
+80,"GRASIM ","GRASIM","GRASIM ","Grasim Industries Limited ","GRASIM.NS","GRASIM",10
+81,"GSPL ","GUJS","GSPL ","Gujarat State Petronet Limited ","GSPL.NS","GSPL",10
+82,"GTL ","GTS","GTL ","GTL Limited ","GTL.NS","GTL",10
+83,"GTLINFRA ","GTLI","GTLINFRA ","GTL Infrastructure Limited ","GTLINFRA.NS","GTLINFRA",10
+84,"GTOFFSHORE ","GOFF","GTOFFSHORE ","Great Offshore Limited ","GTOFFSHOR.NS","GTOFFSHORE",10
+85,"GVKPIL ","GVKP","GVKPIL ","GVK Power & Infrastructure Limited ","GVKPIL.NS","GVKPIL",1
+86,"HAVELLS ","HAVL","HAVELLS ","Havells India Limited ","HAVELLS.NS","HAVELLS",5
+87,"HCC ","HCC","HCC ","Hindustan Construction Company Limited ","HCC.NS","HCC",1
+88,"HCLTECH ","HCLT","HCLTECH ","HCL Technologies Limited ","HCLTECH.NS","HCLTECH",2
+89,"HDFC ","HDFC","HDFC ","Housing Development Finance Corporation Limited ","HDFC.NS","HDFC",2
+90,"HDFCBANK ","HDFCB","HDFCBANK ","HDFC Bank Limited ","HDFCBANK.NS","HDFCBANK",10
+91,"HDIL ","HDIL","HDIL ","Housing Development and Infrastructure Limited ","HDIL.NS","HDIL",10
+92,"HEROHONDA ","HH","HEROHONDA ","Hero Honda Motors Limited ","HEROHONDA.NS","HEROHONDA",2
+93,"HEXAWARE ","HEXW","HEXAWARE ","Hexaware Technologies Limited ","HEXAWARE.NS","HEXAWARE",2
+94,"HINDALCO ","HNDL","HINDALCO ","Hindalco Industries Limited ","HINDALCO.NS","HINDALCO",1
+95,"HINDOILEXP ","HOE","HINDOILEXP ","Hindustan Oil Exploration Company Limited ","HINDOILEX.NS","HINDOILEXP",10
+96,"HINDPETRO ","HPCL","HINDPETRO ","Hindustan Petroleum Corporation Limited ","HINDPETRO.NS","HINDPETRO",10
+97,"HINDUNILVR ","HUVR","HINDUNILVR ","Hindustan Unilever Limited ","HINDUNILV.NS","HINDUNILVR",1
+98,"HINDZINC ","HZ","HINDZINC ","Hindustan Zinc Limited ","HINDZINC.NS","HINDZINC",2
+99,"HOTELEELA ","LELA","HOTELEELA ","Hotel Leela Venture Limited ","HOTELEELA.NS","HOTELEELA",2
+100,"IBREALEST ","IBREL","IBREALEST ","Indiabulls Real Estate Limited ","IBREALEST.NS","IBREALEST",2
+101,"ICICIBANK ","ICICIBC","ICICIBANK ","ICICI Bank Limited ","ICICIBANK.NS","ICICIBANK",10
+102,"IDBI ","IDBI","IDBI ","IDBI Bank Limited ","IDBI.NS","IDBI",10
+103,"IDEA ","IDEA","IDEA ","Idea Cellular Limited ","IDEA.NS","IDEA",10
+104,"IDFC ","IDFC","IDFC ","Infrastructure Development Finance Company Limited ","IDFC.NS","IDFC",10
+105,"IFCI ","IFCI","IFCI ","IFCI Limited ","IFCI.NS","IFCI",10
+106,"IGL ","IGL","IGL ","Indraprastha Gas Limited ","IGL.NS","IGL",10
+107,"INDHOTEL ","IH","INDHOTEL ","The Indian Hotels Company Limited ","INDHOTEL.NS","INDHOTEL",1
+108,"INDIACEM ","ICEM","INDIACEM ","The India Cements Limited ","INDIACEM.NS","INDIACEM",10
+109,"INDIAINFO ","IIFL","INDIAINFO ","India Infoline Limited ","INDIAINFO.NS","INDIAINFO",2
+110,"INDIANB ","INBK","INDIANB ","Indian Bank ","INDIANB.NS","INDIANB",10
+111,"INDUSINDBK ","IIB","INDUSINDBK ","IndusInd Bank Limited ","INDUSINDB.NS","INDUSINDBK",10
+112,"INFOSYSTCH ","INFO","INFOSYSTCH ","Infosys Technologies Limited ","INFOSYSTC.NS",,10
+113,"IOB ","IOB","IOB ","Indian Overseas Bank ","IOB.NS","IOB",10
+114,"IOC ","IOCL","IOC ","Indian Oil Corporation Limited ","IOC.NS","IOC",10
+115,"IRB ","IRB","IRB ","IRB Infrastructure Developers Limited ","IRB.NS","IRB",10
+116,"ISPATIND ","NDEN","ISPATIND ","Ispat Industries Limited ","ISPATIND.NS","ISPATIND",10
+117,"ITC ","ITC","ITC ","ITC Limited ","ITC.NS","ITC",1
+118,"IVRCLINFRA ","IVRC","IVRCLINFRA ","IVRCL Infrastructures & Projects Limited ","IVRCLINFR.NS","IVRCLINFRA",2
+119,"JETAIRWAYS ","JETIN","JETAIRWAYS ","Jet Airways (India) Limited ","JETAIRWAY.NS","JETAIRWAYS",10
+120,"JINDALSAW ","JSAW","JINDALSAW ","Jindal Saw Limited ","JINDALSAW.NS","JINDALSAW",2
+121,"JINDALSTEL ","JSP","JINDALSTEL ","Jindal Steel & Power Limited ","JINDALSTE.NS","JINDALSTEL",1
+122,"JINDALSWHL ","SWH","JINDALSWHL ","Jindal South West Holdings Limited ","JINDALSWH.NS","JINDALSWHL",10
+123,"JISLJALEQS ","JI","JISLJALEQS ","Jain Irrigation Systems Limited ","JISLJALEQ.NS","JISLJALEQS",2
+124,"JPASSOCIAT ","JPA","JPASSOCIAT ","Jaiprakash Associates Limited ","JPASSOCIA.NS","JPASSOCIAT",2
+125,"JPPOWER ","JHPL","JPPOWER ","Jaiprakash Power Ventures Limited ","JPPOWER.NS","JPPOWER",10
+126,"JSWSTEEL ","JSTL","JSWSTEEL ","JSW Steel Limited ","JSWSTEEL.NS","JSWSTEEL",10
+127,"KFA ","KAIR","KFA ","Kingfisher Airlines Limited ","KFA.NS","KFA",10
+128,"KOTAKBANK ","KMB","KOTAKBANK ","Kotak Mahindra Bank Limited ","KOTAKBANK.NS","KOTAKBANK",5
+129,"KSOILS ","KSO","KSOILS ","K S Oils Limited ","KSOILS.NS","KSOILS",1
+130,"KTKBANK ","KBL","KTKBANK ","The Karnataka Bank Limited ","KTKBANK.NS","KTKBANK",10
+131,"LICHSGFIN ","LICHF","LICHSGFIN ","LIC Housing Finance Limited ","LICHSGFIN.NS","LICHSGFIN",2
+132,"LITL ","LANCI","LITL ","Lanco Infratech Limited ","LITL.NS","LITL",1
+133,"LT ","LT","LT ","Larsen & Toubro Limited ","LT.NS","LT",2
+134,"LUPIN ","LPC","LUPIN ","Lupin Limited ","LUPIN.NS","LUPIN",2
+135,"M&M ","MM","MANDM ","Mahindra & Mahindra Limited ","M&M.NS","M&M",5
+136,"MARUTI ","MSIL","MARUTI ","Maruti Suzuki India Limited ","MARUTI.NS","MARUTI",5
+137,"MAX ","MAX","MAX ","Max India Limited ","MAX.NS","MAX",2
+138,"MCDOWELL-N ","MACH","MCDOWELLN ","United Spirits Limited ","MCDOWELL-.NS","MCDOWELL-N",10
+139,"MCLEODRUSS ","MCLR","MCLEODRUSS ","Mcleod Russel India Limited ","MCLEODRUS.NS","MCLEODRUSS",5
+140,"MLL ","MRLN","MLL ","Mercator Lines Limited ","MLL.NS","MLL",1
+141,"MOSERBAER ","MBI","MOSERBAER ","Moser-Baer (I) Limited ","MOSERBAER.NS","MOSERBAER",10
+142,"MPHASIS ","MPHL","MPHASIS ","MphasiS Limited ","MPHASIS.NS","MPHASIS",10
+143,"MRF ","MRF","MRF ","MRF Limited ","MRF.NS","MRF",10
+144,"MRPL ","MRPL","MRPL ","Mangalore Refinery and Petrochemicals Limited ","MRPL.NS","MRPL",10
+145,"MTNL ","MTNL","MTNL ","Mahanagar Telephone Nigam Limited ","MTNL.NS","MTNL",10
+146,"MUNDRAPORT ","NFCL","MUNDRAPORT ","Mundra Port and Special Economic Zone Limited ",,"MUNDRAPORT",2
+147,"NAGARFERT ","NACL","NAGARFERT ","Nagarjuna Fertilizer & Chemicals Limited ","NAGARFERT.NS","NAGARFERT",10
+148,"NATIONALUM ","NLC","NATIONALUM ","National Aluminium Company Limited ","NATIONALU.NS","NATIONALUM",5
+149,"NCC ","NHPC","NCC ","NCC Limited ","NA","NCC",2
+150,"NEYVELILIG ","NMDC","NEYVELILIG ","Neyveli Lignite Corporation Limited ",,"NEYVELILIG",10
+151,"NHPC ","NTPC","NHPC ","NHPC Limited ","NHPC.NS","NHPC",10
+152,"NMDC ","OFSS","NMDC ","NMDC Limited ","NMDC.NS","NMDC",1
+153,"NTPC ","OINL","NTPC ","NTPC Limited ","NTPC.NS","NTPC",10
+154,"OFSS ","ONGC","OFSS ","Oracle Financial Services Software Limited ","OFSS.NS","OFSS",5
+155,"OIL ","ONMB","OIL ","Oil India Limited ","OIL.NS","OIL",10
+156,"ONGC ","OPTC","ONGC ","Oil & Natural Gas Corporation Limited ","ONGC.NS","ONGC",5
+157,"ONMOBILE ","ORB","ONMOBILE ","OnMobile Global Limited ","ONMOBILE.NS","ONMOBILE",10
+158,"OPTOCIRCUI ","OPTC","OPTOCIRCUI ","Opto Circuits (India) Limited ","OPTOCIRCU.NS","OPTOCIRCUI",10
+159,"ORBITCORP ","ORB","ORBITCORP ","Orbit Corporation Limited ","ORBITCORP.NS","ORBITCORP",10
+160,"ORCHIDCHEM ","OCP","ORCHIDCHEM ","Orchid Chemicals & Pharmaceuticals Limited ","ORCHIDCHE.NS","ORCHIDCHEM",10
+161,"ORIENTBANK ","OBC","ORIENTBANK ","Oriental Bank of Commerce ","ORIENTBAN.NS","ORIENTBANK",10
+162,"PANTALOONR ","PF","PANTALOONR ","Pantaloon Retail (India) Limited ","PANTALOON.NS","PANTALOONR",2
+163,"PATELENG ","PEC","PATELENG ","Patel Engineering Limited ","PATELENG.NS","PATELENG",1
+164,"PATNI ","PEC","PATNI ","Patni Computer Systems Limited ","PATNI.NS","PATNI",2
+165,"PETRONET ","PLNG","PETRONET ","Petronet LNG Limited ","PETRONET.NS","PETRONET",10
+166,"PFC ","POWF","PFC ","Power Finance Corporation Limited ","PFC.NS","PFC",10
+167,"PIRHEALTH ","PIHC","PIRHEALTH ","Piramal Healthcare Limited ","PIRHEALTH.NS","PIRHEALTH",2
+168,"PNB ","PNB","PNB ","Punjab National Bank ","PNB.NS","PNB",10
+169,"POLARIS ","POL","POLARIS ","Polaris Software Lab Limited ","POLARIS.NS","POLARIS",5
+170,"POWERGRID ","PWGR","POWERGRID ","Power Grid Corporation of India Limited ","POWERGRID.NS","POWERGRID",10
+171,"PRAJIND ","PRJ","PRAJIND ","Praj Industries Limited ","PRAJIND.NS","PRAJIND",2
+172,"PTC ","PTCIN","PTC ","PTC India Limited ","PTC.NS","PTC",10
+173,"PUNJLLOYD ","PUNJ","PUNJLLOYD ","Punj Lloyd Limited ","PUNJLLOYD.NS","PUNJLLOYD",2
+174,"RANBAXY ","RBXY","RANBAXY ","Ranbaxy Laboratories Limited ","RANBAXY.NS","RANBAXY",5
+175,"RAYMOND ","RCOM","RAYMOND ","RAYMOND LIMITED ","RAYMOND.NS","RAYMOND",10
+176,"RCOM ","RECL","RCOM ","Reliance Communications Limited ","RCOM.NS","RCOM",5
+177,"RECLTD ","RCAPT","RECLTD ","Rural Electrification Corporation Limited ","RECLTD.NS","RECLTD",10
+178,"RELCAPITAL ","RIL","RELCAPITAL ","Reliance Capital Limited ","RELCAPITA.NS","RELCAPITAL",10
+179,"RELIANCE ","RELI","RELIANCE ","Reliance Industries Limited ","RELIANCE.NS","RELIANCE",10
+180,"RELINFRA ","RMW","RELINFRA ","Reliance Infrastructure Limited ","RELINFRA.NS","RELINFRA",10
+181,"RELMEDIA ","SHRS","RELMEDIA ","Reliance MediaWorks Limited ","RELMEDIA.NS","RELMEDIA",5
+182,"RENUKA ","RLTA","RENUKA ","Shree Renuka Sugars Limited ","RENUKA.NS","RENUKA",1
+183,"ROLTA ","RPWR","ROLTA ","Rolta India Limited ","ROLTA.NS","ROLTA",10
+184,"RPOWER ","RSI","RPOWER ","Reliance Power Limited ","RPOWER.NS","RPOWER",10
+185,"RUCHISOYA ","SAIL","RUCHISOYA ","Ruchi Soya Industries Limited ","RUCHISOYA.NS","RUCHISOYA",2
+186,"SAIL ","SBIN","SAIL ","Steel Authority of India Limited ","SAIL.NS","SAIL",10
+187,"SBIN ","SCI","SBIN ","State Bank of India ","SBIN.NS","SBIN",10
+188,"SCI ","SESA","SCI ","Shipping Corporation Of India Limited ","SCI.NS","SCI",10
+189,"SESAGOA ","SIEM","SESAGOA ","Sesa Goa Limited ","SESAGOA.NS","SESAGOA",1
+190,"SIEMENS ","SINT","SIEMENS ","Siemens Limited ","SIEMENS.NS","SIEMENS",2
+191,"SINTEX ","SKNL","SINTEX ","Sintex Industries Limited ","SINTEX.NS","SINTEX",1
+192,"SKUMARSYNF ","SOBHA","SKUMARSYNF ","S. Kumars Nationwide Limited ","SKUMARSYN.NS","SKUMARSYNF",10
+193,"SOBHA ","SREI","SOBHA ","Sobha Developers Limited ","SOBHA.NS","SOBHA",10
+194,"SREINFRA ","SHTF","SREINFRA ","SREI Infrastructure Finance Limited ","SREINFRA.NS","SREINFRA",10
+195,"SRTRANSFIN ","STLT","SRTRANSFIN ","Shriram Transport Finance Company Limited ","SRTRANSFI.NS","SRTRANSFIN",10
+196,"STER ","SLT","STER ","Sterlite Industries ( India ) Limited ","STER.NS","STER",1
+197,"STRTECH ","SOTL","STRTECH ","Sterlite Technologies Limited ","STRTECH.NS","STRTECH",2
+198,"SUNPHARMA ","SUNP","SUNPHARMA ","Sun Pharmaceuticals Industries Limited ","SUNPHARMA.NS","SUNPHARMA",1
+199,"SUNTV ","SUNTV","SUNTV ","Sun TV Network Limited ","SUNTV.NS","SUNTV",5
+200,"SUZLON ","SUEL","SUZLON ","Suzlon Energy Limited ","SUZLON.NS","SUZLON",2
+201,"SYNDIBANK ","SNDB","SYNDIBANK ","Syndicate Bank ","SYNDIBANK.NS","SYNDIBANK",10
+202,"TATACHEM ","TTCH","TATACHEM ","Tata Chemicals Limited ","TATACHEM.NS","TATACHEM",10
+203,"TATACOMM ","TCOM","TATACOMM ","Tata Communications Limited ","TATACOMM.NS","TATACOMM",10
+204,"TATAGLOBAL ","TGBL","TATAGLOBAL ","Tata Global Beverages Limited ","TATAGLOBA.NS","TATAGLOBAL",1
+205,"TATAMOTORS ","TTMT","TATAMOTORS ","Tata Motors Limited ","TATAMOTOR.NS","TATAMOTORS",10
+206,"TATAMTRDVR ","TTMT A","TATAMTRDVR ","Tata Motors Limited ","TATAMTRDV.NS","TATAMTRDVR",10
+207,"TATAPOWER ","TPWR","TATAPOWER ","Tata Power Company Limited ","TATAPOWER.NS","TATAPOWER",10
+208,"TATASTEEL ","TATA","TATASTEEL ","Tata Steel Limited ","TATASTEEL.NS","TATASTEEL",10
+209,"TCS ","TCS","TCS ","Tata Consultancy Services Limited ","TCS.NS","TCS",1
+210,"TECHM ","TECHM","TECHM ","Tech Mahindra Limited ","TECHM.NS","TECHM",10
+211,"TITAN ","TTAN","TITAN ","Titan Industries Limited ","TITAN.NS","TITAN",1
+212,"TRIVENI ","TRE","TRIVENI ","Triveni Engineering & Industries Limited ","TRIVENI.NS","TRIVENI",1
+213,"TTML ","TTLS","TTML ","Tata Teleservices (Maharashtra) Limited ","TTML.NS","TTML",10
+214,"TULIP ","TTSL","TULIP ","Tulip Telecom Limited ","TULIP.NS","TULIP",2
+215,"TV-18 ","TLEI","TV18 ","Television Eighteen India Limited ","TV-18.NS","TV-18",10
+216,"TVSMOTOR ","TVSL","TVSMOTOR ","TVS Motor Company Limited ","TVSMOTOR.NS","TVSMOTOR",1
+217,"UCOBANK ","UCO","UCOBANK ","UCO Bank ","UCOBANK.NS","UCOBANK",10
+218,"ULTRACEMCO ","UTCEM","ULTRACEMCO ","UltraTech Cement Limited ","ULTRACEMC.NS","ULTRACEMCO",10
+219,"UNIONBANK ","UNBK","UNIONBANK ","Union Bank of India ","UNIONBANK.NS","UNIONBANK",10
+220,"UNIPHOS ","UNTP","UNIPHOS ","United Phosphorus Limited ","UNIPHOS.NS","UNIPHOS",2
+221,"UNITECH ","UT","UNITECH ","Unitech Limited ","UNITECH.NS","UNITECH",2
+222,"VIDEOIND ","VCLF","VIDEOIND ","Videocon Industries Limited ","VIDEOIND.NS","VIDEOIND",10
+223,"VIJAYABANK ","VJYBK","VIJAYABANK ","Vijaya Bank ","VIJAYABAN.NS","VIJAYABANK",10
+224,"VOLTAS ","VOLT","VOLTAS ","Voltas Limited ","VOLTAS.NS","VOLTAS",1
+225,"WELCORP ","WLCO","WELCORP ","Welspun Corp Limited ","WELCORP.NS","WELCORP",5
+226,"WIPRO ","WPRO","WIPRO ","Wipro Limited ","WIPRO.NS","WIPRO",2
+227,"YESBANK ","YES","YESBANK ","Yes Bank Limited ","YESBANK.NS","YESBANK",10
+228,"ZEEL","Z","ZEEL","Zee Entertainment Enterprises Limited ","ZEEL.NS","ZEEL",1
