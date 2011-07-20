@@ -114,7 +114,7 @@ x <- matrix(all, nrow =length(char),ncol=10, dimnames = list(c(), c("Date", "Day
 ################################## Downloading ###################################################
 
   curr.dir<-getwd()
-  setwd("../data/downloaded/NSE_rawdb/")
+  setwd("../data/downloaded/update/NSE_rawdb/")
   
   ### Downloading the zipped files for equitites
   sapply(

@@ -13,7 +13,7 @@ connection
 
 ### the equity tablename from the same database
 ) {
-  connection.NSE_raw_database <- connection
+  connection.NSE_raw_database <- connection.temp
   
   
   futures_list<-trim(read.csv("../data/futures_list.csv", header=T)[,2])
