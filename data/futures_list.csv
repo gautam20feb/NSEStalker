@@ -1,9 +1,9 @@
 ,"NSE_SYMBOL","TWS_SYMBOL","TABLE_NAME","COMPANY_NAME","YAHOO_NAME","SYMBOL","FACE_VALUE"
 1,"BANKNIFTY","BANKNIFTY","BANKNIFTY",,,,
-2,"CNXIT","CNXIT","CNXIT",,,,
-3,"MINIFTY","MINIFTY","MINIFTY",,,,
-4,"NFTYMCAP50","NFTYMCAP51","NFTYMCAP50",,,,
-5,"NIFTY","NIFTY50","NIFTY",,,,
+2,"CNXIT","NIFTY50","CNXIT",,,,
+3,"MINIFTY","CNXIT","MINIFTY",,,,
+4,"NFTYMCAP50","MINIFTY","NFTYMCAP50",,,,
+5,"NIFTY","NFTYMCAP50","NIFTY",,,,
 6,"3IINFOTECH ","III","3IINFOTECH ","3i Infotech Limited ","3IINFOTEC.NS","3IINFOTECH",10
 7,"ABAN ","ABAN","ABAN ","Aban Offshore Limited ","ABAN.NS","ABAN",2
 8,"ABB ","ABB","ABB ","ABB Limited ","ABB.NS","ABB",2
@@ -144,18 +144,18 @@
 143,"MRF ","MRF","MRF ","MRF Limited ","MRF.NS","MRF",10
 144,"MRPL ","MRPL","MRPL ","Mangalore Refinery and Petrochemicals Limited ","MRPL.NS","MRPL",10
 145,"MTNL ","MTNL","MTNL ","Mahanagar Telephone Nigam Limited ","MTNL.NS","MTNL",10
-146,"MUNDRAPORT ","NFCL","MUNDRAPORT ","Mundra Port and Special Economic Zone Limited ",,"MUNDRAPORT",2
-147,"NAGARFERT ","NACL","NAGARFERT ","Nagarjuna Fertilizer & Chemicals Limited ","NAGARFERT.NS","NAGARFERT",10
+146,"MUNDRAPORT ",,"MUNDRAPORT ","Mundra Port and Special Economic Zone Limited ",,"MUNDRAPORT",2
+147,"NAGARFERT ","NFCL","NAGARFERT ","Nagarjuna Fertilizer & Chemicals Limited ","NAGARFERT.NS","NAGARFERT",10
 148,"NATIONALUM ","NLC","NATIONALUM ","National Aluminium Company Limited ","NATIONALU.NS","NATIONALUM",5
 149,"NCC ","NHPC","NCC ","NCC Limited ","NA","NCC",2
-150,"NEYVELILIG ","NMDC","NEYVELILIG ","Neyveli Lignite Corporation Limited ",,"NEYVELILIG",10
-151,"NHPC ","NTPC","NHPC ","NHPC Limited ","NHPC.NS","NHPC",10
-152,"NMDC ","OFSS","NMDC ","NMDC Limited ","NMDC.NS","NMDC",1
-153,"NTPC ","OINL","NTPC ","NTPC Limited ","NTPC.NS","NTPC",10
-154,"OFSS ","ONGC","OFSS ","Oracle Financial Services Software Limited ","OFSS.NS","OFSS",5
-155,"OIL ","ONMB","OIL ","Oil India Limited ","OIL.NS","OIL",10
-156,"ONGC ","OPTC","ONGC ","Oil & Natural Gas Corporation Limited ","ONGC.NS","ONGC",5
-157,"ONMOBILE ","ORB","ONMOBILE ","OnMobile Global Limited ","ONMOBILE.NS","ONMOBILE",10
+150,"NEYVELILIG ","NLC","NEYVELILIG ","Neyveli Lignite Corporation Limited ",,"NEYVELILIG",10
+151,"NHPC ","NHPC","NHPC ","NHPC Limited ","NHPC.NS","NHPC",10
+152,"NMDC ","NMDC","NMDC ","NMDC Limited ","NMDC.NS","NMDC",1
+153,"NTPC ","NTPC","NTPC ","NTPC Limited ","NTPC.NS","NTPC",10
+154,"OFSS ","OFSS","OFSS ","Oracle Financial Services Software Limited ","OFSS.NS","OFSS",5
+155,"OIL ","OINL","OIL ","Oil India Limited ","OIL.NS","OIL",10
+156,"ONGC ","ONGC","ONGC ","Oil & Natural Gas Corporation Limited ","ONGC.NS","ONGC",5
+157,"ONMOBILE ","ONMB","ONMOBILE ","OnMobile Global Limited ","ONMOBILE.NS","ONMOBILE",10
 158,"OPTOCIRCUI ","OPTC","OPTOCIRCUI ","Opto Circuits (India) Limited ","OPTOCIRCU.NS","OPTOCIRCUI",10
 159,"ORBITCORP ","ORB","ORBITCORP ","Orbit Corporation Limited ","ORBITCORP.NS","ORBITCORP",10
 160,"ORCHIDCHEM ","OCP","ORCHIDCHEM ","Orchid Chemicals & Pharmaceuticals Limited ","ORCHIDCHE.NS","ORCHIDCHEM",10
@@ -173,38 +173,38 @@
 172,"PTC ","PTCIN","PTC ","PTC India Limited ","PTC.NS","PTC",10
 173,"PUNJLLOYD ","PUNJ","PUNJLLOYD ","Punj Lloyd Limited ","PUNJLLOYD.NS","PUNJLLOYD",2
 174,"RANBAXY ","RBXY","RANBAXY ","Ranbaxy Laboratories Limited ","RANBAXY.NS","RANBAXY",5
-175,"RAYMOND ","RCOM","RAYMOND ","RAYMOND LIMITED ","RAYMOND.NS","RAYMOND",10
-176,"RCOM ","RECL","RCOM ","Reliance Communications Limited ","RCOM.NS","RCOM",5
-177,"RECLTD ","RCAPT","RECLTD ","Rural Electrification Corporation Limited ","RECLTD.NS","RECLTD",10
-178,"RELCAPITAL ","RIL","RELCAPITAL ","Reliance Capital Limited ","RELCAPITA.NS","RELCAPITAL",10
-179,"RELIANCE ","RELI","RELIANCE ","Reliance Industries Limited ","RELIANCE.NS","RELIANCE",10
-180,"RELINFRA ","RMW","RELINFRA ","Reliance Infrastructure Limited ","RELINFRA.NS","RELINFRA",10
-181,"RELMEDIA ","SHRS","RELMEDIA ","Reliance MediaWorks Limited ","RELMEDIA.NS","RELMEDIA",5
-182,"RENUKA ","RLTA","RENUKA ","Shree Renuka Sugars Limited ","RENUKA.NS","RENUKA",1
-183,"ROLTA ","RPWR","ROLTA ","Rolta India Limited ","ROLTA.NS","ROLTA",10
-184,"RPOWER ","RSI","RPOWER ","Reliance Power Limited ","RPOWER.NS","RPOWER",10
-185,"RUCHISOYA ","SAIL","RUCHISOYA ","Ruchi Soya Industries Limited ","RUCHISOYA.NS","RUCHISOYA",2
-186,"SAIL ","SBIN","SAIL ","Steel Authority of India Limited ","SAIL.NS","SAIL",10
-187,"SBIN ","SCI","SBIN ","State Bank of India ","SBIN.NS","SBIN",10
-188,"SCI ","SESA","SCI ","Shipping Corporation Of India Limited ","SCI.NS","SCI",10
-189,"SESAGOA ","SIEM","SESAGOA ","Sesa Goa Limited ","SESAGOA.NS","SESAGOA",1
-190,"SIEMENS ","SINT","SIEMENS ","Siemens Limited ","SIEMENS.NS","SIEMENS",2
-191,"SINTEX ","SKNL","SINTEX ","Sintex Industries Limited ","SINTEX.NS","SINTEX",1
-192,"SKUMARSYNF ","SOBHA","SKUMARSYNF ","S. Kumars Nationwide Limited ","SKUMARSYN.NS","SKUMARSYNF",10
-193,"SOBHA ","SREI","SOBHA ","Sobha Developers Limited ","SOBHA.NS","SOBHA",10
-194,"SREINFRA ","SHTF","SREINFRA ","SREI Infrastructure Finance Limited ","SREINFRA.NS","SREINFRA",10
-195,"SRTRANSFIN ","STLT","SRTRANSFIN ","Shriram Transport Finance Company Limited ","SRTRANSFI.NS","SRTRANSFIN",10
-196,"STER ","SLT","STER ","Sterlite Industries ( India ) Limited ","STER.NS","STER",1
-197,"STRTECH ","SOTL","STRTECH ","Sterlite Technologies Limited ","STRTECH.NS","STRTECH",2
-198,"SUNPHARMA ","SUNP","SUNPHARMA ","Sun Pharmaceuticals Industries Limited ","SUNPHARMA.NS","SUNPHARMA",1
-199,"SUNTV ","SUNTV","SUNTV ","Sun TV Network Limited ","SUNTV.NS","SUNTV",5
-200,"SUZLON ","SUEL","SUZLON ","Suzlon Energy Limited ","SUZLON.NS","SUZLON",2
-201,"SYNDIBANK ","SNDB","SYNDIBANK ","Syndicate Bank ","SYNDIBANK.NS","SYNDIBANK",10
-202,"TATACHEM ","TTCH","TATACHEM ","Tata Chemicals Limited ","TATACHEM.NS","TATACHEM",10
-203,"TATACOMM ","TCOM","TATACOMM ","Tata Communications Limited ","TATACOMM.NS","TATACOMM",10
-204,"TATAGLOBAL ","TGBL","TATAGLOBAL ","Tata Global Beverages Limited ","TATAGLOBA.NS","TATAGLOBAL",1
-205,"TATAMOTORS ","TTMT","TATAMOTORS ","Tata Motors Limited ","TATAMOTOR.NS","TATAMOTORS",10
-206,"TATAMTRDVR ","TTMT A","TATAMTRDVR ","Tata Motors Limited ","TATAMTRDV.NS","TATAMTRDVR",10
+175,"RAYMOND ",,"RAYMOND ","RAYMOND LIMITED ","RAYMOND.NS","RAYMOND",10
+176,"RCOM ","RCOM","RCOM ","Reliance Communications Limited ","RCOM.NS","RCOM",5
+177,"RECLTD ","RECL","RECLTD ","Rural Electrification Corporation Limited ","RECLTD.NS","RECLTD",10
+178,"RELCAPITAL ","RCAPT","RELCAPITAL ","Reliance Capital Limited ","RELCAPITA.NS","RELCAPITAL",10
+179,"RELIANCE ","RIL","RELIANCE ","Reliance Industries Limited ","RELIANCE.NS","RELIANCE",10
+180,"RELINFRA ","RELI","RELINFRA ","Reliance Infrastructure Limited ","RELINFRA.NS","RELINFRA",10
+181,"RELMEDIA ","RMW","RELMEDIA ","Reliance MediaWorks Limited ","RELMEDIA.NS","RELMEDIA",5
+182,"RENUKA ","SHRS","RENUKA ","Shree Renuka Sugars Limited ","RENUKA.NS","RENUKA",1
+183,"ROLTA ","RLTA","ROLTA ","Rolta India Limited ","ROLTA.NS","ROLTA",10
+184,"RPOWER ","RPWR","RPOWER ","Reliance Power Limited ","RPOWER.NS","RPOWER",10
+185,"RUCHISOYA ","RSI","RUCHISOYA ","Ruchi Soya Industries Limited ","RUCHISOYA.NS","RUCHISOYA",2
+186,"SAIL ","SAIL","SAIL ","Steel Authority of India Limited ","SAIL.NS","SAIL",10
+187,"SBIN ","SBIN","SBIN ","State Bank of India ","SBIN.NS","SBIN",10
+188,"SCI ","SCI","SCI ","Shipping Corporation Of India Limited ","SCI.NS","SCI",10
+189,"SESAGOA ","SESA","SESAGOA ","Sesa Goa Limited ","SESAGOA.NS","SESAGOA",1
+190,"SIEMENS ","SIEM","SIEMENS ","Siemens Limited ","SIEMENS.NS","SIEMENS",2
+191,"SINTEX ","SINT","SINTEX ","Sintex Industries Limited ","SINTEX.NS","SINTEX",1
+192,"SKUMARSYNF ","SKNL","SKUMARSYNF ","S. Kumars Nationwide Limited ","SKUMARSYN.NS","SKUMARSYNF",10
+193,"SOBHA ","SOBHA","SOBHA ","Sobha Developers Limited ","SOBHA.NS","SOBHA",10
+194,"SREINFRA ","SREI","SREINFRA ","SREI Infrastructure Finance Limited ","SREINFRA.NS","SREINFRA",10
+195,"SRTRANSFIN ","SHTF","SRTRANSFIN ","Shriram Transport Finance Company Limited ","SRTRANSFI.NS","SRTRANSFIN",10
+196,"STER ","STLT","STER ","Sterlite Industries ( India ) Limited ","STER.NS","STER",1
+197,"STRTECH ","SLT","STRTECH ","Sterlite Technologies Limited ","STRTECH.NS","STRTECH",2
+198,"SUNPHARMA ","SOTL","SUNPHARMA ","Sun Pharmaceuticals Industries Limited ","SUNPHARMA.NS","SUNPHARMA",1
+199,"SUNTV ","SUNP","SUNTV ","Sun TV Network Limited ","SUNTV.NS","SUNTV",5
+200,"SUZLON ","SUNTV","SUZLON ","Suzlon Energy Limited ","SUZLON.NS","SUZLON",2
+201,"SYNDIBANK ","SUEL","SYNDIBANK ","Syndicate Bank ","SYNDIBANK.NS","SYNDIBANK",10
+202,"TATACHEM ","SNDB","TATACHEM ","Tata Chemicals Limited ","TATACHEM.NS","TATACHEM",10
+203,"TATACOMM ","TTCH","TATACOMM ","Tata Communications Limited ","TATACOMM.NS","TATACOMM",10
+204,"TATAGLOBAL ","TCOM","TATAGLOBAL ","Tata Global Beverages Limited ","TATAGLOBA.NS","TATAGLOBAL",1
+205,"TATAMOTORS ","TGBL","TATAMOTORS ","Tata Motors Limited ","TATAMOTOR.NS","TATAMOTORS",10
+206,"TATAMTRDVR ","TTMT","TATAMTRDVR ","Tata Motors Limited ","TATAMTRDV.NS","TATAMTRDVR",10
 207,"TATAPOWER ","TPWR","TATAPOWER ","Tata Power Company Limited ","TATAPOWER.NS","TATAPOWER",10
 208,"TATASTEEL ","TATA","TATASTEEL ","Tata Steel Limited ","TATASTEEL.NS","TATASTEEL",10
 209,"TCS ","TCS","TCS ","Tata Consultancy Services Limited ","TCS.NS","TCS",1
