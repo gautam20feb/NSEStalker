@@ -29,7 +29,7 @@ a. Make sure that the files from the folders in data/downloaded/update folder ar
 12. Run add_permin_futures_files_to_db.R to make the TWS_PERMIN_futures database
 13. Run add_permin_futures_missing_files_to_db.R file to add the data for missing points from folder data/downloaded/TWS_PERMIN_futures_missing
 14. Run add_permin_futures_missing_files_to_db_from_TwsMissingFiles2_ folder.R file to add the data for missing points from folder data/downloaded/TWS_PERMIN_futures_missing_2
-15. Now the database is set up but has a lot of redundancies
+15. Do the above step for all the folders by changing the name of the folder from inside the file 
 
 ################ Remove Redundancies ################
 
