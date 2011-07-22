@@ -6,11 +6,11 @@ library(RMySQL)
 # Splits the future into different tables for each stock
 SplitFutureIntoTables <-function(
 ### Function to start the splitting
-connectiontoread,
-connectiontowrite
+connection.temp,
+connection.NSE_OHLC_futures
 ) {
-  connection.NSE_raw_database <- connectiontoread
-  connection.NSE_OHLC_futures  <- connectiontowrite
+#   connection.NSE_raw_database <- connectiontoread
+#   connection.NSE_OHLC_futures  <- connectiontowrite
   query1<-paste("SELECT DISTINCT SYMBOL FROM future ",sep="")
   tables<-dbGetQuery(connection.NSE_raw_database,query1) ##<< The list of all the tables that are there in future
   tables<-tables[,1]

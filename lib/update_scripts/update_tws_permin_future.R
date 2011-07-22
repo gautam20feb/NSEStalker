@@ -80,7 +80,7 @@ version = 0)
       currdate<-exp.dt[j-1,1] 
       print(paste("currdate ",as.character(currdate)))
        print(paste("EXp ",as.character(currexp)))
-     file.name=paste("../data/downloaded/TWS_PERMIN_futures/",as.character(futures_list[i,2])," .per_min_fut ",exp.dt[j-1,1],".csv",sep="")
+     file.name=paste("../data/downloaded/update/TWS_PERMIN_futures/",as.character(futures_list[i,2])," .per_min_fut ",exp.dt[j-1,1],".csv",sep="")
 #       t<-twsFuture(symbol=s,exch="NSE",expiry=expiry.date,currency="INR",include_expired = '1')
 #       reqHistoricalData(tws,t ,file= file.name ,bar="1 min", dur="5 D" , endDateTime=enddatetime)
  
@@ -126,7 +126,7 @@ version = 0)
 
        
 #       t<-twsFuture(symbol=s,exch="NSE",expiry=expiry.date,currency="INR",include_expired = '1')
-       file.name = paste("../data/downloaded/TWS_PERMIN_futures/",as.character(futures_list[i,2])," .per_min_fut ",exp.dt[j-1,1],".csv",sep="")
+       file.name = paste("../data/downloaded/update/TWS_PERMIN_futures/",as.character(futures_list[i,2])," .per_min_fut ",exp.dt[j-1,1],".csv",sep="")
 
 #       reqHistoricalData(tws,t ,file= file.name ,bar="1 min", dur=paste(r," D",sep="") , endDateTime=enddatetime) 
     Sys.sleep(4)

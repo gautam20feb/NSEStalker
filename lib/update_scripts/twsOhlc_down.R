@@ -36,7 +36,7 @@ old.version=0
        Sys.sleep(8)
        s<-trim(as.character(futures_list[i,3]))
        nse.name=trim(as.character(futures_list[i,2]))
-       file.name <- paste("../data/downloaded/TWS_OHLC_stocks/",nse.name," .per.day.data_",as.character(end.date),".csv",sep="") 
+       file.name <- paste("../data/downloaded/update/TWS_OHLC_stocks/",nse.name," .per.day.data_",as.character(end.date),".csv",sep="") 
        t <-twsSTK(s, exch ="NSE" ,currency="INR")
        d <-reqHistoricalData(tws , t , duration = paste(days, " D",sep=""),file = file.name ,barSize="1 day",verbose = TRUE,)
        try(data <- read.table( file.name,header = F, sep = ",") , silent=TRUE)

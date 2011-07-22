@@ -81,7 +81,7 @@ cat("",timestamp(),"UpdatePerminStocks","Got the list of working days", "\n" , f
        s<-futures_list[i,3]
        s<-as.character(s)
        edt<-paste(date, " 00:00:00",sep="")  ##<< Gives the date in required format
-      file.name = paste("../data/downloaded/TWS_PERMIN_stocks/",as.character(futures_list[i,2])," .per.day.min ",date,".csv" ,sep="")
+      file.name = paste("../data/downloaded/update/TWS_PERMIN_stocks/",as.character(futures_list[i,2])," .per.day.min ",date,".csv" ,sep="")
        t <-twsSTK(s, exch ="NSE" ,currency="INR")
        d <-reqHistoricalData(tws,t,duration="5 D",file= file.name,barSize="1 min",endDateTime=edt,verbose = TRUE,)
        
