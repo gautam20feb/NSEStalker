@@ -1,0 +1,54 @@
+Before setting up the database:
+a. Make sure that the files from the folders in data/downloaded/update folder are added to the corresponding folder in the folder data/downloaded.
+
+################ Now Start #####################
+
+1. Make the directory structure same as the NSEStalker folder
+2. Copy all the files in the folder data/downloaded in the corresponding folders
+3. Now run create_db.R to create the required databases. It takes a file data/Databases.csv. So this should have all the standard databases.
+4. Now make load_to_csv as working directory
+
+################ TWS_OHLC_stocks ################
+
+5. Run add_daily_data_from_files_to_DB.R to setup the TWS_OHLC_stocks database
+
+################ NSE ################
+
+6. Run add_nse_files_to_db.R to setup the NSE_raw_database
+7. Next run filter_nse_rawdb.R to remove the stocks which don't have futures
+8. Run STEP3-text to date format.R to change the date format.
+9. Run split_nse_futures_into_tables.R to split into tables to add to NSE_OHLC_stocks database
+10. Run split_nse_stocks_into_tables.R to split into tables to add to NSE_OHLC_futures database
+
+################ TWS_PERMIN_stocks ################
+
+11. Run add_permin_stocks_files_to_db.R to make the TWS_PERMIN_stocks database
+
+################ TWS_PERMIN_futures ################
+
+12. Run add_permin_futures_files_to_db.R to make the TWS_PERMIN_futures database
+13. Run add_permin_futures_missing_files_to_db.R file to add the data for missing points from folder data/downloaded/TWS_PERMIN_futures_missing
+14. Run add_permin_futures_missing_files_to_db_from_TwsMissingFiles2_ folder.R file to add the data for missing points from folder data/downloaded/TWS_PERMIN_futures_missing_2
+15. Now the database is set up but has a lot of redundancies
+
+################ Remove Redundancies ################
+
+16. Run remove_duplicate_entries/remove_duplicate_entries.R for all the 
+following database:
+    TWS_PERMIN_futures
+
+############### Now the data bases are ready ##########
+
+############### Create METADATA_DATABASE ##########
+
+17. Setup Now to create METADATA_DATABASE run the create_metadata.R file
+
+############### Validations for time ##########
+
+18. go to time_validation folder and set it as working directory
+19. Run all the files in this folder one by one.
+
+
+
+
+

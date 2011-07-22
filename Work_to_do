@@ -1,0 +1,11 @@
+1. Figure out how to update INFOSYSTECH
+
+2. Get the data for the stocks and futures which don't have data as of now from TWS
+
+3. Validate the TWS PERMIN futures data for days !!!  We may have stocks in which complete days are missing
+
+4. The TWS PERMIN stocks still have missing data points
+
+5. We don't have data for the TWS OHLC futures
+
+6.
