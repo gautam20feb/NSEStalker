@@ -36,11 +36,19 @@ filename,
 tablename)
 ### tablename: table name in database corrosponding to connection
 {
-  data <- read.table(filename,header = F, sep = ",")  ##<<  reads the data plus an extra NULL column
-  data$X<- NULL     ##<<  deleting an extra column read
+  data <- read.table(filename,header = F, , row.names = NULL ,sep = ",")  ##<<  reads the data plus an extra NULL column
+  data$X<- NULL     ##<<  delera column read
   VERSION<- 0
   data<-cbind(data,VERSION)
+  if(ncol(data) >10)
+  { 
+    data$V1 <- NULL
+    }
   names(data)<-c("TIMESTAMP","OPEN","HIGH","LOW","CLOSE","VOLUME","WAP","HASGAPS","COUNT","VERSION")
+  
+  data <- data[grep("00", data$TIMESTAMP, ignore.case = T),]
+  
+  
   date <-unlist (strsplit(as.character(data$TIMESTAMP)[1]," "))[1]
   index <- (which(expiry.dates[,2] ==  date))
   exp.date <- as.character(expiry.dates[index,3])
@@ -67,9 +75,10 @@ folderpath)
     string =substr(name,nchar(name)-3,nchar(name))
     if (string == ".csv") 
     {
-      n<-strsplit(name," ")
+      name2 <- trim(name)
+      n<-strsplit(name2," ")
       n1<-unlist(n)
-      n2<-n1[2]
+      n2<-n1[1]
       n3<-trim(n2)
       ind<-which(trim(futures_list[,2])==n3)
       AddOneTwsPerminFile(conn,name,as.character(trim(futures_list[ind,4])))
